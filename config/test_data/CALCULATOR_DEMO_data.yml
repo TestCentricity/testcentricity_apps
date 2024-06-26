@@ -1,0 +1,10 @@
+# This section is populated with Capabilities data used for establishing connections to locally hosted MacOS app
+Capabilities:
+  mac:
+    :device_type: :mac
+    :driver: :appium
+    :driver_name: :mac_driver
+    :capabilities:
+      :platformName: :mac
+      :'appium:automationName': 'mac2'
+      :'appium:bundleId': 'com.apple.calculator'
