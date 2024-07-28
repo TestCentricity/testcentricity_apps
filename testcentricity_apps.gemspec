@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.platform      = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 3.0.0'
   spec.authors       = ['A.J. Mrozinski']
-  spec.email         = ['testcentricity@gmail.com']
+  spec.email         = ['support@testcentricity.com']
   spec.summary       = 'A Screen Object Model Framework for MacOS desktop app and iOS and/or Android mobile app testing'
   spec.description   = '
     The TestCentricity™ For Apps core framework for MacOS desktop app and iOS and Android mobile app testing implements a
@@ -39,13 +39,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', ['~> 0.18']
   spec.add_development_dependency 'yard', ['>= 0.9.0']
 
-  spec.add_runtime_dependency 'appium_lib', '~> 15.1.0'
+  spec.add_runtime_dependency 'appium_lib', '~> 15.2.0'
   spec.add_runtime_dependency 'childprocess'
   spec.add_runtime_dependency 'chronic', '0.10.2'
   spec.add_runtime_dependency 'faker'
   spec.add_runtime_dependency 'i18n'
   spec.add_runtime_dependency 'json'
-  spec.add_runtime_dependency 'selenium-webdriver', '4.22.0'
+  spec.add_runtime_dependency 'selenium-webdriver', '4.23.0'
   spec.add_runtime_dependency 'test-unit'
   spec.add_runtime_dependency 'virtus'
 end
