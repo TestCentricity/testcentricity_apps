@@ -23,7 +23,7 @@ describe TestCentricity::AppiumConnect, testingbot: true do
         {
           driver: :testingbot,
           device_type: :phone,
-          endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
+          endpoint: "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
           capabilities: {
             platformName: 'ios',
             'appium:platformVersion': '17.0',
@@ -58,7 +58,7 @@ describe TestCentricity::AppiumConnect, testingbot: true do
         {
           driver: :testingbot,
           device_type: :phone,
-          endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
+          endpoint: "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
           capabilities: {
             platformName: 'android',
             'appium:platformVersion': '12.0',

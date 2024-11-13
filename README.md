@@ -29,8 +29,9 @@ A complete history of bug fixes and new features can be found in the [CHANGELOG]
 
 The RubyDocs for this gem can be found [here](https://www.rubydoc.info/gems/testcentricity_apps/).
 
-Two example projects that demonstrates the implementation of a screen object model framework using TestCentricity™ For Apps
+Three example projects that demonstrates the implementation of a screen object model framework using TestCentricity™ For Apps
 and Cucumber can be found at the following:
+  * [tc_mac_calculator_demo](https://github.com/TestCentricity/tc_mac_calculator_demo)
   * [tc_mobile_react_native_demo](https://github.com/TestCentricity/tc_mobile_react_native_demo)
   * [tc_mobile_wdio_demo](https://github.com/TestCentricity/tc_mobile_wdio_demo)
 
