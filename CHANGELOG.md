@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 
+## [4.0.15] - 13-NOV-2024
+
+### Changed
+
+* Updated `selenium-webdriver` gem to version 4.26.0.
+* Updated `rexml` gem to latest version to address ReDoS vulnerability.
+
+
 ## [4.0.14] - 25-SEP-2024
 
 ### Changed
