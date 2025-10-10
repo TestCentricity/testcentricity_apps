@@ -17,7 +17,7 @@ module TestCentricity
         object_not_found_exception(obj)
 
         if Environ.is_ios?
-          state =  obj.attribute(:value)
+          state = obj.attribute(:value)
           state.to_bool
         else
           state = obj.attribute(:checked)

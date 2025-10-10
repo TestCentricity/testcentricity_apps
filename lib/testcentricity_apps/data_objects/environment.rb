@@ -1,9 +1,6 @@
 module TestCentricity
   class EnvironData < TestCentricity::DataSource
-    attr_accessor	:current
-    attr_accessor :data_source_type
-    attr_accessor	:generic_data
-    attr_accessor	:environ_specific_data
+    attr_accessor :current, :data_source_type, :generic_data, :environ_specific_data
 
     def self.find_environ(environ_name, source_type = :yaml)
       raise 'No environment specified' if environ_name.nil?
@@ -71,56 +68,7 @@ module TestCentricity
     @language = ENV['LANGUAGE'] || 'English'
     @screen_shots = []
 
-    attr_accessor :test_environment
-    attr_accessor :session_state
-    attr_accessor :session_code
-    attr_accessor :app_session_id
-    attr_accessor :os
-    attr_accessor :device
-    attr_accessor :device_name
-    attr_accessor :device_type
-    attr_accessor :device_os
-    attr_accessor :device_os_version
-    attr_accessor :device_orientation
-    attr_accessor :screen_size
-    attr_accessor :platform
-    attr_accessor :driver
-    attr_accessor :driver_name
-    attr_accessor :appium_driver
-    attr_accessor :tunneling
-    attr_accessor :locale
-    attr_accessor :language
-
-    attr_accessor :parallel
-    attr_accessor :process_num
-
-    attr_accessor :signed_in
-    attr_accessor :portal_status
-    attr_accessor :portal_context
-
-    attr_accessor :user_id
-    attr_accessor :password
-    attr_accessor :app_id
-    attr_accessor :api_key
-    attr_accessor :option1
-    attr_accessor :option2
-    attr_accessor :option3
-    attr_accessor :option4
-    attr_accessor :dns
-    attr_accessor :db_username
-    attr_accessor :db_password
-
-    attr_accessor :ios_app_path
-    attr_accessor :ios_ipa_path
-    attr_accessor :ios_bundle_id
-    attr_accessor :ios_test_id
-    attr_accessor :android_apk_path
-    attr_accessor :android_app_id
-    attr_accessor :android_test_id
-    attr_accessor :default_max_wait_time
-    attr_accessor :deep_link_prefix
-
-    attr_accessor :mac_bundle_id
+    attr_accessor :test_environment, :session_state, :session_code, :app_session_id, :os, :device, :device_name, :device_type, :device_os, :device_os_version, :device_orientation, :screen_size, :platform, :driver, :driver_name, :appium_driver, :tunneling, :locale, :language, :parallel, :process_num, :signed_in, :portal_status, :portal_context, :user_id, :password, :app_id, :api_key, :option1, :option2, :option3, :option4, :dns, :db_username, :db_password, :ios_app_path, :ios_ipa_path, :ios_bundle_id, :ios_test_id, :android_apk_path, :android_app_id, :android_test_id, :default_max_wait_time, :deep_link_prefix, :mac_bundle_id
 
     def initialize(data)
       @user_id	     = data['USER_ID']

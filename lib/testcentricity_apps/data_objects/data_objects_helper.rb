@@ -15,9 +15,7 @@ module TestCentricity
 
 
   class DataObject
-    attr_accessor :current
-    attr_accessor :context
-    attr_accessor :hash_table
+    attr_accessor :current, :context, :hash_table
 
     def initialize(data)
       @hash_table = data
@@ -36,8 +34,7 @@ module TestCentricity
   class DataPresenter
     include Virtus.model
 
-    attr_accessor :current
-    attr_accessor :context
+    attr_accessor :current, :context
 
     def initialize(data)
       self.attributes = data unless data.nil?
@@ -55,8 +52,7 @@ module TestCentricity
 
 # :nocov:
   class DataSource
-    attr_accessor :file_path
-    attr_accessor :node
+    attr_accessor :file_path, :node
 
     def read_yaml_node_data(file_name, node_name)
       @file_path = "#{PRIMARY_DATA_PATH}#{file_name}"

@@ -8,6 +8,7 @@ module TestCentricity
 
     def initialize
       raise "Screen object #{self.class.name} does not have a screen_name trait defined" unless defined?(screen_name)
+
       @locator = screen_locator if defined?(screen_locator)
     end
 
@@ -236,6 +237,30 @@ module TestCentricity
       end
     end
 
+    # Declare and instantiate a single table UI Element for this screen object.
+    #
+    # @param element_name [Symbol] name of table object (as a symbol)
+    # @param locator [Hash] { locator_strategy: locator_identifier }
+    # @example
+    #   table :sidebar_table, { predicate: 'identifier == "library.sidebar"' }
+    #
+    def self.table(element_name, locator)
+      define_screen_element(element_name, TestCentricity::AppElements::AppTable, locator)
+    end
+
+    # Declare and instantiate a collection of tables for this screen object.
+    #
+    # @param element_hash [Hash] names of tables (as symbol) and locator Hash
+    # @example
+    #   tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
+    #          view_table:    { predicate: 'identifier == "view.library.table"' }
+    #
+    def self.tables(element_hash)
+      element_hash.each do |element_name, locator|
+        table(element_name, locator)
+      end
+    end
+
     # Declare and instantiate a single image UI Element for this screen object.
     #
     # @param element_name [Symbol] name of image object (as a symbol)
@@ -285,6 +310,30 @@ module TestCentricity
       end
     end
 
+    # Declare and instantiate a single menu UI Element for this screen object.
+    #
+    # @param element_name [Symbol] name of menu object (as a symbol)
+    # @param locator [Hash] { locator_strategy: locator_identifier }
+    # @example
+    #   menu :convert_menu, { xpath: '//XCUIElementTypeMenuBarItem[6]' }
+    #
+    def self.menu(element_name, locator)
+      define_screen_element(element_name, TestCentricity::AppElements::AppMenu, locator)
+    end
+
+    # Declare and instantiate a collection of menus for this screen object.
+    #
+    # @param element_hash [Hash] names of menus (as symbol) and locator Hash
+    # @example
+    #   menus convert_menu: { xpath: '//XCUIElementTypeMenuBarItem[6]' },
+    #         view_menu:    { xpath: '//XCUIElementTypeMenuBarItem[5]' }
+    #
+    def self.menus(element_hash)
+      element_hash.each do |element_name, locator|
+        menu(element_name, locator)
+      end
+    end
+
     # Declare and instantiate a single MenuBar object for this screen object.
     #
     # @param element_name [Symbol] name of MenuBar object (as a symbol)
@@ -327,7 +376,7 @@ module TestCentricity
     #   home_screen.exists?
     #
     def exists?
-      @locator.is_a?(Array) ? tries ||= 2 : tries ||= 1
+      tries ||= @locator.is_a?(Array) ? 2 : 1
       if @locator.is_a?(Array)
         loc = @locator[tries - 1]
         find_element(loc.keys[0], loc.values[0])
@@ -336,7 +385,7 @@ module TestCentricity
       end
       true
     rescue
-      retry if (tries -= 1) > 0
+      retry if (tries -= 1).positive?
       false
     end
 
@@ -347,19 +396,15 @@ module TestCentricity
     #   calculator_screen.title
     #
     def title
-      if Environ.is_macos?
-        find_element(@locator.keys[0], @locator.values[0]).title
-      else
-        raise 'title is not a supported attribute'
-      end
+      raise 'title is not a supported attribute' unless Environ.is_macos?
+
+      find_element(@locator.keys[0], @locator.values[0]).title
     end
 
     def identifier
-      if Environ.is_macos?
-        find_element(@locator.keys[0], @locator.values[0]).identifier
-      else
-        raise 'identifier is not a supported attribute'
-      end
+      raise 'identifier is not a supported attribute' unless Environ.is_macos?
+
+      find_element(@locator.keys[0], @locator.values[0]).identifier
     end
 
     # Wait until the Screen object exists, or until the specified wait time has expired. If the wait time is nil, then
@@ -477,6 +522,7 @@ module TestCentricity
         ivar_name = "@#{element_name}"
         ivar = instance_variable_get(ivar_name)
         return ivar if ivar
+
         instance_variable_set(ivar_name, obj.new(element_name, self, locator, :screen))
       end
     end

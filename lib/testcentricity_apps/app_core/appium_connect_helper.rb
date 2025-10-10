@@ -7,11 +7,7 @@ require 'uri'
 
 module TestCentricity
   module AppiumConnect
-    attr_accessor :driver
-    attr_accessor :running
-    attr_accessor :endpoint
-    attr_accessor :capabilities
-    attr_accessor :global_scope
+    attr_accessor :driver, :running, :endpoint, :capabilities, :global_scope
 
     # Create a new driver instance with capabilities specified in the options parameter, or via Environment Variables.
     # Refer to the `Connecting to a Mobile Simulator or Device` section of the ruby docs for this gem.
@@ -50,6 +46,7 @@ module TestCentricity
                       appium_local_capabilities
                     when :custom
                       raise 'User-defined cloud driver requires that you define options' if options.nil?
+
                       custom_capabilities
                     when :browserstack
                       browserstack_capabilities
@@ -75,9 +72,7 @@ module TestCentricity
       Appium.promote_appium_methods(TestCentricity::AppElements::AppUIElement, driver = @driver)
 
       Environ.screen_size = window_size
-      unless Environ.driver_name
-        Environ.driver_name = "#{Environ.driver}_#{Environ.device_os}_#{Environ.device_type}".downcase.to_sym
-      end
+      Environ.driver_name = "#{Environ.driver}_#{Environ.device_os}_#{Environ.device_type}".downcase.to_sym unless Environ.driver_name
       Environ.session_state = :running
     end
 
@@ -328,11 +323,9 @@ module TestCentricity
     end
 
     def self.biometric_match(type, match)
-      if Environ.is_ios?
-        @driver.execute_script('mobile: sendBiometricMatch', { type: type, match: match })
-      else
-        raise 'biometric_match is not supported for this platform'
-      end
+      raise 'biometric_match is not supported for this platform' unless Environ.is_ios?
+
+      @driver.execute_script('mobile: sendBiometricMatch', { type: type, match: match })
     end
 
     # :nocov:
@@ -365,7 +358,7 @@ module TestCentricity
                   end
 
       request = Net::HTTP::Post.new(url)
-      boundary = "WebAppBoundary"
+      boundary = 'WebAppBoundary'
       post_body = []
       post_body << "--#{boundary}\r\n"
       post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{file_path}\"\r\n"
@@ -380,7 +373,7 @@ module TestCentricity
       end
       post_body << "\r\n--#{boundary}--\r\n"
       request.body = post_body.join
-      request["Content-Type"] = "multipart/form-data; boundary=#{boundary}"
+      request['Content-Type'] = "multipart/form-data; boundary=#{boundary}"
       request.basic_auth(user_id, auth_key)
       # send the request to upload to cloud service provider
       uri = URI.parse(url)
@@ -391,11 +384,9 @@ module TestCentricity
       end
       response = conn.request(request)
       result = JSON.parse(response.body)
-      if response.code.to_i > 202
-        raise "An error has occurred while attempting to upload #{file_path} to the #{service} service\n#{result}"
-      else
-        puts "Successfully uploaded #{file_path} to the #{service} service\n#{result}"
-      end
+      raise "An error has occurred while attempting to upload #{file_path} to the #{service} service\n#{result}" if response.code.to_i > 202
+
+      puts "Successfully uploaded #{file_path} to the #{service} service\n#{result}"
      end
     # :nocov:
 
@@ -403,6 +394,7 @@ module TestCentricity
 
     def self.get_app_id(bundle_id = nil)
       return bundle_id unless bundle_id.nil?
+
       case
       when Environ.is_ios?
         Environ.current.ios_bundle_id
@@ -442,11 +434,11 @@ module TestCentricity
         if ENV['LOCALE'] && ENV['LANGUAGE']
           caps[:'appium:language'] = ENV['LANGUAGE']
           caps[:'appium:locale'] = if Environ.is_android?
-                            locale = ENV['LOCALE'].gsub('-', '_')
-                            locale.split('_')[1]
-                          else
-                            ENV['LOCALE'].gsub('-', '_')
-                          end
+                                     locale = ENV['LOCALE'].gsub('-', '_')
+                                     locale.split('_')[1]
+                                   else
+                                     ENV['LOCALE'].gsub('-', '_')
+                                   end
         end
         caps[:'appium:newCommandTimeout'] = ENV['NEW_COMMAND_TIMEOUT'] if ENV['NEW_COMMAND_TIMEOUT']
         caps[:'appium:noReset'] = ENV['APP_NO_RESET'] if ENV['APP_NO_RESET']
@@ -480,16 +472,16 @@ module TestCentricity
         end
 
         caps[:'appium:app'] = if ENV['APP']
-                       ENV['APP']
-                     else
-                       if Environ.is_android?
-                         Environ.current.android_apk_path
-                       elsif Environ.is_ios?
-                         Environ.is_device? ?
-                           Environ.current.ios_ipa_path :
-                           Environ.current.ios_app_path
-                       end
-        end
+                                ENV['APP']
+                              else
+                                if Environ.is_android?
+                                  Environ.current.android_apk_path
+                                elsif Environ.is_ios?
+                                  Environ.is_device? ?
+                                    Environ.current.ios_ipa_path :
+                                    Environ.current.ios_app_path
+                                end
+                              end
         caps
       else
         Environ.device_os = @capabilities[:platformName]
@@ -543,7 +535,7 @@ module TestCentricity
                   bs_options[:gpsLocation] = ENV['GPS_LOCATION'] if ENV['GPS_LOCATION']
                   bs_options[:acceptInsecureCerts] = ENV['ACCEPT_INSECURE_CERTS'] if ENV['ACCEPT_INSECURE_CERTS']
                   bs_options[:disableAnimations] = ENV['DISABLE_ANIMATION'] if ENV['DISABLE_ANIMATION']
-                  bs_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.4.1'
+                  bs_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.19.0'
 
                   capabilities = {
                     platformName: ENV['BS_OS'],
@@ -568,11 +560,10 @@ module TestCentricity
       options
     end
 
-    # :nocov:
     def self.testingbot_capabilities
       Environ.device = :simulator
       # specify endpoint url
-      @endpoint = "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub" if @endpoint.nil?
+      @endpoint = "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub" if @endpoint.nil?
       # define TestingBot options
       options = if @capabilities.nil?
                   Environ.device_name = ENV['TB_DEVICE']
@@ -587,7 +578,7 @@ module TestCentricity
                   tb_options['testingbot.geoCountryCode'] = ENV['IP_GEOLOCATION'] if ENV['IP_GEOLOCATION']
                   tb_options[:screenrecorder] = ENV['RECORD_VIDEO'] if ENV['RECORD_VIDEO']
                   tb_options[:screenshot] = ENV['SCREENSHOTS'] if ENV['SCREENSHOTS']
-                  tb_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.4.1'
+                  tb_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.10.3'
 
                   capabilities = {
                     platformName: ENV['TB_OS'],
@@ -613,40 +604,37 @@ module TestCentricity
       options
     end
 
+    # :nocov:
     def self.sauce_capabilities
       # specify endpoint url
-      if @endpoint.nil?
-        @endpoint = "https://#{ENV['SL_USERNAME']}:#{ENV['SL_AUTHKEY']}@ondemand.#{ENV['SL_DATA_CENTER']}.saucelabs.com:443/wd/hub"
-      end
+      @endpoint = "https://#{ENV['SL_USERNAME']}:#{ENV['SL_AUTHKEY']}@ondemand.#{ENV['SL_DATA_CENTER']}.saucelabs.com:443/wd/hub" if @endpoint.nil?
       # define SauceLabs options
-      options = if @capabilities.nil?
-                  Environ.device_name = ENV['SL_DEVICE']
-                  Environ.device_os = ENV['SL_OS']
-                  Environ.device_os_version = ENV['SL_OS_VERSION']
-                  # define the required set of SauceLabs options
-                  sl_options = { build: test_context_message }
-                  # define the optional SauceLabs options
-                  sl_options[:name] = ENV['AUTOMATE_PROJECT'] if ENV['AUTOMATE_PROJECT']
-                  sl_options[:deviceOrientation] = ENV['ORIENTATION'].upcase if ENV['ORIENTATION']
-                  sl_options[:recordVideo] = ENV['RECORD_VIDEO'] if ENV['RECORD_VIDEO']
-                  sl_options[:recordScreenshots] = ENV['SCREENSHOTS'] if ENV['SCREENSHOTS']
-                  sl_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.1.3'
-                  capabilities = {
-                    platformName: ENV['SL_OS'],
-                    'appium:platformVersion': ENV['SL_OS_VERSION'],
-                    'appium:deviceName': ENV['SL_DEVICE'],
-                    'appium:automationName': ENV['AUTOMATION_ENGINE'],
-                    'appium:app': ENV['APP'],
-                    'sauce:options': sl_options
-                  }
-                  capabilities
-                else
-                  Environ.device_os = @capabilities[:platformName]
-                  Environ.device_name = @capabilities[:'appium:deviceName']
-                  Environ.device_os_version = @capabilities[:'appium:platformVersion']
-                  @capabilities
-                end
-      options
+      if @capabilities.nil?
+        Environ.device_name = ENV['SL_DEVICE']
+        Environ.device_os = ENV['SL_OS']
+        Environ.device_os_version = ENV['SL_OS_VERSION']
+        # define the required set of SauceLabs options
+        sl_options = { build: test_context_message }
+        # define the optional SauceLabs options
+        sl_options[:name] = ENV['AUTOMATE_PROJECT'] if ENV['AUTOMATE_PROJECT']
+        sl_options[:deviceOrientation] = ENV['ORIENTATION'].upcase if ENV['ORIENTATION']
+        sl_options[:recordVideo] = ENV['RECORD_VIDEO'] if ENV['RECORD_VIDEO']
+        sl_options[:recordScreenshots] = ENV['SCREENSHOTS'] if ENV['SCREENSHOTS']
+        sl_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.1.3'
+        {
+          platformName: ENV['SL_OS'],
+          'appium:platformVersion': ENV['SL_OS_VERSION'],
+          'appium:deviceName': ENV['SL_DEVICE'],
+          'appium:automationName': ENV['AUTOMATION_ENGINE'],
+          'appium:app': ENV['APP'],
+          'sauce:options': sl_options
+        }
+      else
+        Environ.device_os = @capabilities[:platformName]
+        Environ.device_name = @capabilities[:'appium:deviceName']
+        Environ.device_os_version = @capabilities[:'appium:platformVersion']
+        @capabilities
+      end
     end
 
     def self.test_context_message

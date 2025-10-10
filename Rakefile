@@ -110,56 +110,63 @@ Cucumber::Rake::Task.new(:calc_regress) do |t|
 end
 
 
+desc 'Run MacOS Shortcuts Cucumber regression test features using W3C capabilities and YAML data source'
+Cucumber::Rake::Task.new(:shortcuts_regress) do |t|
+  t.profile = 'shortcuts_regress'
+end
+
+
 desc 'Run cloud service specs'
-task cloud_specs: [:browserstack_specs,
-                   :custom_driver_specs,
-                   :testingbot_specs]
+task cloud_specs: %i[browserstack_specs
+                     custom_driver_specs
+                     testingbot_specs]
 
 
 desc 'Run required specs and Cucumber features'
-task required: [:required_specs,
-                :wdio_bat_android,
-                :wdio_bat_ios,
-                :rn_bat_android,
-                :rn_bat_ios]
+task required: %i[required_specs
+                  wdio_bat_android
+                  wdio_bat_ios
+                  rn_bat_android
+                  rn_bat_ios]
 
 
 desc 'Run all specs'
-task all_specs: [:required_specs,
-                 :browserstack_specs,
-                 :custom_driver_specs,
-                 :testingbot_specs]
+task all_specs: %i[required_specs
+                   browserstack_specs
+                   custom_driver_specs
+                   testingbot_specs]
 
 
 desc 'Run Cucumber smoke test features'
-task smoke: [:wdio_bat_android,
-             :wdio_bat_ios,
-             :rn_bat_android,
-             :rn_bat_ios]
+task smoke: %i[wdio_bat_android
+               wdio_bat_ios
+               rn_bat_android
+               rn_bat_ios]
 
 
 desc 'Run Cucumber regression test features'
-task regress: [:wdio_regress_android,
-               :wdio_regress_ios,
-               :rn_regress_android,
-               :rn_regress_ios,
-               :calc_regress]
+task regress: %i[wdio_regress_android
+                 wdio_regress_ios
+                 rn_regress_android
+                 rn_regress_ios
+                 calc_regress
+                 shortcuts_regress]
 
 
 desc 'Run Cucumber deeplink test features on BrowserStack hosted real devices'
-task device_deeplink: [:deeplink_bs_android,
-                       :deeplink_bs_ios17,
-                       :deeplink_bs_ios16]
+task device_deeplink: %i[deeplink_bs_android
+                         deeplink_bs_ios17]
 
 
 desc 'Run all specs and Cucumber features'
-task all: [:required_specs,
-           :browserstack_specs,
-           :custom_driver_specs,
-           :wdio_bat_ios,
-           :rn_bat_android,
-           :device_deeplink,
-           :regress]
+task all: %i[required_specs
+             browserstack_specs
+             custom_driver_specs
+             testingbot_specs
+             wdio_bat_ios
+             rn_bat_android
+             device_deeplink
+             regress]
 
 
 desc 'Update HTML docs'
@@ -173,7 +180,7 @@ desc 'Build and release new version of gem'
 task :release do
   ENV['COVERAGE'] = 'false'
   version = TestCentricityApps::VERSION
-  puts "Releasing version #{version} of TestCentricity Apps gem, y/n?"
+  puts "Release version #{version} of TestCentricity For Apps gem, y/n?"
   exit(1) unless $stdin.gets.chomp == 'y'
   sh 'gem build testcentricity_apps.gemspec && ' \
      "gem push testcentricity_apps-#{version}.gem"
@@ -181,4 +188,4 @@ end
 
 
 desc 'Update docs, build gem, and push to RubyGems'
-task ship_it: [:docs, :release]
+task ship_it: %i[docs release]

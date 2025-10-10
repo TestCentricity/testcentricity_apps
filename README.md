@@ -15,8 +15,8 @@ or locally or cloud hosted iOS and Android real devices or simulators.
 The TestCentricity™ For Apps gem supports automated testing of MacOS desktop apps and native iOS and Android apps running
 on the following mobile test targets:
 * locally hosted MacOS desktop apps (using Appium 2.x, the Mac2 driver, and XCode on macOS)
-* locally hosted iOS device simulators or physical iOS devices (using Appium, the XCUItest driver, and XCode on macOS)
-* locally hosted Android devices or Android Studio virtual device emulators (using Appium, the UIAutomator2 driver, and Android Studio)
+* locally hosted iOS device simulators or physical iOS devices (using Appium 2.x, the XCUItest driver, and XCode on macOS)
+* locally hosted Android devices or Android Studio virtual device emulators (using Appium 2.x, the UIAutomator2 driver, and Android Studio)
 * cloud hosted iOS or Android physical devices and simulators from the following service:
     * [Browserstack](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
     * [Sauce Labs](https://saucelabs.com/platform/mobile-testing)
@@ -29,14 +29,14 @@ A complete history of bug fixes and new features can be found in the [CHANGELOG]
 
 The RubyDocs for this gem can be found [here](https://www.rubydoc.info/gems/testcentricity_apps/).
 
-Two example projects that demonstrates the implementation of a screen object model framework using TestCentricity™ For Apps
+Three example projects that demonstrates the implementation of a screen object model framework using TestCentricity™ For Apps
 and Cucumber can be found at the following:
-  * [tc_mobile_react_native_demo](https://github.com/TestCentricity/tc_mobile_react_native_demo)
-  * [tc_mobile_wdio_demo](https://github.com/TestCentricity/tc_mobile_wdio_demo)
+* [tc_mac_calculator_demo](https://github.com/TestCentricity/tc_mac_calculator_demo)
+* [tc_mobile_react_native_demo](https://github.com/TestCentricity/tc_mobile_react_native_demo)
+* [tc_mobile_wdio_demo](https://github.com/TestCentricity/tc_mobile_wdio_demo)
 
-Refer to [this wiki page](https://github.com/TestCentricity/testcentricity_apps/wiki/XCUItest-driver-bug-impacts-iOS-dialogs-managed-by-com.apple.springboard) for
-information on a bug with the latest versions of the XCUItest driver that affects Appium's ability to interact with and
-verify iOS system level modal dialogs.
+Refer to [this wiki page](https://github.com/TestCentricity/testcentricity_apps/wiki/XCUItest-driver-bug-impacts-iOS-dialogs-managed-by-com.apple.springboard) for information on a bug with the latest versions of the XCUItest driver that affects Appium's
+ability to interact with and verify iOS system level modal dialogs.
 
 
 ### Which gem should I use?
@@ -54,7 +54,7 @@ verify iOS system level modal dialogs.
 
 ## Installation
 
-TestCentricity For Apps requires Ruby 3.0.0 or later. To install the TestCentricity For Apps gem, add this line to your
+TestCentricity For Apps requires Ruby 3.1.0 or later. To install the TestCentricity For Apps gem, add this line to your
 automation project's `Gemfile`:
 
     gem 'testcentricity_apps'
@@ -109,21 +109,21 @@ Your `ScreenObject` class definitions should be contained within individual `.rb
 folder of your test automation project, where `<platform>` is typically `mac`, `ios`, or `android`. For each screen in your app,
 you will typically have to define a `ScreenObject` for each platform version of your app.
 
-    my_automation_project
-        ├── config
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   └── screens
-        │   │   ├── ios
-        |   |   |   └── screens
-        │   │   ├── mac
-        |   |   |   └── screens
-        │   │   ├── env.rb
-        │   │   └── hooks.rb
-        ├── Gemfile
-        └── README.md
+        📁 my_automation_project
+        ├── 📁 config
+        ├── 📁 features
+        │   ├── 📁 step_definitions
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   └── 📁 screens
+        │   │   ├── 📁 ios
+        |   |   |   └── 📁 screens
+        │   │   ├── 📁 mac
+        |   |   |   └── 📁 screens
+        │   │   ├── 📄 env.rb
+        │   │   └── 📄 hooks.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 You define a new `ScreenObject` as shown below:
@@ -325,7 +325,7 @@ object. A `ScreenSection` may contain other `ScreenSection` objects.
 
 Below is an example of a footer navigation bar feature that is common to multiple screen -
 
-![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/NavBar1.png "Navigation Footer")       ![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/NavBar2.png "Navigation Footer")
+![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/NavBar1.png "Navigation Footer")       ![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/NavBar2.png "Navigation Footer")
 
 
 ### Defining a ScreenSection
@@ -334,24 +334,24 @@ Your `ScreenSection` class definitions should be contained within individual `.r
 folder of your test automation project, where `<platform>` is typically `mac`, `ios`, or `android`. For each screen section in your
 app, you will typically have to define a `ScreenSection` for each platform version of your app.
 
-    my_automation_project
-        ├── config
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── ios
-        |   |   |   ├── screens
-        |   |   |   └── sections
+        📁 my_automation_project
+        ├── 📁 config
+        ├── 📁 features
+        │   ├── 📁 step_definitions
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 ios
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
         │   │   ├── mac
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── env.rb
-        │   │   └── hooks.rb
-        ├── Gemfile
-        └── README.md
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📄 env.rb
+        │   │   └── 📄 hooks.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 You define a new `ScreenSection` as shown below:
@@ -748,7 +748,7 @@ The `verify_ui_states` method also supports I18n string translations using prope
 The example below depicts the usage of the `verify_ui_states` method to verify that the captions for navigation menu items
 are correctly translated.
 
-![Localized UI](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/LocalizedUI.png "Localized UI")
+![Localized UI](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/LocalizedUI.png "Localized UI")
 ```ruby
     def verify_menu
       ui = {
@@ -837,9 +837,10 @@ Each supported language/locale combination has a corresponding `.yml` file. I18n
 | Language (Country)    | File name |
 |-----------------------|-----------|
 | English               | en.yml    |
+| English (Australia)   | en-AU.yml |
 | English (Canada)      | en-CA.yml |
-| French (Canada)       | fr-CA.yml |
 | French                | fr.yml    |
+| French (Canada)       | fr-CA.yml |
 | Spanish               | es.yml    |
 | German                | de.yml    |
 | Portuguese (Brazil)   | pt-BR.yml |
@@ -847,19 +848,23 @@ Each supported language/locale combination has a corresponding `.yml` file. I18n
 
 Baseline translation strings are stored in `.yml` files in the `config/locales/` folder.
 
-    my_automation_project
-        ├── config
-        │   ├── locales
-        │   │   ├── en.yml
-        │   │   ├── es.yml
-        │   │   ├── fr.yml
-        │   │   ├── fr-CA.yml
-        │   │   └── en-AU.yml
-        │   ├── test_data
-        │   └── cucumber.yml
-        ├── features
-        ├── Gemfile
-        └── README.md
+       📁 my_automation_project/
+        ├── 📁 config/
+        │   ├── 📁 locales/
+        │   │   ├── 📄 en.yml
+        │   │   ├── 📄 en-AU.yml
+        │   │   ├── 📄 es.yml
+        │   │   ├── 📄 de.yml
+        │   │   ├── 📄 fr.yml
+        │   │   ├── 📄 fr-CA.yml
+        │   │   ├── 📄 pt-BR.yml
+        │   │   └── 📄 pt-PT.yml
+        │   ├── 📁 test_data/
+        │   └── 📄 cucumber.yml
+        ├── 📁 downloads/
+        ├── 📁 features/
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 ### Working With Custom AppUIElements
@@ -871,13 +876,13 @@ be different for iOS vs. Android mobile platforms. Below is an example of the ve
 for a cross-platform application implemented using React Native (iOS version on the left, Android version on the right).
 Each ListView contains 30 items:
 
-![Vertical Scrolling ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/ListViews.png "Vertical Scrolling ListViews")
+![Vertical Scrolling ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ListViews.png "Vertical Scrolling ListViews")
 
 While the iOS and Android ListViews appear to be identical in the app, performing an inspection of each application's GUI
 using Appium Inspector reveals differences in the object hierarchy as depicted below (iOS version on left, Android version
 on the right):
 
-![Vertical Scrolling ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/ListHeirarchy.png "Vertical Scrolling ListView Hierarchy")
+![Vertical Scrolling ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ListHeirarchy.png "Vertical Scrolling ListView Hierarchy")
 
 The inspection of the ListView object hierarchy reveals that for the iOS version of the app, list items are made up of
 `XCUIElementTypeOther` objects, and that for the Android version of the app, list items are made up of `android.view.ViewGroup`
@@ -941,13 +946,13 @@ Android CloudListScreen `ScreenObject`
 Below is an example of a horizontal scrolling "Carousel" style ListView implementations on the Swipe screen of a cross-platform
 application. Each ListView contains 6 list items.
 
-![Horizontal Scrolling Carousel ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/Carousel.png "Horizontal Scrolling Carousel ListViews")
+![Horizontal Scrolling Carousel ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Carousel.png "Horizontal Scrolling Carousel ListViews")
 
 While the iOS and Android ListViews appear to be identical in the app, performing an inspection of each application's GUI
 using Appium Inspector reveals differences in the object hierarchy as depicted below (iOS version on left, Android version
 on the right):
 
-![Horizontal Scrolling Carousel Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/CarouselHierarchy.png "Horizontal Scrolling Carousel Hierarchy")
+![Horizontal Scrolling Carousel Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/CarouselHierarchy.png "Horizontal Scrolling Carousel Hierarchy")
 
 As in the previous example for the vertical scrolling ListView, the inspection of the Carousel ListView object hierarchy
 reveals that for the iOS version of the app, list items are again made up of `XCUIElementTypeOther` objects, and that for
@@ -1008,12 +1013,12 @@ Android Swipe `ScreenObject`
 Below is an example of a PickerWheel (iOS) and Popup (Android) style ListView implementations on the Form Components screen
 of a cross-platform application.
 
-![PickerWheel and Popup ListViews](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/Popup_Picker.png "PickerWheel and Popup ListViews")
+![PickerWheel and Popup ListViews](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Popup_Picker.png "PickerWheel and Popup ListViews")
 
 Performing an inspection of each application's GUI using Appium Inspector reveals differences in the object hierarchy as
 depicted below (iOS version on left, Android version on the right):
 
-![PickerWheel and Popup ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/PopupHeirarchy.png "PickerWheel and Popup ListView Hierarchy")
+![PickerWheel and Popup ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupHeirarchy.png "PickerWheel and Popup ListView Hierarchy")
 
 The inspection of the PickerWheel and Popup ListView object hierarchies reveals that for the iOS version of the app, list
 items are again made up of `XCUIElementTypeOther` objects, and that for the Android version of the app, list items are made
@@ -2232,31 +2237,32 @@ in the `/features/support/<platform>/screens` folders, organized in functional a
 `ScreenSection` class definitions should be stored in the `/features/support/<platform>/sections` folder, where `<platform>`
 is typically `mac`, `ios`, or `android`.
 
-    my_automation_project
-        ├── config
-        │   ├── locales
-        │   ├── test_data
-        │   └── cucumber.yml
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── ios
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── mac
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── shared_components
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── env.rb
-        │   │   ├── hooks.rb
-        │   │   └── world_screens.rb
-        ├── Gemfile
-        └── README.md
+        📁 my_automation_project/
+        ├── 📁 config/
+        │   ├── 📁 locales/
+        │   ├── 📁 test_data/
+        │   └── 📄 cucumber.yml
+        ├── 📁 downloads/
+        ├── 📁 features/
+        │   ├── 📁 step_definitions/
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 ios
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 mac
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 shared_components
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📄 env.rb
+        │   │   ├── 📄 hooks.rb
+        │   │   └── 📄 world_screens.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 ---
@@ -2268,7 +2274,7 @@ is typically `mac`, `ios`, or `android`.
 ---
 ## Copyright and License
 
-All TestCentricity™ Frameworks are Copyright (c) 2014-2024, A.J. Mrozinski.
+All TestCentricity™ Frameworks are Copyright (c) 2014-2025, A.J. Mrozinski.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

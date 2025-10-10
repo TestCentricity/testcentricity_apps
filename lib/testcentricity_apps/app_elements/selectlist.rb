@@ -42,9 +42,9 @@ module TestCentricity
           raise 'This method is not supported for XCUIElementTypePickerWheel controls'
         end
         list_loc = get_list_item_locator
-        self.click if Environ.is_macos?
+        click if Environ.is_macos?
         items = obj.find_elements(list_loc.keys[0], list_loc.values[0])
-        self.click if Environ.is_macos?
+        click if Environ.is_macos?
         items.count
       end
 
@@ -62,12 +62,12 @@ module TestCentricity
           raise 'This method is not supported for XCUIElementTypePickerWheel controls'
         end
         list_loc = get_list_item_locator
-        self.click if Environ.is_macos?
+        click if Environ.is_macos?
         items = obj.find_elements(list_loc.keys[0], list_loc.values[0])
         items.each do |item|
           list_items.push(item.text)
         end
-        self.click if Environ.is_macos?
+        click if Environ.is_macos?
         list_items
       end
 
@@ -91,7 +91,7 @@ module TestCentricity
           obj.send_keys(item)
         else
           list_loc = get_list_item_locator
-          self.click if Environ.is_macos?
+          click if Environ.is_macos?
           items = obj.find_elements(list_loc.keys[0], list_loc.values[0])
           if item.is_a?(Integer)
             items[item - 1].click

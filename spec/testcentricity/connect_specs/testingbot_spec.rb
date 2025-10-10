@@ -11,30 +11,30 @@ describe TestCentricity::AppiumConnect, testingbot: true do
     load_cloud_credentials
     # specify generic browser config environment variables
     ENV['DRIVER'] = 'testingbot'
-    ENV['AUTOMATE_PROJECT'] = 'TestCentricity Apps - TestingBot'
+    ENV['AUTOMATE_PROJECT'] = 'TestCentricity Mobile - TestingBot'
     ENV['TEST_CONTEXT'] = 'RSpec - Environment Variables'
     ENV['DEVICE_TYPE'] = 'phone'
     # ENV['UPLOAD_APP'] = 'true'
   end
 
-  describe 'Connect to TestingBot hosted apps device simulator using W3C desired_capabilities hash' do
+  describe 'Connect to TestingBot hosted mobile device simulator using W3C desired_capabilities hash' do
     context 'Mobile iOS device' do
       let(:ios_caps) {
         {
           driver: :testingbot,
           device_type: :phone,
-          endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
+          endpoint: "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
           capabilities: {
             platformName: 'ios',
-            'appium:platformVersion': '17.0',
-            'appium:deviceName': 'iPhone 14',
+            'appium:platformVersion': '16.0',
+            'appium:deviceName': 'iPhone 13',
             'appium:realDevice': true,
             'appium:automationName': 'XCUITest',
-            'appium:app': 'tb://RNDemoAppiOS',
+            'appium:app': 'tb://rndemoappios',
             'tb:options': {
               name: ENV['AUTOMATE_PROJECT'],
               build: 'RSpec - DesiredCaps Hash',
-              appiumVersion: '2.2.1'
+              appiumVersion: 'latest'
             }
           }
         }
@@ -46,8 +46,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
         verify_mobile_connect(
           dev_type = :phone,
           dev_os = :ios,
-          os_version = '17.0',
-          dev_name = 'iPhone 14',
+          os_version = '16.0',
+          dev_name = 'iPhone 13',
           platform = :device
         )
       end
@@ -58,17 +58,17 @@ describe TestCentricity::AppiumConnect, testingbot: true do
         {
           driver: :testingbot,
           device_type: :phone,
-          endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
+          endpoint: "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
           capabilities: {
             platformName: 'android',
             'appium:platformVersion': '12.0',
             'appium:deviceName': 'Pixel 6',
             'appium:automationName': 'UiAutomator2',
-            'appium:app': 'tb://RNDemoAppAndroid',
+            'appium:app': 'tb://rndemoappandroid',
             'tb:options': {
               name: ENV['AUTOMATE_PROJECT'],
               build: 'RSpec - DesiredCaps Hash',
-              appiumVersion: '2.2.1'
+              appiumVersion: '2.10.3'
             }
           }
         }
@@ -88,11 +88,11 @@ describe TestCentricity::AppiumConnect, testingbot: true do
     end
   end
 
-  describe 'Connect to TestingBot hosted apps device simulator using environment variables' do
+  describe 'Connect to TestingBot hosted mobile device simulator using environment variables' do
     it 'connects to iOS iPhone device using environment variables' do
       ENV['TB_OS'] = 'iOS'
-      ENV['TB_OS_VERSION'] = '17.0'
-      ENV['TB_DEVICE'] = 'iPhone 14'
+      ENV['TB_OS_VERSION'] = '16.0'
+      ENV['TB_DEVICE'] = 'iPhone 13'
       ENV['REAL_DEVICE'] = 'true'
       ENV['AUTOMATION_ENGINE'] = 'XCUITest'
       ENV['APP'] = 'tb://RNDemoAppiOS'
@@ -101,8 +101,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
       verify_mobile_connect(
         dev_type = :phone,
         dev_os = :ios,
-        os_version = '17.0',
-        dev_name = 'iPhone 14',
+        os_version = '16.0',
+        dev_name = 'iPhone 13',
         platform = :device
       )
     end

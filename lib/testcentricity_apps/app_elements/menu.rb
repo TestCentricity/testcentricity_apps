@@ -1,8 +1,7 @@
 module TestCentricity
   module AppElements
     class AppMenu < AppUIElement
-      attr_accessor :menu_item
-      attr_accessor :key_map
+      attr_accessor :menu_item, :key_map
 
       def initialize(name, parent, locator, context)
         super
@@ -142,6 +141,7 @@ module TestCentricity
         when :keys, :keyboard
           keys = @key_map[item]
           raise "No key map found for item #{item}" if keys.empty?
+
           Environ.appium_driver.execute_script('macos: keys', { keys: keys })
         else
           raise "#{method} is not a valid selector"

@@ -50,21 +50,21 @@ module TestCentricity
     def populate_data_fields(data, wait_time = nil)
       timeout = wait_time.nil? ? 2 : wait_time
       data.each do |data_field, data_param|
-        unless data_param.blank?
-          # make sure the intended UI target element is visible before trying to set its value
-          data_field.scroll_into_view unless data_field.wait_until_visible(timeout, post_exception = false)
-          if data_param == '!DELETE'
+        next if data_param.blank?
+
+        # make sure the intended UI target element is visible before trying to set its value
+        data_field.scroll_into_view unless data_field.wait_until_visible(timeout, post_exception = false)
+        if data_param == '!DELETE'
+          data_field.clear
+        else
+          case data_field.get_object_type
+          when :checkbox
+            data_field.set_checkbox_state(data_param.to_bool)
+          when :radio
+            data_field.set_selected_state(data_param.to_bool)
+          when :textfield
             data_field.clear
-          else
-            case data_field.get_object_type
-            when :checkbox
-              data_field.set_checkbox_state(data_param.to_bool)
-            when :radio
-              data_field.set_selected_state(data_param.to_bool)
-            when :textfield
-              data_field.clear
-              data_field.set(data_param)
-            end
+            data_field.set(data_param)
           end
         end
       end
@@ -111,6 +111,12 @@ module TestCentricity
                      ui_object.read_only?
                    when :maxlength
                      ui_object.get_max_length
+                   when :rowcount
+                     ui_object.get_row_count
+                   when :columncount
+                     ui_object.get_column_count
+                   when :column_headers
+                     ui_object.get_header_columns
                    when :items
                      ui_object.get_list_items
                    when :itemcount
@@ -143,6 +149,12 @@ module TestCentricity
                            ui_object.get_item_enabled(value.to_i)
                          when :item_data
                            ui_object.get_item_data(value.to_i)
+                         when :row
+                           ui_object.get_table_row(value.to_i)
+                         when :column
+                           ui_object.get_table_column(value.to_i)
+                         when :cell
+                           ui_object.get_table_cell(value[0].to_i, value[1].to_i)
                          else
                            raise "#{key} is not a valid property key"
                          end
@@ -176,7 +188,8 @@ module TestCentricity
     #   swipe_gesture(direction = :down, distance = 1)
     #
     def swipe_gesture(direction, distance = 0.5)
-      raise 'Scroll distance must be between 0 and 1' if (distance < 0 || distance > 1)
+      raise 'Scroll distance must be between 0 and 1' if distance.negative? || distance > 1
+
       size = window_size
       mid_pt = [(size.width * 0.5).to_i, (size.height * 0.5).to_i]
       top = (mid_pt[1] - ((size.height * distance) * 0.5)).to_i

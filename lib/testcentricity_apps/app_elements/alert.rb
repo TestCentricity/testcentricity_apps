@@ -38,10 +38,10 @@ module TestCentricity
         reset_mru_cache
         alert_accept
         wait_until_gone(seconds = 5, post_exception = false)
-        if visible?
-          alert_accept
-          wait_until_gone(5)
-        end
+        return unless visible?
+
+        alert_accept
+        wait_until_gone(5)
       end
 
       # Performs the action required dismiss the currently visible alert modal. If the alert modal is still visible after
@@ -54,10 +54,10 @@ module TestCentricity
         reset_mru_cache
         alert_dismiss
         wait_until_gone(seconds = 5, post_exception = false)
-        if visible?
-          alert_dismiss
-          wait_until_gone(5)
-        end
+        return unless visible?
+
+        alert_dismiss
+        wait_until_gone(5)
       end
 
       #

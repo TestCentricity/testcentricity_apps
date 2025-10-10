@@ -1,7 +1,6 @@
 module TestCentricity
   class ExceptionQueue
-    attr_accessor :error_queue
-    attr_accessor :active_ui_element
+    attr_accessor :error_queue, :active_ui_element
 
     def self.enqueue_assert_equal(expected, actual, error_message)
       is_equal = if expected.is_a?(String) && actual.is_a?(String)
@@ -9,17 +8,17 @@ module TestCentricity
                  else
                    expected == actual
                  end
-      unless is_equal
-        enqueue("#{error_message} to be\n  '#{expected}'\nbut found\n  '#{actual}'")
-        enqueue_screenshot
-      end
+      return if is_equal
+
+      enqueue("#{error_message} to be\n  '#{expected}'\nbut found\n  '#{actual}'")
+      enqueue_screenshot
     end
 
     def self.enqueue_assert_not_equal(expected, actual, error_message)
-      unless expected != actual
-        enqueue("#{error_message} to not be equal to '#{expected}'")
-        enqueue_screenshot
-      end
+      return if expected != actual
+
+      enqueue("#{error_message} to not be equal to '#{expected}'")
+      enqueue_screenshot
     end
 
     def self.enqueue_exception(error_message)

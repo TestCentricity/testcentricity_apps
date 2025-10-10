@@ -28,9 +28,10 @@ parallel: PARALLEL=true REPORTING=true --require features --format pretty --form
 # target_test_environment profiles
 #==============
 
-rn_demo: TEST_ENVIRONMENT=RN_DEMO --tags '@rn_demo and not @wdio_demo and not @calculator'
-wdio_demo: TEST_ENVIRONMENT=WDIO_DEMO --tags '@wdio_demo and not @rn_demo and not @calculator'
-calculator: TEST_ENVIRONMENT=CALCULATOR_DEMO --tags '@calculator and not @rn_demo and not @wdio_demo'
+rn_demo: TEST_ENVIRONMENT=RN_DEMO --tags '@rn_demo and not @wdio_demo and not @calculator and not shortcuts'
+wdio_demo: TEST_ENVIRONMENT=WDIO_DEMO --tags '@wdio_demo and not @rn_demo and not @calculator and not shortcuts'
+calculator: TEST_ENVIRONMENT=CALCULATOR_DEMO --tags '@calculator and not shortcuts and not @rn_demo and not @wdio_demo'
+shortcuts: TEST_ENVIRONMENT=SHORTCUTS_DEMO --tags '@shortcuts and not @calculator and not @rn_demo and not @wdio_demo'
 debug: DEBUG=true
 
 
@@ -54,6 +55,9 @@ wdio_regress_ios: -p wdio_demo -p regress -p ios_caps_sim
 
 calc_bat: -p calculator -p bat -p mac -p yaml -p run_appium -p report W3C_CAPS=mac
 calc_regress: -p calculator -p regress -p mac -p yaml -p run_appium W3C_CAPS=mac
+
+shortcuts_bat: -p shortcuts -p bat -p mac -p yaml -p run_appium -p report W3C_CAPS=mac
+shortcuts_regress: -p shortcuts -p regress -p mac -p yaml -p run_appium W3C_CAPS=mac
 
 
   #==============

@@ -141,6 +141,7 @@ module TestCentricity
             end
           end
         end
+
         caption
       end
 
@@ -176,12 +177,14 @@ module TestCentricity
       def visible?
         obj = element
         return false if obj.nil?
+
         begin
           obj.displayed?
         rescue
           reset_mru_cache
           obj = element
           return false if obj.nil?
+
           obj.displayed?
         end
       end
@@ -480,13 +483,17 @@ module TestCentricity
       def double_tap
         obj = element
         object_not_found_exception(obj)
-        driver.action
-              .click_and_hold(obj)
-              .release
-              .pause(duration: 0.2)
-              .click_and_hold(obj)
-              .release
-              .perform
+        if Environ.is_macos?
+          Environ.appium_driver.execute_script('macos: doubleClick', { elementId: cell_obj.id })
+        else
+          driver.action
+                .click_and_hold(obj)
+                .release
+                .pause(duration: 0.2)
+                .click_and_hold(obj)
+                .release
+                .perform
+        end
       end
 
       # Long press on a UI element
@@ -514,7 +521,27 @@ module TestCentricity
               .perform
       end
 
+      # Right click on a UI element. MacOS apps only.
+      #
+      # @example
+      #   chart_image.right_click
+      #
+      def right_click
+        raise "Right click is not supported for #{Environ.device_os} platforms" unless Environ.is_macos?
+
+        obj = element
+        object_not_found_exception(obj)
+        Environ.appium_driver.execute_script('macos: rightClick', { elementId: obj.id })
+      end
+
+      # Hover over a UI element. MacOS apps only.
+      #
+      # @example
+      #   chart_image.hover
+      #
       def hover
+        raise "Hover is not supported for #{Environ.device_os} platforms" unless Environ.is_macos?
+
         obj = element
         object_not_found_exception(obj)
         Environ.appium_driver.execute_script('macos: hover', { elementId: obj.id })
@@ -570,6 +597,7 @@ module TestCentricity
       #
       def scroll_into_view(scroll_mode = :vertical)
         return if visible?
+
         case scroll_mode
         when :vertical
           start_direction = :down
@@ -614,11 +642,12 @@ module TestCentricity
       #
       def swipe_gesture(direction, distance = 0.5)
         raise 'Scroll distance must be less than 1' if distance > 1
+
         obj = element
         object_not_found_exception(obj)
         start_pt = [(obj.location.x + (obj.size.width * 0.5)).to_i, (obj.location.y + (obj.size.height * 0.5)).to_i]
 
-        if distance < 0
+        if distance.negative?
           top = (start_pt[1] - obj.size.height).to_i
           bottom = (start_pt[1] + obj.size.height).to_i
           left = (start_pt[0] - obj.size.width).to_i
@@ -677,6 +706,7 @@ module TestCentricity
                 parent_obj.find_element(@locator.keys[0], @locator.values[0])
               else
                 return @mru_object if @mru_locator == @locator && !@mru_object.nil?
+
                 find_element(@locator.keys[0], @locator.values[0])
               end
         puts "Found object '#{@name}' - #{@locator}" if ENV['DEBUG']
@@ -693,7 +723,7 @@ module TestCentricity
       private
 
       def object_not_found_exception(obj)
-        @type.nil? ? object_type = 'Object' : object_type = @type
+        object_type = @type.nil? ? 'Object' : @type
         raise ObjectNotFoundError.new("#{object_type} named '#{@name}' (#{get_locator}) not found") unless obj
       end
 

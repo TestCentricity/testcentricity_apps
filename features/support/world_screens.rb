@@ -49,7 +49,10 @@ module WorldScreens
     {
       calculator_screen: CalculatorAppScreen,
       about_dialog:      AboutDialogScreen,
-      paper_tape_screen: PaperTapeScreen
+      paper_tape_screen: PaperTapeScreen,
+
+      shortcuts_screen:       ShortcutsAppScreen,
+      shortcut_detail_screen: ShortcutDetailScreen
     }
   end
 end

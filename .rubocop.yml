@@ -36,3 +36,6 @@ Metrics/CyclomaticComplexity:
 
 Layout/EmptyLines:
   Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
