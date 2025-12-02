@@ -10,7 +10,7 @@ Feature:  Shortcuts App
   Background:
     Given I have launched the Shortcuts app
 
-
+@bat
   Scenario:  Verify Shortcuts main screen is correctly displayed
     Then I expect the Shortcuts screen to be correctly displayed
     And I expect the menubar and its menus to be correct
@@ -20,7 +20,7 @@ Feature:  Shortcuts App
     When I click on the Gallery item in the sidebar list
     Then I expect the Gallery to be displayed
 
-
+@bat
   Scenario:  Verify Starter Shortcuts are displayed after clicking on corresponding item in sidebar
     When I click on the Starter Shortcuts item in the sidebar list
     Then I expect all Starter Shortcuts to be displayed in the Library table

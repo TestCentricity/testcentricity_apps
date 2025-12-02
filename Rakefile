@@ -110,9 +110,21 @@ Cucumber::Rake::Task.new(:calc_regress) do |t|
 end
 
 
+desc 'Run MacOS Calculator Cucumber smoke test features using W3C capabilities and YAML data source'
+Cucumber::Rake::Task.new(:calc_bat) do |t|
+  t.profile = 'calc_bat'
+end
+
+
 desc 'Run MacOS Shortcuts Cucumber regression test features using W3C capabilities and YAML data source'
 Cucumber::Rake::Task.new(:shortcuts_regress) do |t|
   t.profile = 'shortcuts_regress'
+end
+
+
+desc 'Run MacOS Shortcuts Cucumber smoke test features using W3C capabilities and YAML data source'
+Cucumber::Rake::Task.new(:shortcuts_bat) do |t|
+  t.profile = 'shortcuts_bat'
 end
 
 

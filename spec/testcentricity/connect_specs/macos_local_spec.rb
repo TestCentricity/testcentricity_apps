@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe TestCentricity::AppiumConnect, wip: true do
+describe TestCentricity::AppiumConnect, required: true do
   before(:context) do
     # instantiate MacOS Calculator Demo test environment
     @environs ||= EnvironData

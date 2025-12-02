@@ -1081,6 +1081,20 @@ You define a new `MenuBar` as shown below:
     end
 ```
 
+### Adding a MenuBar to your App's Primary ScreenObject
+
+You add a `MenuBar` to your app's primary `ScreenObject` as shown below:
+```ruby
+    class CalculatorAppScreen < TestCentricity::ScreenObject
+      # Calculator App screen UI elements
+      menubar :calc_menu_bar, CalculatorMenuBar
+    end
+```
+Once your `ScreenObject` has been instantiated, you can call its `MenuBar` methods as shown below:
+```ruby
+    num_menus = calculator_screen.calc_menu_bar.get_item_count
+```
+
 ### Adding Menus to your MenuBar
 
 A `MenuBar` is typically made up of one or more `Menu` objects, which are added to your `MenuBar` class definition as shown
@@ -1223,18 +1237,24 @@ key. TestCentricity and XCTest defines the following possible bitmasks for modif
 ```
 Refer to [this page](https://github.com/appium/appium-mac2-driver?tab=readme-ov-file#macos-keys) for more information on MacOS keyboard `modifierFlags`.
 
-### Adding a MenuBar to your App's Primary ScreenObject
+### Adding Popup Menus to your ScreenObject or ScreenSection
 
-You add a `MenuBar` to your app's primary `ScreenObject` as shown below:
+A MocOS desktop app may have one or more popup menus that can appear on a `ScreenObject` or `ScreenSection`. Below is an
+example of two different popup menus that can be invoked on the MacOS Shortcuts app.
+
+![Popup Menus](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupMenus.png "Popup Menus")
+
+It is typically not necessary to define more than one popup menu object in your `ScreenObject` or `ScreenSection` class
+definition, even if there are multiple popups that can be interacted with. Since only one popup can be visible at a time,
+you only need to define a single popup menu object.
+
+Popup menus are added to your `ScreenObject` or `ScreenSection` class definition as shown below:
 ```ruby
-    class CalculatorAppScreen < TestCentricity::ScreenObject
-      # Calculator App screen UI elements
-      menubar :calc_menu_bar, CalculatorMenuBar
+    class ShortcutsAppScreen < TestCentricity::ScreenObject
+      # Shortcuts App screen UI elements
+      menu    :popup_menu, { class_chain: '**/XCUIElementTypeTable/XCUIElementTypeMenu' }
+      menubar :shortcuts_menu_bar, ShortcutsMenuBar
     end
-```
-Once your `ScreenObject` has been instantiated, you can call its `MenuBar` methods as shown below:
-```ruby
-    num_menus = calculator_screen.calc_menu_bar.get_item_count
 ```
 
 
