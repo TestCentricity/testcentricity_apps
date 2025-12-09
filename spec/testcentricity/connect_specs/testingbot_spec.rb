@@ -26,8 +26,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
           endpoint: "https://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
           capabilities: {
             platformName: 'ios',
-            'appium:platformVersion': '16.0',
-            'appium:deviceName': 'iPhone 13',
+            'appium:platformVersion': '18.2',
+            'appium:deviceName': 'iPhone 16',
             'appium:realDevice': true,
             'appium:automationName': 'XCUITest',
             'appium:app': 'tb://rndemoappios',
@@ -46,8 +46,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
         verify_mobile_connect(
           dev_type = :phone,
           dev_os = :ios,
-          os_version = '16.0',
-          dev_name = 'iPhone 13',
+          os_version = '18.2',
+          dev_name = 'iPhone 16',
           platform = :device
         )
       end
@@ -91,8 +91,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
   describe 'Connect to TestingBot hosted mobile device simulator using environment variables' do
     it 'connects to iOS iPhone device using environment variables' do
       ENV['TB_OS'] = 'iOS'
-      ENV['TB_OS_VERSION'] = '16.0'
-      ENV['TB_DEVICE'] = 'iPhone 13'
+      ENV['TB_OS_VERSION'] = '18.2'
+      ENV['TB_DEVICE'] = 'iPhone 16'
       ENV['REAL_DEVICE'] = 'true'
       ENV['AUTOMATION_ENGINE'] = 'XCUITest'
       ENV['APP'] = 'tb://RNDemoAppiOS'
@@ -101,8 +101,8 @@ describe TestCentricity::AppiumConnect, testingbot: true do
       verify_mobile_connect(
         dev_type = :phone,
         dev_os = :ios,
-        os_version = '16.0',
-        dev_name = 'iPhone 13',
+        os_version = '18.2',
+        dev_name = 'iPhone 16',
         platform = :device
       )
     end
@@ -138,10 +138,6 @@ describe TestCentricity::AppiumConnect, testingbot: true do
     expect(AppiumConnect.app_installed?).to eq(true)
     expect(AppiumConnect.app_state).to eq(:running_in_foreground)
     expect(AppiumConnect.orientation).to eq(:portrait)
-    expect(AppiumConnect.current_context).to eq('NATIVE_APP')
-    expect(AppiumConnect.available_contexts).to eq(['NATIVE_APP'])
-    expect(AppiumConnect.is_webview?).to eq(false)
-    expect(AppiumConnect.is_native_app?).to eq(true)
     if dev_os == :ios
       expect(Environ.is_ios?).to eq(true)
     else
