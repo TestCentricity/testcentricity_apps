@@ -387,7 +387,7 @@ module TestCentricity
       raise "An error has occurred while attempting to upload #{file_path} to the #{service} service\n#{result}" if response.code.to_i > 202
 
       puts "Successfully uploaded #{file_path} to the #{service} service\n#{result}"
-     end
+    end
     # :nocov:
 
     private

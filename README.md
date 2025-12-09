@@ -18,9 +18,9 @@ on the following mobile test targets:
 * locally hosted iOS device simulators or physical iOS devices (using Appium 2.x, the XCUItest driver, and XCode on macOS)
 * locally hosted Android devices or Android Studio virtual device emulators (using Appium 2.x, the UIAutomator2 driver, and Android Studio)
 * cloud hosted iOS or Android physical devices and simulators from the following service:
-    * [Browserstack](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
-    * [Sauce Labs](https://saucelabs.com/platform/mobile-testing)
-    * [TestingBot](https://testingbot.com/mobile/realdevicetesting)
+  * [Browserstack](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
+  * [Sauce Labs](https://saucelabs.com/platform/mobile-testing)
+  * [TestingBot](https://testingbot.com/mobile/realdevicetesting)
 
 
 ## What's New
@@ -129,15 +129,15 @@ you will typically have to define a `ScreenObject` for each platform version of 
 You define a new `ScreenObject` as shown below:
 ```ruby
     class LoginScreen < TestCentricity::ScreenObject
-    end
+end
 
 
-    class ProductsScreen < TestCentricity::ScreenObject
-    end
+class ProductsScreen < TestCentricity::ScreenObject
+end
 
 
-    class CheckoutAddressScreen < TestCentricity::ScreenObject
-    end
+class CheckoutAddressScreen < TestCentricity::ScreenObject
+end
 ```
 
 ### Adding Traits to your ScreenObject
@@ -164,24 +164,24 @@ is optional, as not all screens can be directly accessed via a deep link.
 You define your screen's **Traits** as shown below:
 ```ruby
     class LoginScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Login' }
-      trait(:screen_locator) { { accessibility_id: 'login screen' } }
-      trait(:deep_link)      { 'mydemoapprn://login' }
-    end
+  trait(:screen_name)    { 'Login' }
+  trait(:screen_locator) { { accessibility_id: 'login screen' } }
+  trait(:deep_link)      { 'mydemoapprn://login' }
+end
 
 
-    class ProductsScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Products' }
-      trait(:screen_locator) { { accessibility_id: 'products screen' } }
-      trait(:deep_link)      { 'mydemoapprn://store-overview' }
-    end
+class ProductsScreen < TestCentricity::ScreenObject
+  trait(:screen_name)    { 'Products' }
+  trait(:screen_locator) { { accessibility_id: 'products screen' } }
+  trait(:deep_link)      { 'mydemoapprn://store-overview' }
+end
 
 
-    class CheckoutAddressScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Checkout - Address' }
-      trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
-      trait(:deep_link)      { 'mydemoapprn://checkout-address' }
-    end
+class CheckoutAddressScreen < TestCentricity::ScreenObject
+  trait(:screen_name)    { 'Checkout - Address' }
+  trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
+  trait(:deep_link)      { 'mydemoapprn://checkout-address' }
+end
 ```
 
 ### Adding UI Elements to your ScreenObject
@@ -190,37 +190,37 @@ Desktop and mobile app screens are made up of UI elements like text fields, chec
 buttons, etc. **UI Elements** are added to your `ScreenObject` class definition as shown below:
 ```ruby
     class LoginScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Login' }
-      trait(:screen_locator) { { accessibility_id: 'login screen' } }
-      trait(:deep_link)      { 'mydemoapprn://login' }
-      
-      # Login screen UI elements
-      labels     username_label: { accessibility_id: 'Username'},
-                 password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
-                 username_error: { accessibility_id: 'Username-error-message' },
-                 password_error: { accessibility_id: 'Password-error-message' },
-                 generic_error:  { accessibility_id: 'generic-error-message' }
-      textfields username_field: { accessibility_id: 'Username input field' },
-                 password_field: { accessibility_id: 'Password input field' }
-      button     :login_button,  { accessibility_id: 'Login button' }
-    end
+  trait(:screen_name)    { 'Login' }
+  trait(:screen_locator) { { accessibility_id: 'login screen' } }
+  trait(:deep_link)      { 'mydemoapprn://login' }
+
+  # Login screen UI elements
+  labels     username_label: { accessibility_id: 'Username'},
+             password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
+             username_error: { accessibility_id: 'Username-error-message' },
+             password_error: { accessibility_id: 'Password-error-message' },
+             generic_error:  { accessibility_id: 'generic-error-message' }
+  textfields username_field: { accessibility_id: 'Username input field' },
+             password_field: { accessibility_id: 'Password input field' }
+  button     :login_button,  { accessibility_id: 'Login button' }
+end
 
 
-    class CheckoutAddressScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Checkout - Address' }
-      trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
-      trait(:deep_link)      { 'mydemoapprn://checkout-address' }
-      
-      # Checkout Address screen UI elements
-      textfields fullname_field:     { accessibility_id: 'Full Name* input field' },
-                 address1_field:     { accessibility_id: 'Address Line 1* input field' },
-                 address2_field:     { accessibility_id: 'Address Line 2 input field' },
-                 city_field:         { accessibility_id: 'City* input field' },
-                 state_region_field: { accessibility_id: 'State/Region input field' },
-                 zip_code_field:     { accessibility_id: 'Zip Code* input field' },
-                 country_field:      { accessibility_id: 'Country* input field' }
-      button     :to_payment_button, { accessibility_id: 'To Payment button' }
-    end
+class CheckoutAddressScreen < TestCentricity::ScreenObject
+  trait(:screen_name)    { 'Checkout - Address' }
+  trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
+  trait(:deep_link)      { 'mydemoapprn://checkout-address' }
+
+  # Checkout Address screen UI elements
+  textfields fullname_field:     { accessibility_id: 'Full Name* input field' },
+             address1_field:     { accessibility_id: 'Address Line 1* input field' },
+             address2_field:     { accessibility_id: 'Address Line 2 input field' },
+             city_field:         { accessibility_id: 'City* input field' },
+             state_region_field: { accessibility_id: 'State/Region input field' },
+             zip_code_field:     { accessibility_id: 'Zip Code* input field' },
+             country_field:      { accessibility_id: 'Country* input field' }
+  button     :to_payment_button, { accessibility_id: 'To Payment button' }
+end
 ```
 
 ### Adding Methods to your ScreenObject
@@ -230,63 +230,63 @@ directly accessing and interacting with a screen object's UI elements. You can a
 class definition for interacting with the UI to hide implementation details, as shown below:
 ```ruby
     class LoginScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Login' }
-      trait(:screen_locator) { { accessibility_id: 'login screen' } }
-      trait(:deep_link)      { 'mydemoapprn://login' }
-      
-      # Login screen UI elements
-      labels     username_label: { accessibility_id: 'Username'},
-                 password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
-                 username_error: { accessibility_id: 'Username-error-message' },
-                 password_error: { accessibility_id: 'Password-error-message' },
-                 generic_error:  { accessibility_id: 'generic-error-message' }
-      textfields username_field: { accessibility_id: 'Username input field' },
-                 password_field: { accessibility_id: 'Password input field' }
-      button     :login_button,  { accessibility_id: 'Login button' }
+  trait(:screen_name)    { 'Login' }
+  trait(:screen_locator) { { accessibility_id: 'login screen' } }
+  trait(:deep_link)      { 'mydemoapprn://login' }
 
-      def verify_screen_ui
-        ui = {
-          header_label   => { visible: true, caption: 'Login' },
-          username_label => { visible: true, caption: 'Username' },
-          username_field => { visible: true, enabled: true },
-          password_label => { visible: true, caption: 'Password' },
-          password_field => { visible: true, enabled: true },
-          login_button   => { visible: true, enabled: true, caption: 'Login' }
-        }
-        verify_ui_states(ui)
-      end
-      
-      def login(username, password)
-        fields = {
-          username_field => username,
-          password_field => password
-        }
-        populate_data_fields(fields)
-        login_button.tap
-      end
-      
-      def verify_entry_error(reason)
-        ui = case reason.gsub(/\s+/, '_').downcase.to_sym
-             when :invalid_password, :invalid_user
-               { generic_error => { visible: true, caption: 'Provided credentials do not match any user in this service.' } }
-             when :locked_account
-               { generic_error => { visible: true, caption: 'Sorry, this user has been locked out.' } }
-             when :no_username
-               { username_error => { visible: true, caption: 'Username is required' } }
-             when :no_password
-               { password_error => { visible: true, caption: 'Password is required' } }
-             else
-               raise "#{reason} is not a valid selector"
-             end
-        verify_ui_states(ui)
-      end
-    end
+  # Login screen UI elements
+  labels     username_label: { accessibility_id: 'Username'},
+             password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
+             username_error: { accessibility_id: 'Username-error-message' },
+             password_error: { accessibility_id: 'Password-error-message' },
+             generic_error:  { accessibility_id: 'generic-error-message' }
+  textfields username_field: { accessibility_id: 'Username input field' },
+             password_field: { accessibility_id: 'Password input field' }
+  button     :login_button,  { accessibility_id: 'Login button' }
+
+  def verify_screen_ui
+    ui = {
+            header_label   => { visible: true, caption: 'Login' },
+            username_label => { visible: true, caption: 'Username' },
+            username_field => { visible: true, enabled: true },
+            password_label => { visible: true, caption: 'Password' },
+            password_field => { visible: true, enabled: true },
+            login_button   => { visible: true, enabled: true, caption: 'Login' }
+    }
+    verify_ui_states(ui)
+  end
+
+  def login(username, password)
+    fields = {
+            username_field => username,
+            password_field => password
+    }
+    populate_data_fields(fields)
+    login_button.tap
+  end
+
+  def verify_entry_error(reason)
+    ui = case reason.gsub(/\s+/, '_').downcase.to_sym
+         when :invalid_password, :invalid_user
+           { generic_error => { visible: true, caption: 'Provided credentials do not match any user in this service.' } }
+         when :locked_account
+           { generic_error => { visible: true, caption: 'Sorry, this user has been locked out.' } }
+         when :no_username
+           { username_error => { visible: true, caption: 'Username is required' } }
+         when :no_password
+           { password_error => { visible: true, caption: 'Password is required' } }
+         else
+           raise "#{reason} is not a valid selector"
+         end
+    verify_ui_states(ui)
+  end
+end
 ```
 
 Once your `ScreenObject` has been instantiated, you can call your methods as shown below:
 ```ruby
     login_screen.login('snicklefritz', 'Pa55w0rd')
-    login_screen.verify_entry_error('invalid user')
+login_screen.verify_entry_error('invalid user')
 ```
 
 ### Loading your App's ScreenObjects using Deeplinks
@@ -357,7 +357,7 @@ app, you will typically have to define a `ScreenSection` for each platform versi
 You define a new `ScreenSection` as shown below:
 ```ruby
     class NavMenu < TestCentricity::ScreenSection
-    end
+end
 ```
 
 ### Adding Traits to a ScreenSection
@@ -368,9 +368,9 @@ trait specifies the CSS or Xpath expression that uniquely identifies that root n
 You define your section's **Traits** as shown below:
 ```ruby
     class NavMenu < TestCentricity::ScreenSection
-      trait(:section_name)    { 'Nav Menu' }
-      trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
-    end
+  trait(:section_name)    { 'Nav Menu' }
+  trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
+end
 ```
 
 ### Adding UI Elements to your ScreenSection
@@ -379,24 +379,24 @@ A `ScreenSection` is typically made up of UI elements like text fields, check bo
 Elements** are added to your `ScreenSection` class definition as shown below:
 ```ruby
     class NavMenu < TestCentricity::ScreenSection
-      trait(:section_name)    { 'Nav Menu' }
-      trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
+  trait(:section_name)    { 'Nav Menu' }
+  trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
 
-      # Nav Menu UI elements
-      buttons close_button:        { accessibility_id: 'close menu' },
-              webview_button:      { accessibility_id: 'menu item webview' },
-              qr_code_button:      { accessibility_id: 'menu item qr code scanner' },
-              geo_location_button: { accessibility_id: 'menu item geo location' },
-              drawing_button:      { accessibility_id: 'menu item drawing' },
-              report_a_bug_button: { accessibility_id: 'menu item report a bug' },
-              about_button:        { accessibility_id: 'menu item about' },
-              reset_app_button:    { accessibility_id: 'menu item reset app' },
-              biometrics_button:   { accessibility_id: 'menu item biometrics' },
-              log_in_button:       { accessibility_id: 'menu item log in' },
-              log_out_button:      { accessibility_id: 'menu item log out' },
-              api_calls_button:    { accessibility_id: 'menu item api calls' },
-              sauce_video_button:  { accessibility_id: 'menu item sauce bot video' }
-    end
+  # Nav Menu UI elements
+  buttons close_button:        { accessibility_id: 'close menu' },
+          webview_button:      { accessibility_id: 'menu item webview' },
+          qr_code_button:      { accessibility_id: 'menu item qr code scanner' },
+          geo_location_button: { accessibility_id: 'menu item geo location' },
+          drawing_button:      { accessibility_id: 'menu item drawing' },
+          report_a_bug_button: { accessibility_id: 'menu item report a bug' },
+          about_button:        { accessibility_id: 'menu item about' },
+          reset_app_button:    { accessibility_id: 'menu item reset app' },
+          biometrics_button:   { accessibility_id: 'menu item biometrics' },
+          log_in_button:       { accessibility_id: 'menu item log in' },
+          log_out_button:      { accessibility_id: 'menu item log out' },
+          api_calls_button:    { accessibility_id: 'menu item api calls' },
+          sauce_video_button:  { accessibility_id: 'menu item sauce bot video' }
+end
 ```
 
 ### Adding Methods to your ScreenSection
@@ -404,57 +404,57 @@ Elements** are added to your `ScreenSection` class definition as shown below:
 You can add methods to your `ScreenSection` class definition, as shown below:
 ```ruby
     class NavMenu < TestCentricity::ScreenSection
-      trait(:section_name)    { 'Nav Menu' }
-      trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
+  trait(:section_name)    { 'Nav Menu' }
+  trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
 
-      # Nav Menu UI elements
-      buttons close_button:        { accessibility_id: 'close menu' },
-              webview_button:      { accessibility_id: 'menu item webview' },
-              qr_code_button:      { accessibility_id: 'menu item qr code scanner' },
-              geo_location_button: { accessibility_id: 'menu item geo location' },
-              drawing_button:      { accessibility_id: 'menu item drawing' },
-              report_a_bug_button: { accessibility_id: 'menu item report a bug' },
-              about_button:        { accessibility_id: 'menu item about' },
-              reset_app_button:    { accessibility_id: 'menu item reset app' },
-              biometrics_button:   { accessibility_id: 'menu item biometrics' },
-              log_in_button:       { accessibility_id: 'menu item log in' },
-              log_out_button:      { accessibility_id: 'menu item log out' },
-              api_calls_button:    { accessibility_id: 'menu item api calls' },
-              sauce_video_button:  { accessibility_id: 'menu item sauce bot video' }
+  # Nav Menu UI elements
+  buttons close_button:        { accessibility_id: 'close menu' },
+          webview_button:      { accessibility_id: 'menu item webview' },
+          qr_code_button:      { accessibility_id: 'menu item qr code scanner' },
+          geo_location_button: { accessibility_id: 'menu item geo location' },
+          drawing_button:      { accessibility_id: 'menu item drawing' },
+          report_a_bug_button: { accessibility_id: 'menu item report a bug' },
+          about_button:        { accessibility_id: 'menu item about' },
+          reset_app_button:    { accessibility_id: 'menu item reset app' },
+          biometrics_button:   { accessibility_id: 'menu item biometrics' },
+          log_in_button:       { accessibility_id: 'menu item log in' },
+          log_out_button:      { accessibility_id: 'menu item log out' },
+          api_calls_button:    { accessibility_id: 'menu item api calls' },
+          sauce_video_button:  { accessibility_id: 'menu item sauce bot video' }
 
-      def verify_ui
-        ui = {
-          self                => { visible: true },
-          close_button        => { visible: true, enabled: true },
-          webview_button      => { visible: true, enabled: true, caption: 'Webview' },
-          qr_code_button      => { visible: true, enabled: true, caption: 'QR Code Scanner' },
-          geo_location_button => { visible: true, enabled: true, caption: 'Geo Location' },
-          drawing_button      => { visible: true, enabled: true, caption: 'Drawing' },
-          report_a_bug_button => { visible: true, enabled: true, caption: 'Report A Bug' },
-          about_button        => { visible: true, enabled: true, caption: 'About' },
-          reset_app_button    => { visible: true, enabled: true, caption: 'Reset App State' },
-          biometrics_button   => { visible: true, enabled: true, caption: 'FaceID' },
-          log_in_button       => { visible: true, enabled: true, caption: 'Log In' },
-          log_out_button      => { visible: true, enabled: true, caption: 'Log Out' },
-          api_calls_button    => { visible: true, enabled: true, caption: 'Api Calls' },
-          sauce_video_button  => { visible: true, enabled: true, caption: 'Sauce Bot Video' }
-        }
-        verify_ui_states(ui)
-      end
+  def verify_ui
+    ui = {
+            self                => { visible: true },
+            close_button        => { visible: true, enabled: true },
+            webview_button      => { visible: true, enabled: true, caption: 'Webview' },
+            qr_code_button      => { visible: true, enabled: true, caption: 'QR Code Scanner' },
+            geo_location_button => { visible: true, enabled: true, caption: 'Geo Location' },
+            drawing_button      => { visible: true, enabled: true, caption: 'Drawing' },
+            report_a_bug_button => { visible: true, enabled: true, caption: 'Report A Bug' },
+            about_button        => { visible: true, enabled: true, caption: 'About' },
+            reset_app_button    => { visible: true, enabled: true, caption: 'Reset App State' },
+            biometrics_button   => { visible: true, enabled: true, caption: 'FaceID' },
+            log_in_button       => { visible: true, enabled: true, caption: 'Log In' },
+            log_out_button      => { visible: true, enabled: true, caption: 'Log Out' },
+            api_calls_button    => { visible: true, enabled: true, caption: 'Api Calls' },
+            sauce_video_button  => { visible: true, enabled: true, caption: 'Sauce Bot Video' }
+    }
+    verify_ui_states(ui)
+  end
 
-      def close
-        close_button.click
-        self.wait_until_hidden(3)
-      end
+  def close
+    close_button.click
+    self.wait_until_hidden(3)
+  end
 
-      def verify_closed
-        ui = {
-          self => { visible: true },
-          close_button => { visible: false }
-        }
-        verify_ui_states(ui)
-      end
-    end
+  def verify_closed
+    ui = {
+            self => { visible: true },
+            close_button => { visible: false }
+    }
+    verify_ui_states(ui)
+  end
+end
 ```
 
 ### Adding ScreenSections to your ScreenObject
@@ -462,11 +462,11 @@ You can add methods to your `ScreenSection` class definition, as shown below:
 You add a `ScreenSection` to its associated `ScreenObject` as shown below:
 ```ruby
     class BaseAppScreen < TestCentricity::ScreenObject
-      # Base App screen UI elements
-      label    :header_label, { accessibility_id: 'container header' }
-      sections nav_bar:  NavBar,
-               nav_menu: NavMenu
-    end
+  # Base App screen UI elements
+  label    :header_label, { accessibility_id: 'container header' }
+  sections nav_bar:  NavBar,
+           nav_menu: NavMenu
+end
 ```
 Once your `ScreenObject` has been instantiated, you can call its `ScreenSection` methods as shown below:
 ```ruby
@@ -514,49 +514,49 @@ Supported `AppUIElement` elementTypes and their declarations have the following 
 *Single element declarations:*
 ```ruby
     class SampleScreen < TestCentricity::ScreenObject
-      button     :button_name, { locator_strategy: locator_identifier }
-      textfield  :field_name, { locator_strategy: locator_identifier }
-      checkbox   :checkbox_name, { locator_strategy: locator_identifier }
-      radio      :radio_name, { locator_strategy: locator_identifier }
-      label      :label_name, { locator_strategy: locator_identifier }
-      list       :list_name, { locator_strategy: locator_identifier }
-      selectlist :selectlist_name, { locator_strategy: locator_identifier }
-      image      :image_name, { locator_strategy: locator_identifier }
-      switch     :switch_name, { locator_strategy: locator_identifier }
-      element    :element_name, { locator_strategy: locator_identifier }
-      alert      :alert_name, { locator_strategy: locator_identifier }
-      menu       :menu_name, { locator_strategy: locator_identifier }
-      menubar    :menubar_name, { locator_strategy: locator_identifier }
-      table      :table_name, { locator_strategy: locator_identifier }
-    end
+  button     :button_name, { locator_strategy: locator_identifier }
+  textfield  :field_name, { locator_strategy: locator_identifier }
+  checkbox   :checkbox_name, { locator_strategy: locator_identifier }
+  radio      :radio_name, { locator_strategy: locator_identifier }
+  label      :label_name, { locator_strategy: locator_identifier }
+  list       :list_name, { locator_strategy: locator_identifier }
+  selectlist :selectlist_name, { locator_strategy: locator_identifier }
+  image      :image_name, { locator_strategy: locator_identifier }
+  switch     :switch_name, { locator_strategy: locator_identifier }
+  element    :element_name, { locator_strategy: locator_identifier }
+  alert      :alert_name, { locator_strategy: locator_identifier }
+  menu       :menu_name, { locator_strategy: locator_identifier }
+  menubar    :menubar_name, { locator_strategy: locator_identifier }
+  table      :table_name, { locator_strategy: locator_identifier }
+end
 ```
 *Multiple element declarations:*
 ```ruby
     class SampleScreen < TestCentricity::ScreenObject
-      buttons     button_1_name: { locator_strategy: locator_identifier },
-                  button_2_name: { locator_strategy: locator_identifier },
-                  button_X_name: { locator_strategy: locator_identifier }
-      textfields  field_1_name: { locator_strategy: locator_identifier },
-                  field_2_name: { locator_strategy: locator_identifier },
-                  field_X_name: { locator_strategy: locator_identifier }
-      checkboxes  check_1_name: { locator_strategy: locator_identifier },
-                  check_2_name: { locator_strategy: locator_identifier },
-                  check_X_name: { locator_strategy: locator_identifier }
-      radios      radio_1_name: { locator_strategy: locator_identifier },
-                  radio_2_name: { locator_strategy: locator_identifier }
-      lists       list_1_name: { locator_strategy: locator_identifier },
-                  list_X_name: { locator_strategy: locator_identifier }
-      selectlists menu_1_name: { locator_strategy: locator_identifier },
-                  menu_X_name: { locator_strategy: locator_identifier }
-      labels      label_1_name: { locator_strategy: locator_identifier },
-                  label_X_name: { locator_strategy: locator_identifier }
-      images      image_1_name: { locator_strategy: locator_identifier },
-                  image_X_name: { locator_strategy: locator_identifier }
-      alerts      alert_1_name: { locator_strategy: locator_identifier },
-                  alert_X_name: { locator_strategy: locator_identifier }
-      tables      table_1_name: { locator_strategy: locator_identifier },
-                  table_X_name: { locator_strategy: locator_identifier }
-    end
+  buttons     button_1_name: { locator_strategy: locator_identifier },
+              button_2_name: { locator_strategy: locator_identifier },
+              button_X_name: { locator_strategy: locator_identifier }
+  textfields  field_1_name: { locator_strategy: locator_identifier },
+              field_2_name: { locator_strategy: locator_identifier },
+              field_X_name: { locator_strategy: locator_identifier }
+  checkboxes  check_1_name: { locator_strategy: locator_identifier },
+              check_2_name: { locator_strategy: locator_identifier },
+              check_X_name: { locator_strategy: locator_identifier }
+  radios      radio_1_name: { locator_strategy: locator_identifier },
+              radio_2_name: { locator_strategy: locator_identifier }
+  lists       list_1_name: { locator_strategy: locator_identifier },
+              list_X_name: { locator_strategy: locator_identifier }
+  selectlists menu_1_name: { locator_strategy: locator_identifier },
+              menu_X_name: { locator_strategy: locator_identifier }
+  labels      label_1_name: { locator_strategy: locator_identifier },
+              label_X_name: { locator_strategy: locator_identifier }
+  images      image_1_name: { locator_strategy: locator_identifier },
+              image_X_name: { locator_strategy: locator_identifier }
+  alerts      alert_1_name: { locator_strategy: locator_identifier },
+              alert_X_name: { locator_strategy: locator_identifier }
+  tables      table_1_name: { locator_strategy: locator_identifier },
+              table_X_name: { locator_strategy: locator_identifier }
+end
 ```
 Refer to the Class List documentation for the `ScreenObject` and `ScreenSection` classes for details on the class methods
 used for declaring and instantiating `AppUIElements`. Examples of UI element declarations can be found in the ***Adding
@@ -631,14 +631,14 @@ If any of the specified UI elements are not currently visible, the `populate_dat
 the UI object in view on the vertical axis (down, then up).
 ```ruby
     def enter_data(user_data)
-      fields = {
-        first_name_field   => user_data.first_name,
-        last_name_field    => user_data.last_name,
-        email_field        => user_data.email,
-        phone_number_field => user_data.phone_number
-      }
-      populate_data_fields(fields, wait_time = 2)
-    end
+  fields = {
+          first_name_field   => user_data.first_name,
+          last_name_field    => user_data.last_name,
+          email_field        => user_data.email,
+          phone_number_field => user_data.phone_number
+  }
+  populate_data_fields(fields, wait_time = 2)
+end
 ```
 
 ### Verifying AppUIElements on your ScreenObject or ScreenSection
@@ -654,11 +654,11 @@ properties of multiple UI elements on a `ScreenObject` or `ScreenSection`. The `
 containing key/hash pairs of UI elements and their properties or attributes to be verified.
 ```ruby
      ui = {
-       object1 => { property: expected_state },
-       object2 => { property1: expected_state, property2: expected_state },
-       object3 => { property: expected_state }
-     }
-     verify_ui_states(ui)
+        object1 => { property: expected_state },
+        object2 => { property1: expected_state, property2: expected_state },
+        object3 => { property: expected_state }
+}
+verify_ui_states(ui)
 ```
 The `verify_ui_states` method automatically scrolls UI elements that are expected to be visible into view. Auto-scrolling
 only occurs on the vertical axis (down, then up). Setting the `auto_scroll` parameter to `false` prevents automatic scrolling
@@ -765,42 +765,42 @@ are correctly translated.
 ![Localized UI](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/LocalizedUI.png "Localized UI")
 ```ruby
     def verify_menu
-      ui = {
-        menu_title => {
-          visible: true,
-          caption: { translate: 'NavMenu.title' }
-        },
-        recipes_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.recipes' }
-        },
-        browser_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.browser' }
-        },
-        groceries_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.groceries' }
-        },
-        pantry_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.pantry' }
-        },
-        meals_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.meals' }
-        },
-        menus_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.menus' }
-        },
-        settings_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.settings' }
-        }
-      }
-      verify_ui_states(ui)
-    end
+  ui = {
+          menu_title => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.title' }
+          },
+          recipes_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.recipes' }
+          },
+          browser_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.browser' }
+          },
+          groceries_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.groceries' }
+          },
+          pantry_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.pantry' }
+          },
+          meals_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.meals' }
+          },
+          menus_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.menus' }
+          },
+          settings_item => {
+                  visible: true,
+                  caption: { translate: 'NavMenu.settings' }
+          }
+  }
+  verify_ui_states(ui)
+end
 ```
 I18n `.yml` files contain key/value pairs representing the name of a translated string (key) and the string value. For the
 menu example above, the translated strings for English, Spanish, and French are represented below:
@@ -921,37 +921,37 @@ axis that is set when instantiating an `AppList` element.
 iOS Cloud List `ScreenObject`
 ```ruby
     class CloudListScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Cloud List' }
-      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther' } }
+  trait(:screen_name)    { 'Cloud List' }
+  trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther' } }
 
-      # Cloud List screen UI elements
-      list :cloud_list, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOther' }
+  # Cloud List screen UI elements
+  list :cloud_list, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOther' }
 
-      def initialize
-        super
-        # define the list item element for the Cloud list object
-        list_spec = { list_item: { class: 'XCUIElementTypeOther' } }
-        cloud_list.define_list_elements(list_spec)
-      end
-    end
+  def initialize
+    super
+    # define the list item element for the Cloud list object
+    list_spec = { list_item: { class: 'XCUIElementTypeOther' } }
+    cloud_list.define_list_elements(list_spec)
+  end
+end
 ```
 
 Android CloudListScreen `ScreenObject`
 ```ruby
     class CloudListScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Cloud List' }
-      trait(:screen_locator) { { xpath: '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup' } }
+  trait(:screen_name)    { 'Cloud List' }
+  trait(:screen_locator) { { xpath: '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup' } }
 
-      # Cloud List screen UI elements
-      list :cloud_list, { xpath: '//android.widget.ScrollView/android.view.ViewGroup' }
+  # Cloud List screen UI elements
+  list :cloud_list, { xpath: '//android.widget.ScrollView/android.view.ViewGroup' }
 
-      def initialize
-        super
-        # define the list item element for the Cloud list object
-        list_spec = { list_item: { class: 'android.view.ViewGroup' } }
-        cloud_list.define_list_elements(list_spec)
-      end
-    end
+  def initialize
+    super
+    # define the list item element for the Cloud list object
+    list_spec = { list_item: { class: 'android.view.ViewGroup' } }
+    cloud_list.define_list_elements(list_spec)
+  end
+end
 ```
 
 
@@ -982,43 +982,43 @@ from the above examples.
 iOS Swipe `ScreenObject`
 ```ruby
     class SwipeScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Swipe' }
-      trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
+  trait(:screen_name)    { 'Swipe' }
+  trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
 
-      # Swipe screen UI elements
-      list :carousel_list, { accessibility_id: 'Carousel' }
+  # Swipe screen UI elements
+  list :carousel_list, { accessibility_id: 'Carousel' }
 
-      def initialize
-        super
-        # define the list item element for the Carousel list object
-        list_spec = {
-          list_item: { xpath: '//XCUIElementTypeOther[contains(@name, "__CAROUSEL_ITEM_")]' },
-          scrolling: :horizontal
-        }
-        carousel_list.define_list_elements(list_spec)
-      end
-    end
+  def initialize
+    super
+    # define the list item element for the Carousel list object
+    list_spec = {
+            list_item: { xpath: '//XCUIElementTypeOther[contains(@name, "__CAROUSEL_ITEM_")]' },
+            scrolling: :horizontal
+    }
+    carousel_list.define_list_elements(list_spec)
+  end
+end
 ```
 
 Android Swipe `ScreenObject`
 ```ruby
     class SwipeScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Swipe' }
-      trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
+  trait(:screen_name)    { 'Swipe' }
+  trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
 
-      # Swipe screen UI elements
-      list :carousel_list, { accessibility_id: 'Carousel' }
+  # Swipe screen UI elements
+  list :carousel_list, { accessibility_id: 'Carousel' }
 
-      def initialize
-        super
-        # define the list item element for the Carousel list object
-        list_spec = {
-          list_item: { xpath: '//android.view.ViewGroup[contains(@resource-id, "__CAROUSEL_ITEM_")]' },
-          scrolling: :horizontal
-        }
-        carousel_list.define_list_elements(list_spec)
-      end
-    end
+  def initialize
+    super
+    # define the list item element for the Carousel list object
+    list_spec = {
+            list_item: { xpath: '//android.view.ViewGroup[contains(@resource-id, "__CAROUSEL_ITEM_")]' },
+            scrolling: :horizontal
+    }
+    carousel_list.define_list_elements(list_spec)
+  end
+end
 ```
 
 
@@ -1054,19 +1054,19 @@ The code snippet below demonstrate the use of the `AppList.define_list_elements`
 Android FormScreen `ScreenObject`
 ```ruby
     class FormScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Form' }
-      trait(:screen_locator) { { accessibility_id: 'Forms-screen' } }
+  trait(:screen_name)    { 'Form' }
+  trait(:screen_locator) { { accessibility_id: 'Forms-screen' } }
 
-      # Form screen UI elements
-      list :drop_down_menu, { id: 'com.wdiodemoapp:id/select_dialog_listview' }
+  # Form screen UI elements
+  list :drop_down_menu, { id: 'com.wdiodemoapp:id/select_dialog_listview' }
 
-      def initialize
-        super
-        # define the list item element for the drop-down list object
-        list_spec = { list_item: { class: 'android.widget.CheckedTextView' } }
-        drop_down_menu.define_list_elements(list_spec)
-      end
-    end
+  def initialize
+    super
+    # define the list item element for the drop-down list object
+    list_spec = { list_item: { class: 'android.widget.CheckedTextView' } }
+    drop_down_menu.define_list_elements(list_spec)
+  end
+end
 ```
 
 #### Table AppUIElements
@@ -1082,12 +1082,12 @@ As such, when an iOS or MacOS `AppTable` element is instantiated in a `ScreenObj
 objects and their locator strategies are defined as follows:
 ```ruby
   {
-     table_row:         { class: 'XCUIElementTypeTableRow' },
-     table_column:      { class: 'XCUIElementTypeTableColumn' },
-     table_cell:        { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeStaticText' },
-     table_header:      { class: 'XCUIElementTypeGroup' },
-     table_header_cell: { class: 'XCUIElementTypeButton' }
-  }
+        table_row:         { class: 'XCUIElementTypeTableRow' },
+        table_column:      { class: 'XCUIElementTypeTableColumn' },
+        table_cell:        { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeStaticText' },
+        table_header:      { class: 'XCUIElementTypeGroup' },
+        table_header_cell: { class: 'XCUIElementTypeButton' }
+}
 ```
 
 An example of this table implementation in the MacOS Shortcuts app, and its object hierarchy as viewed by Appium Inspector,
@@ -1122,20 +1122,20 @@ If you were developing automated tests for the MacOS Shortcuts app, your `Shortc
 method would use the `AppTable.define_table_elements` method to define the locator strategy for the `table_cell` component.
 ```ruby
     class ShortcutsAppScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Shortcuts' }
-      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+  trait(:screen_name)    { 'Shortcuts' }
+  trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
 
-      # Shortcuts screen UI elements
-      tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
-             view_table:    { predicate: 'identifier == "view.library.table"' }
+  # Shortcuts screen UI elements
+  tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
+         view_table:    { predicate: 'identifier == "view.library.table"' }
 
-      def initialize
-        super
-        # define the cell element for the Shortcuts table object
-        table_spec = { table_cell: { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeGroup/XCUIElementTypeStaticText' } }
-        view_table.define_table_elements(table_spec)
-      end
-    end
+  def initialize
+    super
+    # define the cell element for the Shortcuts table object
+    table_spec = { table_cell: { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeGroup/XCUIElementTypeStaticText' } }
+    view_table.define_table_elements(table_spec)
+  end
+end
 ```
 
 Another `AppTable` implementation using elements other than the default `AppTable` components can be found in the MacOS
@@ -1148,19 +1148,19 @@ The `ActivityMonitorScreen` screen object's `initialize` method in the code snip
 `AppTable.define_table_elements` method to define the locator strategy for the `table_row` component.
 ```ruby
     class ActivityMonitorScreen < TestCentricity::ScreenObject
-      trait(:screen_name)    { 'Activity Monitor' }
-      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+  trait(:screen_name)    { 'Activity Monitor' }
+  trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
 
-      # Shortcuts screen UI elements
-      table :process_table, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOutline' }
-      
-      def initialize
-        super
-        # define the row element for the Activity Monitor table object
-        table_spec = { table_row: { class: 'XCUIElementTypeOutlineRow' } }
-        process_table.define_table_elements(table_spec)
-      end
-    end
+  # Shortcuts screen UI elements
+  table :process_table, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOutline' }
+
+  def initialize
+    super
+    # define the row element for the Activity Monitor table object
+    table_spec = { table_row: { class: 'XCUIElementTypeOutlineRow' } }
+    process_table.define_table_elements(table_spec)
+  end
+end
 ```
 
 
@@ -1186,7 +1186,7 @@ TestCentricity For Apps provides a `MenuBar` class object, that is a special sub
 You define a new `MenuBar` as shown below:
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
-    end
+end
 ```
 
 ### Adding a MenuBar to your App's Primary ScreenObject
@@ -1194,9 +1194,9 @@ You define a new `MenuBar` as shown below:
 You add a `MenuBar` to your app's primary `ScreenObject` as shown below:
 ```ruby
     class CalculatorAppScreen < TestCentricity::ScreenObject
-      # Calculator App screen UI elements
-      menubar :calc_menu_bar, CalculatorMenuBar
-    end
+  # Calculator App screen UI elements
+  menubar :calc_menu_bar, CalculatorMenuBar
+end
 ```
 Once your `ScreenObject` has been instantiated, you can call its `MenuBar` methods as shown below:
 ```ruby
@@ -1209,18 +1209,18 @@ A `MenuBar` is typically made up of one or more `Menu` objects, which are added 
 below:
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
-      # Calculator Menu Bar UI elements
-      menus calc_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[2]' },
-            file_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[3]' },
-            edit_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[4]' },
-            view_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[5]' },
-            view_sub_menu:    { predicate: 'identifier == "_NS:335"' },
-            convert_menu:     { class_chain: '**/XCUIElementTypeMenuBarItem[6]' },
-            convert_sub_menu: { predicate: 'identifier == "_NS:352"' },
-            speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
-            window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
-            help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
-      end
+  # Calculator Menu Bar UI elements
+  menus calc_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[2]' },
+        file_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[3]' },
+        edit_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[4]' },
+        view_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[5]' },
+        view_sub_menu:    { predicate: 'identifier == "_NS:335"' },
+        convert_menu:     { class_chain: '**/XCUIElementTypeMenuBarItem[6]' },
+        convert_sub_menu: { predicate: 'identifier == "_NS:352"' },
+        speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
+        window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
+        help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
+end
 ```
 
 ### Adding Methods to your MenuBar
@@ -1228,65 +1228,65 @@ below:
 You can add methods to your `MenuBar` class definition, as shown below:
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
-      # Calculator Menu Bar UI elements
-      menus calc_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[2]' },
-            file_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[3]' },
-            edit_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[4]' },
-            view_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[5]' },
-            view_sub_menu:    { predicate: 'identifier == "_NS:335"' },
-            convert_menu:     { class_chain: '**/XCUIElementTypeMenuBarItem[6]' },
-            convert_sub_menu: { predicate: 'identifier == "_NS:352"' },
-            speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
-            window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
-            help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
+  # Calculator Menu Bar UI elements
+  menus calc_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[2]' },
+        file_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[3]' },
+        edit_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[4]' },
+        view_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[5]' },
+        view_sub_menu:    { predicate: 'identifier == "_NS:335"' },
+        convert_menu:     { class_chain: '**/XCUIElementTypeMenuBarItem[6]' },
+        convert_sub_menu: { predicate: 'identifier == "_NS:352"' },
+        speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
+        window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
+        help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
 
-      def choose_menu_item(menu, item, method = :mouse)
-        menu_map = {
-          calc:             calc_menu,
-          calculator:       calc_menu,
-          file:             file_menu,
-          edit:             edit_menu,
-          view:             view_menu,
-          view_sub_menu:    view_sub_menu,
-          convert:          convert_menu,
-          convert_sub_menu: convert_sub_menu,
-          window:           window_menu
-        }
-        menu_obj = menu_map[menu]
-        raise "#{menu} is not a supported menu" if menu_obj.nil?
-        menu_obj.choose_menu_item(item, method)
-      end
+  def choose_menu_item(menu, item, method = :mouse)
+    menu_map = {
+            calc:             calc_menu,
+            calculator:       calc_menu,
+            file:             file_menu,
+            edit:             edit_menu,
+            view:             view_menu,
+            view_sub_menu:    view_sub_menu,
+            convert:          convert_menu,
+            convert_sub_menu: convert_sub_menu,
+            window:           window_menu
+    }
+    menu_obj = menu_map[menu]
+    raise "#{menu} is not a supported menu" if menu_obj.nil?
+    menu_obj.choose_menu_item(item, method)
+  end
 
-      def verify_menu_bar
-        ui = {
-                self => {
-                  enabled: true,
-                  items: %w[Apple Calculator File Edit View Convert Speech Window Help],
-                  itemcount: 9
-                },
-                calc_menu => {
-                  enabled: true,
-                  itemcount: 8,
-                  item_data: [
-                    { caption: 'About Calculator', enabled: true },
-                    { caption: '', enabled: false },
-                    { caption: 'Hide Calculator', enabled: true },
-                    { caption: 'Hide Others', enabled: true },
-                    { caption: 'Show All', enabled: false },
-                    { caption: '', enabled: false },
-                    { caption: 'Quit Calculator', enabled: true },
-                    { caption: 'Quit and Keep Windows', enabled: true }
-                  ]
-                },
-                speech_menu => {
-                  enabled: true,
-                  itemcount: 2,
-                  items: ['Speak Button Pressed', 'Speak Result']
-                }
-        }
-        verify_ui_states(ui)
-      end
-    end
+  def verify_menu_bar
+    ui = {
+            self => {
+                    enabled: true,
+                    items: %w[Apple Calculator File Edit View Convert Speech Window Help],
+                    itemcount: 9
+            },
+            calc_menu => {
+                    enabled: true,
+                    itemcount: 8,
+                    item_data: [
+                            { caption: 'About Calculator', enabled: true },
+                            { caption: '', enabled: false },
+                            { caption: 'Hide Calculator', enabled: true },
+                            { caption: 'Hide Others', enabled: true },
+                            { caption: 'Show All', enabled: false },
+                            { caption: '', enabled: false },
+                            { caption: 'Quit Calculator', enabled: true },
+                            { caption: 'Quit and Keep Windows', enabled: true }
+                    ]
+            },
+            speech_menu => {
+                    enabled: true,
+                    itemcount: 2,
+                    items: ['Speak Button Pressed', 'Speak Result']
+            }
+    }
+    verify_ui_states(ui)
+  end
+end
 ```
 
 ### Defining Keyboard Shortcuts for your App's Menus
@@ -1311,37 +1311,37 @@ index (menu items 1, 2, 3, and 7) and to the **Window** menu by menu item captio
 
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
-    
-      def initialize(name, parent, locator, context)
-        super
-        # define key map for View menu
-        menu_items = {
-          key_map: {
-            1 => [key: '1', modifierFlags: XCUIKeyModifierCommand],
-            2 => [key: '2', modifierFlags: XCUIKeyModifierCommand],
-            3 => [key: '3', modifierFlags: XCUIKeyModifierCommand],
-            7 => [key: 'r', modifierFlags: XCUIKeyModifierCommand]
-          }
-        }
-        view_menu.define_menu_elements(menu_items)
-        # define key map for Window menu
-        menu_items = {
-          key_map: { 'Show Paper Tape' => [key: 't', modifierFlags: XCUIKeyModifierCommand] }
-        }
-        window_menu.define_menu_elements(menu_items)
-      end
-    end
+
+  def initialize(name, parent, locator, context)
+    super
+    # define key map for View menu
+    menu_items = {
+            key_map: {
+                    1 => [key: '1', modifierFlags: XCUIKeyModifierCommand],
+                    2 => [key: '2', modifierFlags: XCUIKeyModifierCommand],
+                    3 => [key: '3', modifierFlags: XCUIKeyModifierCommand],
+                    7 => [key: 'r', modifierFlags: XCUIKeyModifierCommand]
+            }
+    }
+    view_menu.define_menu_elements(menu_items)
+    # define key map for Window menu
+    menu_items = {
+            key_map: { 'Show Paper Tape' => [key: 't', modifierFlags: XCUIKeyModifierCommand] }
+    }
+    window_menu.define_menu_elements(menu_items)
+  end
+end
 ```
 The `modifierFlags` argument is an `unsigned long` type and defines the bitmask with depressed modifier keys for the given
 key. TestCentricity and XCTest defines the following possible bitmasks for modifier keys:
 ```ruby
     XCUIKeyModifierNone     = 0
-    XCUIKeyModifierCapsLock = (1 << 0)
-    XCUIKeyModifierShift    = (1 << 1)
-    XCUIKeyModifierControl  = (1 << 2)
-    XCUIKeyModifierOption   = (1 << 3)
-    XCUIKeyModifierCommand  = (1 << 4)
-    XCUIKeyModifierFunction = (1 << 5)
+XCUIKeyModifierCapsLock = (1 << 0)
+XCUIKeyModifierShift    = (1 << 1)
+XCUIKeyModifierControl  = (1 << 2)
+XCUIKeyModifierOption   = (1 << 3)
+XCUIKeyModifierCommand  = (1 << 4)
+XCUIKeyModifierFunction = (1 << 5)
 ```
 Refer to [this page](https://github.com/appium/appium-mac2-driver?tab=readme-ov-file#macos-keys) for more information on MacOS keyboard `modifierFlags`.
 
@@ -1360,10 +1360,10 @@ you only need to define a single popup menu object.
 Popup menus are added to your `ScreenObject` or `ScreenSection` class definition as shown below:
 ```ruby
     class ShortcutsAppScreen < TestCentricity::ScreenObject
-      # Shortcuts App screen UI elements
-      menu    :popup_menu, { class_chain: '**/XCUIElementTypeTable/XCUIElementTypeMenu' }
-      menubar :shortcuts_menu_bar, ShortcutsMenuBar
-    end
+  # Shortcuts App screen UI elements
+  menu    :popup_menu, { class_chain: '**/XCUIElementTypeTable/XCUIElementTypeMenu' }
+  menubar :shortcuts_menu_bar, ShortcutsMenuBar
+end
 ```
 
 
@@ -1379,23 +1379,23 @@ example below, the `screen_objects` method contains a hash table of your `Screen
 `ScreenObject` classes to be instantiated by `ScreenManager`:
 ```ruby
     module WorldScreens
-      def screen_objects
-        {
-          login_screen:            LoginScreen,
-          registration_screen:     RegistrationScreen,
-          search_results_screen:   SearchResultsScreen,
-          products_grid_screen:    ProductsCollectionScreen,
-          product_detail_screen:   ProductDetailScreen,
-          shopping_basket_screen:  ShoppingBasketScreen,
-          payment_method_screen:   PaymentMethodScreen,
-          confirm_purchase_screen: PurchaseConfirmationScreen,
-          my_account_screen:       MyAccountScreen,
-          my_order_history_screen: MyOrderHistoryScreen
-        }
-      end
-    end
-    
-    World(WorldScreens)
+  def screen_objects
+    {
+            login_screen:            LoginScreen,
+            registration_screen:     RegistrationScreen,
+            search_results_screen:   SearchResultsScreen,
+            products_grid_screen:    ProductsCollectionScreen,
+            product_detail_screen:   ProductDetailScreen,
+            shopping_basket_screen:  ShoppingBasketScreen,
+            payment_method_screen:   PaymentMethodScreen,
+            confirm_purchase_screen: PurchaseConfirmationScreen,
+            my_account_screen:       MyAccountScreen,
+            my_order_history_screen: MyOrderHistoryScreen
+    }
+  end
+end
+
+World(WorldScreens)
 ```
 
 The `WorldScreens` module above should be defined in the `world_screens.rb` file in the `features/support` folder.
@@ -1404,7 +1404,7 @@ Include the code below in your `env.rb` file to ensure that your `ScreenObjects`
 scenarios are executed:
 ```ruby
     include WorldScreens
-    WorldPages.instantiate_screen_objects
+WorldPages.instantiate_screen_objects
 ```
 **NOTE:** If you intend to use the `ScreenManager`, you must define a `screen_name` trait for each of the `ScreenObjects`
 to be registered.
@@ -1417,43 +1417,43 @@ displayed, or can be navigated to by clicking associated menus and navigation el
 scenario is displayed below:
 ```gherkin
     Scenario Outline:  Verify screen navigation features
-      Given I am on the Products screen
-      When I tap the <screen_name> navigation menu item
-      Then I expect the <screen_name> screen to be correctly displayed
+Given I am on the Products screen
+When I tap the <screen_name> navigation menu item
+Then I expect the <screen_name> screen to be correctly displayed
 
-      Examples:
-        |screen_name      |
-        |Registration     |
-        |Shopping Basket  |
-        |My Account       |
-        |My Order History |
+Examples:
+|screen_name      |
+|Registration     |
+|Shopping Basket  |
+|My Account       |
+|My Order History |
 ```
 In the above example, the step definitions associated with the 3 steps can be implemented using the `ScreenManager.find_screen`
 method to match the specified `screen_name` argument with the corresponding `ScreenObject` as shown below:
 ```ruby
     include TestCentricity
 
-    When(/^I (?:load|am on) the (.*) screen$/) do |screen_name|
-      # find and load the specified target screen
-      target_screen = ScreenManager.find_screen(screen_name)
-      target_screen.load_screen
-    end
-    
-    
-    When(/^I (?:click|tap) the ([^\"]*) navigation menu item$/) do |screen_name|
-      # find and navigate to the specified target screen
-      target_screen = ScreenManager.find_screen(screen_name)
-      target_screen.navigate_to
-    end
-    
-    
-    Then(/^I expect the (.*) screen to be correctly displayed$/) do |screen_name|
-      # find and verify that the specified target screen is loaded
-      target_screen = ScreenManager.find_screen(screen_name)
-      target_screen.verify_screen_exists
-      # verify that target screen is correctly displayed
-      target_screen.verify_screen_ui
-    end
+When(/^I (?:load|am on) the (.*) screen$/) do |screen_name|
+  # find and load the specified target screen
+  target_screen = ScreenManager.find_screen(screen_name)
+  target_screen.load_screen
+end
+
+
+When(/^I (?:click|tap) the ([^\"]*) navigation menu item$/) do |screen_name|
+  # find and navigate to the specified target screen
+  target_screen = ScreenManager.find_screen(screen_name)
+  target_screen.navigate_to
+end
+
+
+Then(/^I expect the (.*) screen to be correctly displayed$/) do |screen_name|
+  # find and verify that the specified target screen is loaded
+  target_screen = ScreenManager.find_screen(screen_name)
+  target_screen.verify_screen_exists
+  # verify that target screen is correctly displayed
+  target_screen.verify_screen_ui
+end
 ```
 
 
@@ -1472,14 +1472,14 @@ The following options and capabilities must be specified in the `options` hash:
 
 ```ruby
     options = {
-      driver: :appium,
-      capabilities: {
-        platformName: :mac,
-        'appium:automationName': 'mac2',
-        'appium:bundleId': 'com.apple.calculator'
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+        driver: :appium,
+        capabilities: {
+                platformName: :mac,
+                'appium:automationName': 'mac2',
+                'appium:bundleId': 'com.apple.calculator'
+        }
+}
+AppiumConnect.initialize_appium(options)
 ```
 Additional options that can be specified in an `options` hash include the following:
 
@@ -1522,17 +1522,17 @@ method with an `options` hash that specifies the Appium desired capabilities, th
 in the example below:
 ```ruby
     options = {
-      driver: :appium,
-      devicetype: :phone or :tablet,
-      capabilities: {
-        platformName: :ios or :android,
-        'appium:platformVersion': os_version,
-        'appium:deviceName': device_name,
-        'appium:automationName': 'XCUITest' or 'UiAutomator2',
-        'appium:app': path_to_app
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+        driver: :appium,
+        devicetype: :phone or :tablet,
+        capabilities: {
+                platformName: :ios or :android,
+                'appium:platformVersion': os_version,
+                'appium:deviceName': device_name,
+                'appium:automationName': 'XCUITest' or 'UiAutomator2',
+                'appium:app': path_to_app
+        }
+}
+AppiumConnect.initialize_appium(options)
 ```
 Additional options that can be specified in an `options` hash include the following:
 
@@ -1623,28 +1623,28 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### Local iOS Simulators or Physical Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:appium`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `ios` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to `xcuitest` in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
-  - `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
-  - `'appium:app'`: must be set to path where iOS app can be accessed and loaded
+- `driver:` must be set to `:appium`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `ios` in the `capabilities:` hash
+- `'appium:automationName':` must be set to `xcuitest` in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
+- `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
+- `'appium:app'`: must be set to path where iOS app can be accessed and loaded
 
 ```ruby
     options = {
-      driver: :appium,
-      device_type: phone_or_tablet,
-      capabilities: {
-        platformName: :ios,
-        'appium:automationName': 'xcuitest',
-        'appium:platformVersion': ios_version,
-        'appium:deviceName': device_or_simulator_name,
-        'appium:app': path_to_ios_app
-      },
-      endpoint: 'http://127.0.0.1:4723/wd/hub'
-    }
-    AppiumConnect.initialize_appium(options)
+        driver: :appium,
+        device_type: phone_or_tablet,
+        capabilities: {
+                platformName: :ios,
+                'appium:automationName': 'xcuitest',
+                'appium:platformVersion': ios_version,
+                'appium:deviceName': device_or_simulator_name,
+                'appium:app': path_to_ios_app
+        },
+        endpoint: 'http://127.0.0.1:4723/wd/hub'
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `appium_<device_os>_<device_type>` - e.g. `:appium_ios_phone` or `:appium_ios_tablet`.
@@ -1664,15 +1664,15 @@ device orientation to portrait mode.
         driver_name: :my_custom_ipad_driver,
         global_driver: true,
         capabilities: {
-          platformName: :ios,
-          'appium:platformVersion': '15.4',
-          'appium:deviceName': 'iPad Pro (12.9-inch) (5th generation)',
-          'appium:automationName': 'XCUITest',
-          'appium:orientation': 'PORTRAIT',
-          'appium:app': Environ.current.ios_app_path
+                platformName: :ios,
+                'appium:platformVersion': '15.4',
+                'appium:deviceName': 'iPad Pro (12.9-inch) (5th generation)',
+                'appium:automationName': 'XCUITest',
+                'appium:orientation': 'PORTRAIT',
+                'appium:app': Environ.current.ios_app_path
         }
-      }
-      AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 
 #### Connecting to Locally Hosted Android Simulators or Physical Devices
@@ -1710,36 +1710,36 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### Local Android Simulators or Physical Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:appium`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `Android` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to `UiAutomator2` in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of Android on the simulator or physical device
-  - `'appium:deviceName':` must be set to the Android Virtual Device ID
-  - `'appium:app'`: must be set to path where Android `.apk` file can be accessed and loaded
+- `driver:` must be set to `:appium`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `Android` in the `capabilities:` hash
+- `'appium:automationName':` must be set to `UiAutomator2` in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of Android on the simulator or physical device
+- `'appium:deviceName':` must be set to the Android Virtual Device ID
+- `'appium:app'`: must be set to path where Android `.apk` file can be accessed and loaded
 
 ```ruby
     options = {
-      driver: :appium,
-      device_type: phone_or_tablet,
-      capabilities: {
-        platformName: :android,
-        'appium:automationName': 'UiAutomator2',
-        'appium:platformVersion': android_version,
-        'appium:deviceName': simulator_name,
-        'appium:avd': simulator_name,
-        'appium:app': path_to_android_app
-      },
-      endpoint: 'http://localhost:4723/wd/hub'
-    }
-    AppiumConnect.initialize_appium(options)
+        driver: :appium,
+        device_type: phone_or_tablet,
+        capabilities: {
+                platformName: :android,
+                'appium:automationName': 'UiAutomator2',
+                'appium:platformVersion': android_version,
+                'appium:deviceName': simulator_name,
+                'appium:avd': simulator_name,
+                'appium:app': path_to_android_app
+        },
+        endpoint: 'http://localhost:4723/wd/hub'
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `appium_<device_os>_<device_type>` - e.g. `:appium_android_phone` or `:appium_android_tablet`.
 >
 > ℹ️ If an `endpoint:` is not specified in the `options` hash, then the default remote endpoint URL of ``http://127.0.0.1:4723/wd/hub``
 will be used.
-> 
+>
 > ℹ️ If `global_driver:` is not specified in the `options` hash, then the driver will be initialized without global scope.
 
 
@@ -1752,16 +1752,16 @@ to landscape mode.
         device_type: :tablet,
         driver_name: :admin_tablet,
         capabilities: {
-          platformName: 'Android',
-          'appium:platformVersion': '12.0',
-          'appium:deviceName': 'Pixel_C_API_31',
-          'appium:avd': 'Pixel_C_API_31',
-          'appium:automationName': 'UiAutomator2',
-          'appium:orientation': 'LANDSCAPE',
-          'appium:app': Environ.current.android_apk_path
+                platformName: 'Android',
+                'appium:platformVersion': '12.0',
+                'appium:deviceName': 'Pixel_C_API_31',
+                'appium:avd': 'Pixel_C_API_31',
+                'appium:automationName': 'UiAutomator2',
+                'appium:orientation': 'LANDSCAPE',
+                'appium:app': Environ.current.android_apk_path
         }
-      }
-      AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 #### Starting and Stopping Appium Server
 
@@ -1772,21 +1772,21 @@ or physical devices. To programmatically control the starting and stopping of Ap
 tests, place the code shown below in your `hooks.rb` file.
 ```ruby
     BeforeAll do
-      # start Appium Server if APPIUM_SERVER = 'run'
-      if ENV['APPIUM_SERVER'] == 'run'
-        $server = TestCentricity::AppiumServer.new
-        $server.start
-      end
-    end
+  # start Appium Server if APPIUM_SERVER = 'run'
+  if ENV['APPIUM_SERVER'] == 'run'
+    $server = TestCentricity::AppiumServer.new
+    $server.start
+  end
+end
 
-    AfterAll do
-      # close Appium driver
-      TestCentricity::AppiumConnect.quit_driver
-      # terminate Appium Server if command line option was specified and Appium server is running
-      if ENV['APPIUM_SERVER'] == 'run' && Environ.driver == :appium && $server.running?
-        $server.stop
-      end
-    end
+AfterAll do
+  # close Appium driver
+  TestCentricity::AppiumConnect.quit_driver
+  # terminate Appium Server if command line option was specified and Appium server is running
+  if ENV['APPIUM_SERVER'] == 'run' && Environ.driver == :appium && $server.running?
+    $server.stop
+  end
+end
 ```
 The `APPIUM_SERVER` environment variable must be set to `run` in order to programmatically start and stop the Appium server.
 This can be set by adding the following to your `cucumber.yml` file and including `-p run_appium` in your command line when
@@ -1811,15 +1811,15 @@ control the starting and stopping of the Appium server with the execution of you
 body of an example group:
 ```ruby
     before(:context) do
-      # start Appium server before all of the examples in this group
-      $server = TestCentricity::AppiumServer.new
-      $server.start
-    end
+  # start Appium server before all of the examples in this group
+  $server = TestCentricity::AppiumServer.new
+  $server.start
+end
 
-    after(:context) do
-      # terminate Appium Server after all of the examples in this group
-      $server.stop if Environ.driver == :appium && $server.running?
-    end
+after(:context) do
+  # terminate Appium Server after all of the examples in this group
+  $server.stop if Environ.driver == :appium && $server.running?
+end
 ```
 If you are running locally hosted mobile tests on iOS or Android simulators or devices using version 1.x of the Appium server,
 the `APPIUM_SERVER_VERSION` environment variable must be set to `1` in order to ensure that the correct Appium server endpoint
@@ -1842,9 +1842,9 @@ devices. BrowserStack uses only real physical devices - simulators are not avail
 
 Refer to the following pages for information on uploading your iOS `.ipa` or Android `.apk` app files to the BrowserStack
 servers:
- - [Upload apps from filesystem](https://www.browserstack.com/docs/app-automate/appium/upload-app-from-filesystem)
- - [Upload apps using public URL](https://www.browserstack.com/docs/app-automate/appium/upload-app-using-public-url)
- - [Define custom ID for app](https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id)
+- [Upload apps from filesystem](https://www.browserstack.com/docs/app-automate/appium/upload-app-from-filesystem)
+- [Upload apps using public URL](https://www.browserstack.com/docs/app-automate/appium/upload-app-using-public-url)
+- [Define custom ID for app](https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id)
 
 The preferred method of uploading an app to BrowserStack is to define a custom test ID for your apps to avoid having to
 modify your test configuration data with a new `app_url` after every app upload. Use the same custom test ID every time
@@ -1888,31 +1888,31 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### BrowserStack Mobile Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:browserstack`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `ios` or `android` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to to `XCUITest` for iOS or `UiAutomator2` for Android in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
-  - `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
-  - `'appium:app'`: must be set to URL or custom test ID of uploaded iOS `.ipa` or Android `.apk` file
+- `driver:` must be set to `:browserstack`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `ios` or `android` in the `capabilities:` hash
+- `'appium:automationName':` must be set to to `XCUITest` for iOS or `UiAutomator2` for Android in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
+- `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
+- `'appium:app'`: must be set to URL or custom test ID of uploaded iOS `.ipa` or Android `.apk` file
 
 ```ruby
     options = {
-      driver: :browserstack,
-      device_type: phone_or_tablet,
-      capabilities: {
-        platformName: platform,
-        'appium:automationName': automation_name,
-        'appium:platformVersion': os_version,
-        'appium:deviceName': device_name,
-        'appium:app': app_url_or_custom_ID,
-        'bstack:options': {
-          userName: bs_account_user_name,
-          accessKey: bs_account_access_key
+        driver: :browserstack,
+        device_type: phone_or_tablet,
+        capabilities: {
+                platformName: platform,
+                'appium:automationName': automation_name,
+                'appium:platformVersion': os_version,
+                'appium:deviceName': device_name,
+                'appium:app': app_url_or_custom_ID,
+                'bstack:options': {
+                        userName: bs_account_user_name,
+                        accessKey: bs_account_access_key
+                }
         }
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `:browserstack_<device_os>_<device_type>` - e.g. `:browserstack_ios_phone` or `:browserstack_android_tablet`.
@@ -1931,32 +1931,32 @@ BrowserStack. The `options` hash includes options for specifying the driver name
 time zone, Appium version, device orientation, language, locale, and various test configuration options.
 ```ruby
     options = {
-      driver: :browserstack,
-      device_type: :tablet,
-      driver_name: :admin_tablet,
-      endpoint: "https://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub-cloud.browserstack.com/wd/hub",
-      capabilities: {
-        platformName: 'ios',
-        'appium:platformVersion': '17',
-        'appium:deviceName': 'iPad Pro 12.9 2021',
-        'appium:automationName': 'XCUITest',
-        'appium:app': 'RNDemoAppiOS',
-        'bstack:options': {
-          userName: ENV['BS_USERNAME'],
-          accessKey: ENV['BS_AUTHKEY'],
-          projectName: 'ALP AP',
-          buildName: "Test Build #{ENV['BUILD_NUM']}",
-          sessionName: 'AU Regression Suite',
-          appiumVersion: '2.0.1',
-          geoLocation: 'AU',
-          timezone: 'Perth',
-          deviceOrientation: 'landscape'
-        },
-        language: 'En',
-        locale: 'en_AU'
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+        driver: :browserstack,
+        device_type: :tablet,
+        driver_name: :admin_tablet,
+        endpoint: "https://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub-cloud.browserstack.com/wd/hub",
+        capabilities: {
+                platformName: 'ios',
+                'appium:platformVersion': '17',
+                'appium:deviceName': 'iPad Pro 12.9 2021',
+                'appium:automationName': 'XCUITest',
+                'appium:app': 'RNDemoAppiOS',
+                'bstack:options': {
+                        userName: ENV['BS_USERNAME'],
+                        accessKey: ENV['BS_AUTHKEY'],
+                        projectName: 'ALP AP',
+                        buildName: "Test Build #{ENV['BUILD_NUM']}",
+                        sessionName: 'AU Regression Suite',
+                        appiumVersion: '2.0.1',
+                        geoLocation: 'AU',
+                        timezone: 'Perth',
+                        deviceOrientation: 'landscape'
+                },
+                language: 'En',
+                locale: 'en_AU'
+        }
+}
+AppiumConnect.initialize_appium(options)
 ```
 
 
@@ -2028,21 +2028,21 @@ When using the `options` hash, the following options and capabilities must be sp
 
 ```ruby
     options = {
-      driver: :testingbot,
-      device_type: phone_or_tablet,
-      capabilities: {
-        platformName: platform,
-        'appium:automationName': automation_name,
-        'appium:platformVersion': os_version,
-        'appium:deviceName': device_name,
-        'appium:realDevice': true_or_false,
-        'appium:app': app_url_or_custom_ID,
-        'tb:options': {
-          # other platform specific options
+        driver: :testingbot,
+        device_type: phone_or_tablet,
+        capabilities: {
+                platformName: platform,
+                'appium:automationName': automation_name,
+                'appium:platformVersion': os_version,
+                'appium:deviceName': device_name,
+                'appium:realDevice': true_or_false,
+                'appium:app': app_url_or_custom_ID,
+                'tb:options': {
+                        # other platform specific options
+                }
         }
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `:testingbot_<device_os>_<device_type>` - e.g. `:testingbot_ios_phone` or `:testingbot_android_tablet`.
@@ -2061,25 +2061,25 @@ on TestingBot. The `options` hash includes options for specifying the driver nam
 time zone, Appium version, and various test configuration options.
 ```ruby
     options = {
-      driver: :testingbot,
-      device_type: :phone,
-      driver_name: :tb_ios_phone,
-      endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
-      capabilities: {
-        platformName: 'ios',
-        'appium:platformVersion': '17.0',
-        'appium:deviceName': 'iPhone 14',
-        'appium:realDevice': true,
-        'appium:automationName': 'XCUITest',
-        'appium:app': 'tb://RNDemoAppiOS',
-        'tb:options': {
-          name: ENV['AUTOMATE_PROJECT'],
-          build: "Test Build #{ENV['BUILD_NUM']}",
-          appiumVersion: '2.2.1'
+        driver: :testingbot,
+        device_type: :phone,
+        driver_name: :tb_ios_phone,
+        endpoint: "http://#{ENV['TB_USERNAME']}:#{ENV['TB_AUTHKEY']}@hub.testingbot.com/wd/hub",
+        capabilities: {
+                platformName: 'ios',
+                'appium:platformVersion': '17.0',
+                'appium:deviceName': 'iPhone 14',
+                'appium:realDevice': true,
+                'appium:automationName': 'XCUITest',
+                'appium:app': 'tb://RNDemoAppiOS',
+                'tb:options': {
+                        name: ENV['AUTOMATE_PROJECT'],
+                        build: "Test Build #{ENV['BUILD_NUM']}",
+                        appiumVersion: '2.2.1'
+                }
         }
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 
 
@@ -2096,7 +2096,7 @@ Refer to the following pages for information on uploading your iOS `.ipa` or `.a
 Sauce Labs servers:
 - [Mobile App Storage](https://docs.saucelabs.com/mobile-apps/app-storage/)
 
-The TestCentricity For Apps gem does not currently support automatic upload of app files to Sauce Labs servers. Uploading 
+The TestCentricity For Apps gem does not currently support automatic upload of app files to Sauce Labs servers. Uploading
 will have to be performed manually or via your CI workflow. If you have not specified a custom test ID for your apps, your
 tests will most likely fail as a new `app_url` will be generated, and you will have to update your test configuration data
 to use the new `app_url`. If you have specified a custom test ID for your apps, your tests should be able to run without
@@ -2139,20 +2139,20 @@ When using the `options` hash, the following options and capabilities must be sp
 
 ```ruby
     options = {
-      driver: :saucelabs,
-      device_type: phone_or_tablet,
-      capabilities: {
-        platformName: platform,
-        'appium:automationName': automation_name,
-        'appium:platformVersion': os_version,
-        'appium:deviceName': device_name,
-        'appium:app': app_url_or_custom_ID,
-        'sauce:options': {
-          # other platform specific options
+        driver: :saucelabs,
+        device_type: phone_or_tablet,
+        capabilities: {
+                platformName: platform,
+                'appium:automationName': automation_name,
+                'appium:platformVersion': os_version,
+                'appium:deviceName': device_name,
+                'appium:app': app_url_or_custom_ID,
+                'sauce:options': {
+                        # other platform specific options
+                }
         }
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `:saucelabs_<device_os>_<device_type>` - e.g. `:saucelabs_ios_phone` or `:saucelabs_android_tablet`.
@@ -2175,35 +2175,35 @@ on other cloud hosting services that are currently not supported. You must call 
 with an `options` hash - Environment Variables cannot be used to specify a user-defined custom Appium driver instance.
 
 Prior to calling the `AppiumConnect.initialize_appium` method, you must set the following `Environ` attributes:
-  - `Environ.platform` set to `:mobile`
-  - `Environ.device_os` to either `:ios` or `:android`
-  - `Environ.device` to either `:simulator` or `:device`, dependent on whether the target mobile platform is a real device
-    or simulator.
-  - `Environ.device_name` set to device name specified by hosting service
+- `Environ.platform` set to `:mobile`
+- `Environ.device_os` to either `:ios` or `:android`
+- `Environ.device` to either `:simulator` or `:device`, dependent on whether the target mobile platform is a real device
+  or simulator.
+- `Environ.device_name` set to device name specified by hosting service
 
 The following options and capabilities must be specified:
-  - `driver:` must be set to `:custom`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `endpoint:` must be set to the endpoint URL configuration specified by the hosting service
+- `driver:` must be set to `:custom`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `endpoint:` must be set to the endpoint URL configuration specified by the hosting service
 
 All other required capabilities specified by the hosting service configuration documentation should be included in the
 `capabilities:` hash.
 ```ruby
     # specify mobile platform, device type, device os, and device name
-    Environ.platform = :mobile
-    Environ.device = :device
-    Environ.device_os = :ios
-    Environ.device_name = device_name_from_chart
-    # instantiate a cloud hosted mobile device or simulator on an unsupported hosting service
-    options = {
-      driver: :custom,
-      device_type: :phone,
-      endpoint: endpoint_url,
-      capabilities: {
-        # capabilities as specified by the hosting service
-      }
-    }
-    AppiumConnect.initialize_appium(options)
+Environ.platform = :mobile
+Environ.device = :device
+Environ.device_os = :ios
+Environ.device_name = device_name_from_chart
+# instantiate a cloud hosted mobile device or simulator on an unsupported hosting service
+options = {
+        driver: :custom,
+        device_type: :phone,
+        endpoint: endpoint_url,
+        capabilities: {
+                # capabilities as specified by the hosting service
+        }
+}
+AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
 `:custom_<device_os>_<device_type>` - e.g. `:custom_ios_phone` or `:custom_android_tablet`.
