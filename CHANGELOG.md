@@ -14,7 +14,6 @@ All notable changes to this project will be documented in this file.
 * No longer bundling `selenium-webdriver` as a runtime dependency.
 * Update Nokogiri gem to address CVE-2025-6021, CVE-2025-6170, CVE-2025-49794, CVE-2025-49795, and CVE-2025-49796.
 * Update REXML gem to address DoS vulnerability when parsing XML containing multiple XML declarations.
-* Set default Appium version to 2.11.5 for TestingBot.
 * Ruby version 3.1.0 or greater is now required.
 
 

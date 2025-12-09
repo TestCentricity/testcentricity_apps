@@ -106,6 +106,10 @@ describe TestCentricity::ScreenSection, required: true do
       expect(@test_screen).to respond_to(:list1)
     end
 
+    it 'responds to table' do
+      expect(@test_screen).to respond_to(:table1)
+    end
+
     it 'responds to selectlist' do
       expect(@test_screen).to respond_to(:selectlist1)
     end
