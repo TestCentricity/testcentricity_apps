@@ -47,6 +47,7 @@ module TestCentricity
     #       security_code_field => UserData.current.cvv
     #     }
     #     populate_data_fields(fields)
+    #
     def populate_data_fields(data, wait_time = nil)
       timeout = wait_time.nil? ? 2 : wait_time
       data.each do |data_field, data_param|

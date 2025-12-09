@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [4.1.0] - 12-DEC-2025
+## [4.1.0] - 09-DEC-2025
 
 ### Added
 * Added `AppTable` class to support validation of tables in MacOS desktop and native mobile apps.
@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 * No longer bundling `selenium-webdriver` as a runtime dependency.
 * Update Nokogiri gem to address CVE-2025-6021, CVE-2025-6170, CVE-2025-49794, CVE-2025-49795, and CVE-2025-49796.
 * Update REXML gem to address DoS vulnerability when parsing XML containing multiple XML declarations.
-* Set default Appium version to 2.10.3 for TestingBot.
+* Set default Appium version to 2.11.5 for TestingBot.
 * Ruby version 3.1.0 or greater is now required.
 
 

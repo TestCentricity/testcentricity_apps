@@ -36,7 +36,7 @@ class ShortcutsAppScreen < TestCentricity::ScreenObject
 
   def initialize
     super
-    # define the list item element for the Shortcuts table object
+    # define the cell element for the Shortcuts table object
     table_spec = { table_cell: { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeGroup/XCUIElementTypeStaticText' } }
     view_table.define_table_elements(table_spec)
   end

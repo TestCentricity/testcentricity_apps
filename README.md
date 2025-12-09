@@ -525,6 +525,9 @@ Supported `AppUIElement` elementTypes and their declarations have the following 
       switch     :switch_name, { locator_strategy: locator_identifier }
       element    :element_name, { locator_strategy: locator_identifier }
       alert      :alert_name, { locator_strategy: locator_identifier }
+      menu       :menu_name, { locator_strategy: locator_identifier }
+      menubar    :menubar_name, { locator_strategy: locator_identifier }
+      table      :table_name, { locator_strategy: locator_identifier }
     end
 ```
 *Multiple element declarations:*
@@ -551,6 +554,8 @@ Supported `AppUIElement` elementTypes and their declarations have the following 
                   image_X_name: { locator_strategy: locator_identifier }
       alerts      alert_1_name: { locator_strategy: locator_identifier },
                   alert_X_name: { locator_strategy: locator_identifier }
+      tables      table_1_name: { locator_strategy: locator_identifier },
+                  table_X_name: { locator_strategy: locator_identifier }
     end
 ```
 Refer to the Class List documentation for the `ScreenObject` and `ScreenSection` classes for details on the class methods
@@ -711,6 +716,15 @@ The `verify_ui_states` method supports the following property/state pairs:
     :items     Array of Strings
     :itemcount Integer
     :item_data Array of Hash
+
+**Tables**
+
+    :rowcount       Integer
+    :columncount    Integer
+    :columnheaders  Array of String
+    :cell           Hash
+    :row            Hash
+    :column         Hash
 
 #### Comparison States
 
@@ -1055,6 +1069,100 @@ Android FormScreen `ScreenObject`
     end
 ```
 
+#### Table AppUIElements
+
+The basic iOS or MacOS `AppTable` element is typically composed of the parent `XCUIElementTypeTable` object, containing
+one or more rows (`XCUIElementTypeTableRow`), and containing one or more columns (`XCUIElementTypeTableColumn`). Tables
+can also include an optional header (`XCUIElementTypeGroup`) containing one or more header cells (`XCUIElementTypeButton`).
+
+Table cells are typically embedded in each parent row object, and are implemented using a parent `XCUIElementTypeCell`
+with a child `XCUIElementTypeStaticText` object that provides access to the text content of the table cell.
+
+As such, when an iOS or MacOS `AppTable` element is instantiated in a `ScreenObject` or `ScreenSection`, the table's component
+objects and their locator strategies are defined as follows:
+```ruby
+  {
+     table_row:         { class: 'XCUIElementTypeTableRow' },
+     table_column:      { class: 'XCUIElementTypeTableColumn' },
+     table_cell:        { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeStaticText' },
+     table_header:      { class: 'XCUIElementTypeGroup' },
+     table_header_cell: { class: 'XCUIElementTypeButton' }
+  }
+```
+
+An example of this table implementation in the MacOS Shortcuts app, and its object hierarchy as viewed by Appium Inspector,
+is depicted below:
+
+![Shortcuts Table](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Shortcuts.png "Shortcuts Table")
+
+The above table object hierarchy for the Shortcuts table shows that access to the text content of the table's cells will
+fail using the typical implementation of `XCUIElementTypeCell/XCUIElementTypeStaticText` cell objects. This is due to the
+presence of an `XCUIElementTypeGroup` object between the `XCUIElementTypeCell` parent object and the `XCUIElementTypeStaticText`
+cell text caption object.
+
+The `AppTable.define_table_elements` method provides a means of specifying the various elements that make up the key
+components of an `AppTable` object, or for overriding the default component locator strategy. The method accepts a hash
+of table component designators (key) and a locator strategy (value) for identifying the component in the `AppTable` object
+hierarchy.
+
+Valid table component designators are:
+* `table_row:`
+* `table_column:`
+* `table_cell:`
+* `table_header:`
+* `table_header_cell:`
+
+Valid component `locator_strategy` are:
+* `class:`
+* `xpath:`
+* `predicate:` (MacOS and iOS only)
+* `class_chain:` (MacOS and iOS only)
+
+If you were developing automated tests for the MacOS Shortcuts app, your `ShortcutsAppScreen` screen object's `initialize`
+method would use the `AppTable.define_table_elements` method to define the locator strategy for the `table_cell` component.
+```ruby
+    class ShortcutsAppScreen < TestCentricity::ScreenObject
+      trait(:screen_name)    { 'Shortcuts' }
+      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+
+      # Shortcuts screen UI elements
+      tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
+             view_table:    { predicate: 'identifier == "view.library.table"' }
+
+      def initialize
+        super
+        # define the cell element for the Shortcuts table object
+        table_spec = { table_cell: { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeGroup/XCUIElementTypeStaticText' } }
+        view_table.define_table_elements(table_spec)
+      end
+    end
+```
+
+Another `AppTable` implementation using elements other than the default `AppTable` components can be found in the MacOS
+Activity Monitor app (see below). An inspection of the Activity Monitor's table object hierarchy for the app reveals that
+it is an `XCUIElementTypeOutline` object comprised of `XCUIElementTypeOutlineRow` elements representing the table's rows.
+
+![Activity Monitor Table](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ActivityMonitor.png "Activity Monitor Table")
+
+The `ActivityMonitorScreen` screen object's `initialize` method in the code snippet below demonstrates the use of the
+`AppTable.define_table_elements` method to define the locator strategy for the `table_row` component.
+```ruby
+    class ActivityMonitorScreen < TestCentricity::ScreenObject
+      trait(:screen_name)    { 'Activity Monitor' }
+      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+
+      # Shortcuts screen UI elements
+      table :process_table, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOutline' }
+      
+      def initialize
+        super
+        # define the row element for the Activity Monitor table object
+        table_spec = { table_row: { class: 'XCUIElementTypeOutlineRow' } }
+        process_table.define_table_elements(table_spec)
+      end
+    end
+```
+
 
 ---
 ## MacOS Application Menu Bar and Menus
@@ -1199,7 +1307,7 @@ the `initialize` method of your app's `MenuBar` control.
 The code snippet below demonstrate the use of the `AppMenu.define_menu_elements` method in the `CalculatorMenuBar` object's
 `initialize` method to define the keyboard shortcut mapping for 4 of the menu items in the **View** menu and 1 of the menu
 items in the **Window** menu of the MacOS Calculator app. Keyboard shortcuts are assigned to the **View** menu items by
-index (menu items 1,2,3, and 7) and to the **Window** menu by menu item caption (menu item *Show Paper Tape*).
+index (menu items 1, 2, 3, and 7) and to the **Window** menu by menu item caption (menu item *Show Paper Tape*).
 
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
@@ -1240,9 +1348,10 @@ Refer to [this page](https://github.com/appium/appium-mac2-driver?tab=readme-ov-
 ### Adding Popup Menus to your ScreenObject or ScreenSection
 
 A MocOS desktop app may have one or more popup menus that can appear on a `ScreenObject` or `ScreenSection`. Below is an
-example of two different popup menus that can be invoked on the MacOS Shortcuts app.
+example of two different popup menus that can be invoked on the MacOS Shortcuts app - one on sidebar list items, and the
+other on Shortcuts table items.
 
-![Popup Menus](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupMenus.png "Popup Menus")
+![Popup Menus](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupMenus.jpg "Popup Menus")
 
 It is typically not necessary to define more than one popup menu object in your `ScreenObject` or `ScreenSection` class
 definition, even if there are multiple popups that can be interacted with. Since only one popup can be visible at a time,
