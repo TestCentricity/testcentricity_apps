@@ -38,11 +38,6 @@ When(/^I choose to (.*) the data using the (.*)$/) do |action, method|
 end
 
 
-Then(/^I expect the menubar and its menus to be correct$/) do
-  calculator_screen.verify_menubar
-end
-
-
 When(/^I choose to (?:enable|disable) (.*) using the (.*)$/) do |action, method|
   calculator_screen.perform_action(action, method.downcase.to_sym)
 end

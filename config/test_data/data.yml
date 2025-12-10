@@ -18,3 +18,5 @@ Environments:
     ANDROID_TEST_ID: 'WDIODemoAppAndroid'
   CALCULATOR_DEMO:
     MAC_BUNDLE_ID: 'com.apple.calculator'
+  SHORTCUTS_DEMO:
+    MAC_BUNDLE_ID: 'com.apple.shortcuts'

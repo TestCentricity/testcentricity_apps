@@ -2,10 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 
+## [4.1.0] - 09-DEC-2025
+
+### Added
+* Added `AppTable` class to support validation of tables in MacOS desktop and native mobile apps.
+* Added `AppUIElement.right_click` method for MacOS desktop app testing.
+
+### Changed
+* Updated `appium_lib` gem to version 16.1.0.
+* Updated `appium_lib_core` gem to version 11.2.0.
+* No longer bundling `selenium-webdriver` as a runtime dependency.
+* Update Nokogiri gem to address CVE-2025-6021, CVE-2025-6170, CVE-2025-49794, CVE-2025-49795, and CVE-2025-49796.
+* Update REXML gem to address DoS vulnerability when parsing XML containing multiple XML declarations.
+* Ruby version 3.1.0 or greater is now required.
+
+
 ## [4.0.15] - 13-NOV-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.26.0.
 * Updated `rexml` gem to latest version to address ReDoS vulnerability.
 
@@ -13,21 +27,18 @@ All notable changes to this project will be documented in this file.
 ## [4.0.14] - 25-SEP-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.25.0.
 
 
 ## [4.0.13] - 01-SEP-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.24.0.
 
 
 ## [4.0.12] - 09-AUG-2024
 
 ### Changed
-
 * Updated `appium_lib` gem to version 15.2.2.
 * Updated `appium_lib_core` gem to version 9.2.1.
 
@@ -35,7 +46,6 @@ All notable changes to this project will be documented in this file.
 ## [4.0.11] - 28-JULY-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.23.0.
 * Updated `appium_lib` gem to version 15.2.0.
 * Updated `appium_lib_core` gem to version 9.2.0.
@@ -50,14 +60,12 @@ All notable changes to this project will be documented in this file.
 ## [4.0.9] - 23-JUNE-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.22.0.
 
 
 ## [4.0.8] - 03-JUNE-2024
 
 ### Fixed
-
 * When testing using locally hosted iOS simulators or physical devices, and when not passing an options hash to specify
   desired capabilities, the `AppiumConnect.initialize_appium` method now correctly sets the following XCUItest capabilities:
   * `appium:webviewConnectTimeout` capability is now correctly specified as an `Integer`
@@ -68,7 +76,6 @@ All notable changes to this project will be documented in this file.
   class for Android platform.
 
 ### Changed
-
 * Updated `appium_lib` gem to version 15.1.0.
 * Updated `appium_lib_core` gem to version 9.1.1.
 * Updated `selenium-webdriver` gem to version 4.21.1.
@@ -85,7 +92,6 @@ All notable changes to this project will be documented in this file.
 * `ScreenObject.populate_data_fields` and `ScreenSection.populate_data_fields` methods now support radio buttons.
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.20.1.
 * Updated `appium_lib_core` gem to version 8.0.2.
 
@@ -93,21 +99,18 @@ All notable changes to this project will be documented in this file.
 ## [4.0.6] - 02-MAY-2024
 
 ### Fixed
-
 * `ScreenSection.find_section` is now able to find `ScreenSection` objects embedded within other `ScreenSections`.
 
 
 ## [4.0.5] - 29-APR-2024
 
 ### Fixed
-
 * `ScreenSection.disabled?` no longer returns wrong values.
 
 
 ## [4.0.4] - 26-APR-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.20.0.
 * Updated `appium_lib` gem to version 15.0.0.
 * Updated `appium_lib_core` gem to version 8.0.1.
@@ -117,7 +120,6 @@ All notable changes to this project will be documented in this file.
 ## [4.0.3] - 05-APR-2024
 
 ### Fixed
-
 * `AppiumConnect.initialize_appium`, `AppiumServer.start`, and `AppiumServer.running?` methods now support Appium version 2.x.
 Backward compatibility with Appium version 1.x is provided if `APPIUM_SERVER_VERSION` Environment Variable is set to `1`.
 
@@ -125,7 +127,6 @@ Backward compatibility with Appium version 1.x is provided if `APPIUM_SERVER_VER
 ## [4.0.2] - 27-MAR-2024
 
 ### Changed
-
 * Updated `selenium-webdriver` gem to version 4.19.0.
 
 

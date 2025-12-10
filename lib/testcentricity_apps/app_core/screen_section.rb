@@ -5,10 +5,7 @@ module TestCentricity
     include Test::Unit::Assertions
 
     attr_reader   :context, :name
-    attr_accessor :locator
-    attr_accessor :parent
-    attr_accessor :parent_list
-    attr_accessor :list_index
+    attr_accessor :locator, :parent, :parent_list, :list_index
 
     def initialize(name, parent, locator, context)
       @name        = name
@@ -58,6 +55,7 @@ module TestCentricity
 
     def get_item_count
       raise 'No parent list defined' if @parent_list.nil?
+
       @parent_list.get_item_count
     end
 
@@ -294,6 +292,28 @@ module TestCentricity
       element_hash.each_pair { |element_name, locator| selectlist(element_name, locator) }
     end
 
+    # Declare and instantiate a single table UI Element for this screen section object.
+    #
+    # @param element_name [Symbol] name of table object (as a symbol)
+    # @param locator [Hash] { locator_strategy: locator_identifier }
+    # @example
+    #   table :sidebar_table, { predicate: 'identifier == "library.sidebar"' }
+    #
+    def self.table(element_name, locator)
+      define_section_element(element_name, TestCentricity::AppElements::AppTable, locator)
+    end
+
+    # Declare and instantiate a collection of tables for this screen section object.
+    #
+    # @param element_hash [Hash] names of tables (as symbol) and locator Hash
+    # @example
+    #   tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
+    #          view_table:    { predicate: 'identifier == "view.library.table"' }
+    #
+    def self.tables(element_hash)
+      element_hash.each_pair { |element_name, locator| table(element_name, locator) }
+    end
+
     # Declare and instantiate a single image UI Element for this screen section object.
     #
     # @param element_name [Symbol] name of image object (as a symbol)
@@ -314,6 +334,28 @@ module TestCentricity
     #
     def self.images(element_hash)
       element_hash.each_pair { |element_name, locator| image(element_name, locator) }
+    end
+
+    # Declare and instantiate a single menu UI Element for this ScreenSection object.
+    #
+    # @param element_name [Symbol] name of menu object (as a symbol)
+    # @param locator [Hash] { locator_strategy: locator_identifier }
+    # @example
+    #   menu :convert_menu, { xpath: '//XCUIElementTypeMenuBarItem[6]' }
+    #
+    def self.menu(element_name, locator)
+      define_section_element(element_name, TestCentricity::AppElements::AppMenu, locator)
+    end
+
+    # Declare and instantiate a collection of menus for this ScreenSection object.
+    #
+    # @param element_hash [Hash] names of menus (as symbol) and locator Hash
+    # @example
+    #   menus convert_menu: { xpath: '//XCUIElementTypeMenuBarItem[6]' },
+    #         view_menu:    { xpath: '//XCUIElementTypeMenuBarItem[5]' }
+    #
+    def self.menus(element_hash)
+      element_hash.each_pair { |element_name, locator| menu(element_name, locator) }
     end
 
     # Instantiate a single ScreenSection object within this ScreenSection object.
@@ -405,6 +447,7 @@ module TestCentricity
     #
     def scroll_into_view(scroll_mode = :vertical)
       return if visible?
+
       obj = element
       object_not_found_exception(obj)
       driver.action.move_to(obj).perform
@@ -424,12 +467,12 @@ module TestCentricity
         swipe_gesture(direction, distance = 0.2)
         try_count -= 1
         if try_count.zero?
-          if direction == end_direction
-            break
-          else
+          break if direction == end_direction
+            
+          
             direction = end_direction
             try_count = 8
-          end
+          
         end
       end
     end
@@ -476,6 +519,7 @@ module TestCentricity
     def visible?
       section = find_section
       return false if section.nil?
+
       section.displayed?
     end
 
@@ -490,13 +534,11 @@ module TestCentricity
     end
 
     def identifier
-      if Environ.is_macos?
-        section = find_section
-        section_not_found_exception(section)
-        section.identifier
-      else
-        raise 'identifier is not a supported attribute'
-      end
+      raise 'identifier is not a supported attribute' unless Environ.is_macos?
+
+      section = find_section
+      section_not_found_exception(section)
+      section.identifier
     end
 
     # Send keystrokes to this section object.
@@ -641,11 +683,11 @@ module TestCentricity
       obj = nil
       locators = get_locator
       locators.each do |loc|
-        if obj.nil?
-          obj = find_element(loc.keys[0], loc.values[0])
-        else
-          obj = obj.find_element(loc.keys[0], loc.values[0])
-        end
+        obj = if obj.nil?
+                find_element(loc.keys[0], loc.values[0])
+              else
+                obj.find_element(loc.keys[0], loc.values[0])
+              end
         puts "Found section object #{loc}" if ENV['DEBUG']
       end
       obj
@@ -662,6 +704,7 @@ module TestCentricity
         ivar_name = "@#{element_name}"
         ivar = instance_variable_get(ivar_name)
         return ivar if ivar
+
         instance_variable_set(ivar_name, obj.new(element_name, self, locator, :section))
       end
     end

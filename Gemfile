@@ -4,3 +4,4 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'redcarpet', :groups => [:development, :test]
+gem 'rubocop', group: 'development', require: false

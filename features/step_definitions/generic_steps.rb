@@ -38,3 +38,8 @@ end
 Then(/^the popup request modal should( not)? be visible$/) do |negate|
   ScreenManager.current_screen.verify_modal_state(visible = !negate)
 end
+
+
+Then(/^I expect the menubar and its menus to be correct$/) do
+  ScreenManager.current_screen.verify_menubar
+end

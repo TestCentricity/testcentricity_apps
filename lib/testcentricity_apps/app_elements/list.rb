@@ -1,9 +1,7 @@
 module TestCentricity
   module AppElements
     class AppList < AppUIElement
-      attr_accessor :list_item
-      attr_accessor :scrolling
-      attr_accessor :item_objects
+      attr_accessor :list_item, :scrolling, :item_objects
 
       def initialize(name, parent, locator, context)
         super
@@ -57,9 +55,10 @@ module TestCentricity
         if Environ.is_ios? && obj.attribute(:type) == 'XCUIElementTypePickerWheel'
           raise 'This method is not supported for XCUIElementTypePickerWheel controls'
         end
+
         list_loc = get_list_item_locator
         items = obj.find_elements(list_loc.keys[0], list_loc.values[0])
-        if items.size > 0 && Environ.is_android?
+        if items.size.positive? && Environ.is_android?
           start_count = items.count
           direction = @scrolling == :horizontal ? :right : :down
           scroll_count = 0
@@ -94,6 +93,7 @@ module TestCentricity
         if Environ.is_ios? && obj.attribute(:type) == 'XCUIElementTypePickerWheel'
           raise 'This method is not supported for XCUIElementTypePickerWheel controls'
         end
+
         list_loc = get_list_item_locator
         items = obj.find_elements(list_loc.keys[0], list_loc.values[0])
         items.each do |item|

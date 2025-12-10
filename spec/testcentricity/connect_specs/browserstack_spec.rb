@@ -18,7 +18,7 @@ describe TestCentricity::AppiumConnect, browserstack: true do
     # ENV['UPLOAD_APP'] = 'true'
   end
 
-  describe 'Connect to BrowserStack hosted apps device simulator using W3C desired_capabilities hash' do
+  describe 'Connect to BrowserStack hosted mobile device simulator using W3C desired_capabilities hash' do
     context 'Mobile iOS device' do
       let(:ios_caps) {
         {
@@ -37,7 +37,7 @@ describe TestCentricity::AppiumConnect, browserstack: true do
               projectName: ENV['AUTOMATE_PROJECT'],
               buildName: ENV['AUTOMATE_BUILD'],
               sessionName: 'RSpec - DesiredCaps Hash',
-              appiumVersion: '2.6.0'
+              appiumVersion: '2.19.0'
             },
             language: 'En',
             locale: 'en_AU'
@@ -75,7 +75,7 @@ describe TestCentricity::AppiumConnect, browserstack: true do
               projectName: ENV['AUTOMATE_PROJECT'],
               buildName: ENV['AUTOMATE_BUILD'],
               sessionName: 'RSpec - DesiredCaps Hash',
-              appiumVersion: '2.6.0'
+              appiumVersion: '2.19.0'
             },
             language: 'En',
             locale: 'en_AU'
@@ -96,7 +96,7 @@ describe TestCentricity::AppiumConnect, browserstack: true do
     end
   end
 
-  describe 'Connect to BrowserStack hosted apps device simulator using environment variables' do
+  describe 'Connect to BrowserStack hosted mobile device simulator using environment variables' do
     it 'connects to iOS iPhone device using environment variables' do
       ENV['BS_OS'] = 'ios'
       ENV['BS_OS_VERSION'] = '17'
@@ -155,6 +155,6 @@ describe TestCentricity::AppiumConnect, browserstack: true do
   end
 
   after(:each) do
-      AppiumConnect.quit_driver
-    end
+    AppiumConnect.quit_driver
+  end
 end

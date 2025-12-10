@@ -27,6 +27,7 @@ require 'testcentricity_apps/app_elements/menubar'
 require 'testcentricity_apps/app_elements/radio'
 require 'testcentricity_apps/app_elements/selectlist'
 require 'testcentricity_apps/app_elements/switch'
+require 'testcentricity_apps/app_elements/table'
 require 'testcentricity_apps/app_elements/textfield'
 
 

@@ -1,3 +1,3 @@
 module TestCentricityApps
-  VERSION = '4.0.15'
+  VERSION = '4.1.0'
 end

@@ -18,28 +18,6 @@ module TestCentricity
       :menubar
     end
 
-    # Declare and instantiate a single menu UI Element for this MenuBar object.
-    #
-    # @param element_name [Symbol] name of menu object (as a symbol)
-    # @param locator [Hash] { locator_strategy: locator_identifier }
-    # @example
-    #   menu :convert_menu, { xpath: '//XCUIElementTypeMenuBarItem[6]' }
-    #
-    def self.menu(element_name, locator)
-      define_section_element(element_name, TestCentricity::AppElements::AppMenu, locator)
-    end
-
-    # Declare and instantiate a collection of menus for this MenuBar object.
-    #
-    # @param element_hash [Hash] names of menus (as symbol) and locator Hash
-    # @example
-    #   menus convert_menu: { xpath: '//XCUIElementTypeMenuBarItem[6]' },
-    #         view_menu:    { xpath: '//XCUIElementTypeMenuBarItem[5]' }
-    #
-    def self.menus(element_hash)
-      element_hash.each_pair { |element_name, locator| menu(element_name, locator) }
-    end
-
     # Return the number of menus in a MenuBar object.
     #
     # @return [Integer]

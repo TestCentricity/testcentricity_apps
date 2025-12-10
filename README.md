@@ -15,12 +15,12 @@ or locally or cloud hosted iOS and Android real devices or simulators.
 The TestCentricity™ For Apps gem supports automated testing of MacOS desktop apps and native iOS and Android apps running
 on the following mobile test targets:
 * locally hosted MacOS desktop apps (using Appium 2.x, the Mac2 driver, and XCode on macOS)
-* locally hosted iOS device simulators or physical iOS devices (using Appium, the XCUItest driver, and XCode on macOS)
-* locally hosted Android devices or Android Studio virtual device emulators (using Appium, the UIAutomator2 driver, and Android Studio)
+* locally hosted iOS device simulators or physical iOS devices (using Appium 2.x, the XCUItest driver, and XCode on macOS)
+* locally hosted Android devices or Android Studio virtual device emulators (using Appium 2.x, the UIAutomator2 driver, and Android Studio)
 * cloud hosted iOS or Android physical devices and simulators from the following service:
-    * [Browserstack](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
-    * [Sauce Labs](https://saucelabs.com/platform/mobile-testing)
-    * [TestingBot](https://testingbot.com/mobile/realdevicetesting)
+  * [Browserstack](https://www.browserstack.com/list-of-browsers-and-platforms/app_automate)
+  * [Sauce Labs](https://saucelabs.com/platform/mobile-testing)
+  * [TestingBot](https://testingbot.com/mobile/realdevicetesting)
 
 
 ## What's New
@@ -31,13 +31,12 @@ The RubyDocs for this gem can be found [here](https://www.rubydoc.info/gems/test
 
 Three example projects that demonstrates the implementation of a screen object model framework using TestCentricity™ For Apps
 and Cucumber can be found at the following:
-  * [tc_mac_calculator_demo](https://github.com/TestCentricity/tc_mac_calculator_demo)
-  * [tc_mobile_react_native_demo](https://github.com/TestCentricity/tc_mobile_react_native_demo)
-  * [tc_mobile_wdio_demo](https://github.com/TestCentricity/tc_mobile_wdio_demo)
+* [tc_mac_calculator_demo](https://github.com/TestCentricity/tc_mac_calculator_demo)
+* [tc_mobile_react_native_demo](https://github.com/TestCentricity/tc_mobile_react_native_demo)
+* [tc_mobile_wdio_demo](https://github.com/TestCentricity/tc_mobile_wdio_demo)
 
-Refer to [this wiki page](https://github.com/TestCentricity/testcentricity_apps/wiki/XCUItest-driver-bug-impacts-iOS-dialogs-managed-by-com.apple.springboard) for
-information on a bug with the latest versions of the XCUItest driver that affects Appium's ability to interact with and
-verify iOS system level modal dialogs.
+Refer to [this wiki page](https://github.com/TestCentricity/testcentricity_apps/wiki/XCUItest-driver-bug-impacts-iOS-dialogs-managed-by-com.apple.springboard) for information on a bug with the latest versions of the XCUItest driver that affects Appium's
+ability to interact with and verify iOS system level modal dialogs.
 
 
 ### Which gem should I use?
@@ -55,7 +54,7 @@ verify iOS system level modal dialogs.
 
 ## Installation
 
-TestCentricity For Apps requires Ruby 3.0.0 or later. To install the TestCentricity For Apps gem, add this line to your
+TestCentricity For Apps requires Ruby 3.1.0 or later. To install the TestCentricity For Apps gem, add this line to your
 automation project's `Gemfile`:
 
     gem 'testcentricity_apps'
@@ -110,33 +109,33 @@ Your `ScreenObject` class definitions should be contained within individual `.rb
 folder of your test automation project, where `<platform>` is typically `mac`, `ios`, or `android`. For each screen in your app,
 you will typically have to define a `ScreenObject` for each platform version of your app.
 
-    my_automation_project
-        ├── config
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   └── screens
-        │   │   ├── ios
-        |   |   |   └── screens
-        │   │   ├── mac
-        |   |   |   └── screens
-        │   │   ├── env.rb
-        │   │   └── hooks.rb
-        ├── Gemfile
-        └── README.md
+        📁 my_automation_project
+        ├── 📁 config
+        ├── 📁 features
+        │   ├── 📁 step_definitions
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   └── 📁 screens
+        │   │   ├── 📁 ios
+        |   |   |   └── 📁 screens
+        │   │   ├── 📁 mac
+        |   |   |   └── 📁 screens
+        │   │   ├── 📄 env.rb
+        │   │   └── 📄 hooks.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 You define a new `ScreenObject` as shown below:
 ```ruby
     class LoginScreen < TestCentricity::ScreenObject
     end
-
-
+    
+    
     class ProductsScreen < TestCentricity::ScreenObject
     end
-
-
+    
+    
     class CheckoutAddressScreen < TestCentricity::ScreenObject
     end
 ```
@@ -169,15 +168,15 @@ You define your screen's **Traits** as shown below:
       trait(:screen_locator) { { accessibility_id: 'login screen' } }
       trait(:deep_link)      { 'mydemoapprn://login' }
     end
-
-
+    
+    
     class ProductsScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Products' }
       trait(:screen_locator) { { accessibility_id: 'products screen' } }
       trait(:deep_link)      { 'mydemoapprn://store-overview' }
     end
-
-
+    
+    
     class CheckoutAddressScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Checkout - Address' }
       trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
@@ -194,7 +193,7 @@ buttons, etc. **UI Elements** are added to your `ScreenObject` class definition 
       trait(:screen_name)    { 'Login' }
       trait(:screen_locator) { { accessibility_id: 'login screen' } }
       trait(:deep_link)      { 'mydemoapprn://login' }
-      
+    
       # Login screen UI elements
       labels     username_label: { accessibility_id: 'Username'},
                  password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
@@ -211,7 +210,7 @@ buttons, etc. **UI Elements** are added to your `ScreenObject` class definition 
       trait(:screen_name)    { 'Checkout - Address' }
       trait(:screen_locator) { { accessibility_id: 'checkout address screen' } }
       trait(:deep_link)      { 'mydemoapprn://checkout-address' }
-      
+    
       # Checkout Address screen UI elements
       textfields fullname_field:     { accessibility_id: 'Full Name* input field' },
                  address1_field:     { accessibility_id: 'Address Line 1* input field' },
@@ -234,7 +233,7 @@ class definition for interacting with the UI to hide implementation details, as 
       trait(:screen_name)    { 'Login' }
       trait(:screen_locator) { { accessibility_id: 'login screen' } }
       trait(:deep_link)      { 'mydemoapprn://login' }
-      
+    
       # Login screen UI elements
       labels     username_label: { accessibility_id: 'Username'},
                  password_label: { xpath: '(//XCUIElementTypeStaticText[@name="Password"])[1]'},
@@ -244,7 +243,7 @@ class definition for interacting with the UI to hide implementation details, as 
       textfields username_field: { accessibility_id: 'Username input field' },
                  password_field: { accessibility_id: 'Password input field' }
       button     :login_button,  { accessibility_id: 'Login button' }
-
+    
       def verify_screen_ui
         ui = {
           header_label   => { visible: true, caption: 'Login' },
@@ -256,7 +255,7 @@ class definition for interacting with the UI to hide implementation details, as 
         }
         verify_ui_states(ui)
       end
-      
+    
       def login(username, password)
         fields = {
           username_field => username,
@@ -265,7 +264,7 @@ class definition for interacting with the UI to hide implementation details, as 
         populate_data_fields(fields)
         login_button.tap
       end
-      
+    
       def verify_entry_error(reason)
         ui = case reason.gsub(/\s+/, '_').downcase.to_sym
              when :invalid_password, :invalid_user
@@ -326,7 +325,7 @@ object. A `ScreenSection` may contain other `ScreenSection` objects.
 
 Below is an example of a footer navigation bar feature that is common to multiple screen -
 
-![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/NavBar1.png "Navigation Footer")       ![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/NavBar2.png "Navigation Footer")
+![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/NavBar1.png "Navigation Footer")       ![Navigation Footer](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/NavBar2.png "Navigation Footer")
 
 
 ### Defining a ScreenSection
@@ -335,24 +334,24 @@ Your `ScreenSection` class definitions should be contained within individual `.r
 folder of your test automation project, where `<platform>` is typically `mac`, `ios`, or `android`. For each screen section in your
 app, you will typically have to define a `ScreenSection` for each platform version of your app.
 
-    my_automation_project
-        ├── config
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── ios
-        |   |   |   ├── screens
-        |   |   |   └── sections
+        📁 my_automation_project
+        ├── 📁 config
+        ├── 📁 features
+        │   ├── 📁 step_definitions
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 ios
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
         │   │   ├── mac
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── env.rb
-        │   │   └── hooks.rb
-        ├── Gemfile
-        └── README.md
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📄 env.rb
+        │   │   └── 📄 hooks.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 You define a new `ScreenSection` as shown below:
@@ -382,7 +381,7 @@ Elements** are added to your `ScreenSection` class definition as shown below:
     class NavMenu < TestCentricity::ScreenSection
       trait(:section_name)    { 'Nav Menu' }
       trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
-
+    
       # Nav Menu UI elements
       buttons close_button:        { accessibility_id: 'close menu' },
               webview_button:      { accessibility_id: 'menu item webview' },
@@ -407,7 +406,7 @@ You can add methods to your `ScreenSection` class definition, as shown below:
     class NavMenu < TestCentricity::ScreenSection
       trait(:section_name)    { 'Nav Menu' }
       trait(:section_locator) { { xpath: '//XCUIElementTypeScrollView' } }
-
+    
       # Nav Menu UI elements
       buttons close_button:        { accessibility_id: 'close menu' },
               webview_button:      { accessibility_id: 'menu item webview' },
@@ -422,36 +421,36 @@ You can add methods to your `ScreenSection` class definition, as shown below:
               log_out_button:      { accessibility_id: 'menu item log out' },
               api_calls_button:    { accessibility_id: 'menu item api calls' },
               sauce_video_button:  { accessibility_id: 'menu item sauce bot video' }
-
+    
       def verify_ui
         ui = {
-          self                => { visible: true },
-          close_button        => { visible: true, enabled: true },
-          webview_button      => { visible: true, enabled: true, caption: 'Webview' },
-          qr_code_button      => { visible: true, enabled: true, caption: 'QR Code Scanner' },
-          geo_location_button => { visible: true, enabled: true, caption: 'Geo Location' },
-          drawing_button      => { visible: true, enabled: true, caption: 'Drawing' },
-          report_a_bug_button => { visible: true, enabled: true, caption: 'Report A Bug' },
-          about_button        => { visible: true, enabled: true, caption: 'About' },
-          reset_app_button    => { visible: true, enabled: true, caption: 'Reset App State' },
-          biometrics_button   => { visible: true, enabled: true, caption: 'FaceID' },
-          log_in_button       => { visible: true, enabled: true, caption: 'Log In' },
-          log_out_button      => { visible: true, enabled: true, caption: 'Log Out' },
-          api_calls_button    => { visible: true, enabled: true, caption: 'Api Calls' },
-          sauce_video_button  => { visible: true, enabled: true, caption: 'Sauce Bot Video' }
+                self                => { visible: true },
+                close_button        => { visible: true, enabled: true },
+                webview_button      => { visible: true, enabled: true, caption: 'Webview' },
+                qr_code_button      => { visible: true, enabled: true, caption: 'QR Code Scanner' },
+                geo_location_button => { visible: true, enabled: true, caption: 'Geo Location' },
+                drawing_button      => { visible: true, enabled: true, caption: 'Drawing' },
+                report_a_bug_button => { visible: true, enabled: true, caption: 'Report A Bug' },
+                about_button        => { visible: true, enabled: true, caption: 'About' },
+                reset_app_button    => { visible: true, enabled: true, caption: 'Reset App State' },
+                biometrics_button   => { visible: true, enabled: true, caption: 'FaceID' },
+                log_in_button       => { visible: true, enabled: true, caption: 'Log In' },
+                log_out_button      => { visible: true, enabled: true, caption: 'Log Out' },
+                api_calls_button    => { visible: true, enabled: true, caption: 'Api Calls' },
+                sauce_video_button  => { visible: true, enabled: true, caption: 'Sauce Bot Video' }
         }
         verify_ui_states(ui)
       end
-
+    
       def close
         close_button.click
         self.wait_until_hidden(3)
       end
-
+    
       def verify_closed
         ui = {
-          self => { visible: true },
-          close_button => { visible: false }
+                self => { visible: true },
+                close_button => { visible: false }
         }
         verify_ui_states(ui)
       end
@@ -526,6 +525,9 @@ Supported `AppUIElement` elementTypes and their declarations have the following 
       switch     :switch_name, { locator_strategy: locator_identifier }
       element    :element_name, { locator_strategy: locator_identifier }
       alert      :alert_name, { locator_strategy: locator_identifier }
+      menu       :menu_name, { locator_strategy: locator_identifier }
+      menubar    :menubar_name, { locator_strategy: locator_identifier }
+      table      :table_name, { locator_strategy: locator_identifier }
     end
 ```
 *Multiple element declarations:*
@@ -552,6 +554,8 @@ Supported `AppUIElement` elementTypes and their declarations have the following 
                   image_X_name: { locator_strategy: locator_identifier }
       alerts      alert_1_name: { locator_strategy: locator_identifier },
                   alert_X_name: { locator_strategy: locator_identifier }
+      tables      table_1_name: { locator_strategy: locator_identifier },
+                  table_X_name: { locator_strategy: locator_identifier }
     end
 ```
 Refer to the Class List documentation for the `ScreenObject` and `ScreenSection` classes for details on the class methods
@@ -650,11 +654,11 @@ properties of multiple UI elements on a `ScreenObject` or `ScreenSection`. The `
 containing key/hash pairs of UI elements and their properties or attributes to be verified.
 ```ruby
      ui = {
-       object1 => { property: expected_state },
-       object2 => { property1: expected_state, property2: expected_state },
-       object3 => { property: expected_state }
-     }
-     verify_ui_states(ui)
+        object1 => { property: expected_state },
+        object2 => { property1: expected_state, property2: expected_state },
+        object3 => { property: expected_state }
+    }
+    verify_ui_states(ui)
 ```
 The `verify_ui_states` method automatically scrolls UI elements that are expected to be visible into view. Auto-scrolling
 only occurs on the vertical axis (down, then up). Setting the `auto_scroll` parameter to `false` prevents automatic scrolling
@@ -713,6 +717,15 @@ The `verify_ui_states` method supports the following property/state pairs:
     :itemcount Integer
     :item_data Array of Hash
 
+**Tables**
+
+    :rowcount       Integer
+    :columncount    Integer
+    :columnheaders  Array of String
+    :cell           Hash
+    :row            Hash
+    :column         Hash
+
 #### Comparison States
 
 The `verify_ui_states` method supports comparison states using property/comparison state pairs:
@@ -749,42 +762,42 @@ The `verify_ui_states` method also supports I18n string translations using prope
 The example below depicts the usage of the `verify_ui_states` method to verify that the captions for navigation menu items
 are correctly translated.
 
-![Localized UI](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/LocalizedUI.png "Localized UI")
+![Localized UI](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/LocalizedUI.png "Localized UI")
 ```ruby
     def verify_menu
       ui = {
-        menu_title => {
-          visible: true,
-          caption: { translate: 'NavMenu.title' }
-        },
-        recipes_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.recipes' }
-        },
-        browser_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.browser' }
-        },
-        groceries_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.groceries' }
-        },
-        pantry_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.pantry' }
-        },
-        meals_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.meals' }
-        },
-        menus_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.menus' }
-        },
-        settings_item => {
-          visible: true,
-          caption: { translate: 'NavMenu.settings' }
-        }
+              menu_title => {
+                visible: true,
+                caption: { translate: 'NavMenu.title' }
+              },
+              recipes_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.recipes' }
+              },
+              browser_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.browser' }
+              },
+              groceries_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.groceries' }
+              },
+              pantry_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.pantry' }
+              },
+              meals_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.meals' }
+              },
+              menus_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.menus' }
+              },
+              settings_item => {
+                visible: true,
+                caption: { translate: 'NavMenu.settings' }
+              }
       }
       verify_ui_states(ui)
     end
@@ -838,9 +851,10 @@ Each supported language/locale combination has a corresponding `.yml` file. I18n
 | Language (Country)    | File name |
 |-----------------------|-----------|
 | English               | en.yml    |
+| English (Australia)   | en-AU.yml |
 | English (Canada)      | en-CA.yml |
-| French (Canada)       | fr-CA.yml |
 | French                | fr.yml    |
+| French (Canada)       | fr-CA.yml |
 | Spanish               | es.yml    |
 | German                | de.yml    |
 | Portuguese (Brazil)   | pt-BR.yml |
@@ -848,19 +862,23 @@ Each supported language/locale combination has a corresponding `.yml` file. I18n
 
 Baseline translation strings are stored in `.yml` files in the `config/locales/` folder.
 
-    my_automation_project
-        ├── config
-        │   ├── locales
-        │   │   ├── en.yml
-        │   │   ├── es.yml
-        │   │   ├── fr.yml
-        │   │   ├── fr-CA.yml
-        │   │   └── en-AU.yml
-        │   ├── test_data
-        │   └── cucumber.yml
-        ├── features
-        ├── Gemfile
-        └── README.md
+       📁 my_automation_project/
+        ├── 📁 config/
+        │   ├── 📁 locales/
+        │   │   ├── 📄 en.yml
+        │   │   ├── 📄 en-AU.yml
+        │   │   ├── 📄 es.yml
+        │   │   ├── 📄 de.yml
+        │   │   ├── 📄 fr.yml
+        │   │   ├── 📄 fr-CA.yml
+        │   │   ├── 📄 pt-BR.yml
+        │   │   └── 📄 pt-PT.yml
+        │   ├── 📁 test_data/
+        │   └── 📄 cucumber.yml
+        ├── 📁 downloads/
+        ├── 📁 features/
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 ### Working With Custom AppUIElements
@@ -872,13 +890,13 @@ be different for iOS vs. Android mobile platforms. Below is an example of the ve
 for a cross-platform application implemented using React Native (iOS version on the left, Android version on the right).
 Each ListView contains 30 items:
 
-![Vertical Scrolling ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/ListViews.png "Vertical Scrolling ListViews")
+![Vertical Scrolling ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ListViews.png "Vertical Scrolling ListViews")
 
 While the iOS and Android ListViews appear to be identical in the app, performing an inspection of each application's GUI
 using Appium Inspector reveals differences in the object hierarchy as depicted below (iOS version on left, Android version
 on the right):
 
-![Vertical Scrolling ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/ListHeirarchy.png "Vertical Scrolling ListView Hierarchy")
+![Vertical Scrolling ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ListHeirarchy.png "Vertical Scrolling ListView Hierarchy")
 
 The inspection of the ListView object hierarchy reveals that for the iOS version of the app, list items are made up of
 `XCUIElementTypeOther` objects, and that for the Android version of the app, list items are made up of `android.view.ViewGroup`
@@ -905,10 +923,10 @@ iOS Cloud List `ScreenObject`
     class CloudListScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Cloud List' }
       trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther' } }
-
+    
       # Cloud List screen UI elements
       list :cloud_list, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOther' }
-
+    
       def initialize
         super
         # define the list item element for the Cloud list object
@@ -923,10 +941,10 @@ Android CloudListScreen `ScreenObject`
     class CloudListScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Cloud List' }
       trait(:screen_locator) { { xpath: '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.view.ViewGroup' } }
-
+    
       # Cloud List screen UI elements
       list :cloud_list, { xpath: '//android.widget.ScrollView/android.view.ViewGroup' }
-
+    
       def initialize
         super
         # define the list item element for the Cloud list object
@@ -942,13 +960,13 @@ Android CloudListScreen `ScreenObject`
 Below is an example of a horizontal scrolling "Carousel" style ListView implementations on the Swipe screen of a cross-platform
 application. Each ListView contains 6 list items.
 
-![Horizontal Scrolling Carousel ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/Carousel.png "Horizontal Scrolling Carousel ListViews")
+![Horizontal Scrolling Carousel ListView](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Carousel.png "Horizontal Scrolling Carousel ListViews")
 
 While the iOS and Android ListViews appear to be identical in the app, performing an inspection of each application's GUI
 using Appium Inspector reveals differences in the object hierarchy as depicted below (iOS version on left, Android version
 on the right):
 
-![Horizontal Scrolling Carousel Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/CarouselHierarchy.png "Horizontal Scrolling Carousel Hierarchy")
+![Horizontal Scrolling Carousel Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/CarouselHierarchy.png "Horizontal Scrolling Carousel Hierarchy")
 
 As in the previous example for the vertical scrolling ListView, the inspection of the Carousel ListView object hierarchy
 reveals that for the iOS version of the app, list items are again made up of `XCUIElementTypeOther` objects, and that for
@@ -966,10 +984,10 @@ iOS Swipe `ScreenObject`
     class SwipeScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Swipe' }
       trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
-
+    
       # Swipe screen UI elements
       list :carousel_list, { accessibility_id: 'Carousel' }
-
+    
       def initialize
         super
         # define the list item element for the Carousel list object
@@ -987,10 +1005,10 @@ Android Swipe `ScreenObject`
     class SwipeScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Swipe' }
       trait(:screen_locator) { { accessibility_id: 'Swipe-screen' } }
-
+    
       # Swipe screen UI elements
       list :carousel_list, { accessibility_id: 'Carousel' }
-
+    
       def initialize
         super
         # define the list item element for the Carousel list object
@@ -1000,7 +1018,7 @@ Android Swipe `ScreenObject`
         }
         carousel_list.define_list_elements(list_spec)
       end
-    end
+end
 ```
 
 
@@ -1009,12 +1027,12 @@ Android Swipe `ScreenObject`
 Below is an example of a PickerWheel (iOS) and Popup (Android) style ListView implementations on the Form Components screen
 of a cross-platform application.
 
-![PickerWheel and Popup ListViews](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/Popup_Picker.png "PickerWheel and Popup ListViews")
+![PickerWheel and Popup ListViews](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Popup_Picker.png "PickerWheel and Popup ListViews")
 
 Performing an inspection of each application's GUI using Appium Inspector reveals differences in the object hierarchy as
 depicted below (iOS version on left, Android version on the right):
 
-![PickerWheel and Popup ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_mobile/main/.github/images/PopupHeirarchy.png "PickerWheel and Popup ListView Hierarchy")
+![PickerWheel and Popup ListView Hierarchy](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupHeirarchy.png "PickerWheel and Popup ListView Hierarchy")
 
 The inspection of the PickerWheel and Popup ListView object hierarchies reveals that for the iOS version of the app, list
 items are again made up of `XCUIElementTypeOther` objects, and that for the Android version of the app, list items are made
@@ -1038,15 +1056,109 @@ Android FormScreen `ScreenObject`
     class FormScreen < TestCentricity::ScreenObject
       trait(:screen_name)    { 'Form' }
       trait(:screen_locator) { { accessibility_id: 'Forms-screen' } }
-
+    
       # Form screen UI elements
       list :drop_down_menu, { id: 'com.wdiodemoapp:id/select_dialog_listview' }
-
+    
       def initialize
         super
         # define the list item element for the drop-down list object
         list_spec = { list_item: { class: 'android.widget.CheckedTextView' } }
         drop_down_menu.define_list_elements(list_spec)
+      end
+    end
+```
+
+#### Table AppUIElements
+
+The basic iOS or MacOS `AppTable` element is typically composed of the parent `XCUIElementTypeTable` object, containing
+one or more rows (`XCUIElementTypeTableRow`), and containing one or more columns (`XCUIElementTypeTableColumn`). Tables
+can also include an optional header (`XCUIElementTypeGroup`) containing one or more header cells (`XCUIElementTypeButton`).
+
+Table cells are typically embedded in each parent row object, and are implemented using a parent `XCUIElementTypeCell`
+with a child `XCUIElementTypeStaticText` object that provides access to the text content of the table cell.
+
+As such, when an iOS or MacOS `AppTable` element is instantiated in a `ScreenObject` or `ScreenSection`, the table's component
+objects and their locator strategies are defined as follows:
+```ruby
+  {
+    table_row:         { class: 'XCUIElementTypeTableRow' },
+    table_column:      { class: 'XCUIElementTypeTableColumn' },
+    table_cell:        { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeStaticText' },
+    table_header:      { class: 'XCUIElementTypeGroup' },
+    table_header_cell: { class: 'XCUIElementTypeButton' }
+  }
+```
+
+An example of this table implementation in the MacOS Shortcuts app, and its object hierarchy as viewed by Appium Inspector,
+is depicted below:
+
+![Shortcuts Table](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/Shortcuts.png "Shortcuts Table")
+
+The above table object hierarchy for the Shortcuts table shows that access to the text content of the table's cells will
+fail using the typical implementation of `XCUIElementTypeCell/XCUIElementTypeStaticText` cell objects. This is due to the
+presence of an `XCUIElementTypeGroup` object between the `XCUIElementTypeCell` parent object and the `XCUIElementTypeStaticText`
+cell text caption object.
+
+The `AppTable.define_table_elements` method provides a means of specifying the various elements that make up the key
+components of an `AppTable` object, or for overriding the default component locator strategy. The method accepts a hash
+of table component designators (key) and a locator strategy (value) for identifying the component in the `AppTable` object
+hierarchy.
+
+Valid table component designators are:
+* `table_row:`
+* `table_column:`
+* `table_cell:`
+* `table_header:`
+* `table_header_cell:`
+
+Valid component `locator_strategy` are:
+* `class:`
+* `xpath:`
+* `predicate:` (MacOS and iOS only)
+* `class_chain:` (MacOS and iOS only)
+
+If you were developing automated tests for the MacOS Shortcuts app, your `ShortcutsAppScreen` screen object's `initialize`
+method would use the `AppTable.define_table_elements` method to define the locator strategy for the `table_cell` component.
+```ruby
+    class ShortcutsAppScreen < TestCentricity::ScreenObject
+      trait(:screen_name)    { 'Shortcuts' }
+      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+    
+      # Shortcuts screen UI elements
+      tables sidebar_table: { predicate: 'identifier == "library.sidebar"' },
+             view_table:    { predicate: 'identifier == "view.library.table"' }
+    
+      def initialize
+        super
+        # define the cell element for the Shortcuts table object
+        table_spec = { table_cell: { class_chain: '**/XCUIElementTypeCell/XCUIElementTypeGroup/XCUIElementTypeStaticText' } }
+        view_table.define_table_elements(table_spec)
+      end
+    end
+```
+
+Another `AppTable` implementation using elements other than the default `AppTable` components can be found in the MacOS
+Activity Monitor app (see below). An inspection of the Activity Monitor's table object hierarchy for the app reveals that
+it is an `XCUIElementTypeOutline` object comprised of `XCUIElementTypeOutlineRow` elements representing the table's rows.
+
+![Activity Monitor Table](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/ActivityMonitor.png "Activity Monitor Table")
+
+The `ActivityMonitorScreen` screen object's `initialize` method in the code snippet below demonstrates the use of the
+`AppTable.define_table_elements` method to define the locator strategy for the `table_row` component.
+```ruby
+    class ActivityMonitorScreen < TestCentricity::ScreenObject
+      trait(:screen_name)    { 'Activity Monitor' }
+      trait(:screen_locator) { { class_chain: '**/XCUIElementTypeWindow' } }
+    
+      # Shortcuts screen UI elements
+      table :process_table, { class_chain: '**/XCUIElementTypeScrollView/XCUIElementTypeOutline' }
+    
+      def initialize
+        super
+        # define the row element for the Activity Monitor table object
+        table_spec = { table_row: { class: 'XCUIElementTypeOutlineRow' } }
+        process_table.define_table_elements(table_spec)
       end
     end
 ```
@@ -1077,6 +1189,20 @@ You define a new `MenuBar` as shown below:
     end
 ```
 
+### Adding a MenuBar to your App's Primary ScreenObject
+
+You add a `MenuBar` to your app's primary `ScreenObject` as shown below:
+```ruby
+    class CalculatorAppScreen < TestCentricity::ScreenObject
+      # Calculator App screen UI elements
+      menubar :calc_menu_bar, CalculatorMenuBar
+    end
+```
+Once your `ScreenObject` has been instantiated, you can call its `MenuBar` methods as shown below:
+```ruby
+    num_menus = calculator_screen.calc_menu_bar.get_item_count
+```
+
 ### Adding Menus to your MenuBar
 
 A `MenuBar` is typically made up of one or more `Menu` objects, which are added to your `MenuBar` class definition as shown
@@ -1094,7 +1220,7 @@ below:
             speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
             window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
             help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
-      end
+    end
 ```
 
 ### Adding Methods to your MenuBar
@@ -1113,7 +1239,7 @@ You can add methods to your `MenuBar` class definition, as shown below:
             speech_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[7]' },
             window_menu:      { class_chain: '**/XCUIElementTypeMenuBarItem[8]' },
             help_menu:        { class_chain: '**/XCUIElementTypeMenuBarItem[9]' }
-
+    
       def choose_menu_item(menu, item, method = :mouse)
         menu_map = {
           calc:             calc_menu,
@@ -1130,7 +1256,7 @@ You can add methods to your `MenuBar` class definition, as shown below:
         raise "#{menu} is not a supported menu" if menu_obj.nil?
         menu_obj.choose_menu_item(item, method)
       end
-
+    
       def verify_menu_bar
         ui = {
                 self => {
@@ -1181,11 +1307,11 @@ the `initialize` method of your app's `MenuBar` control.
 The code snippet below demonstrate the use of the `AppMenu.define_menu_elements` method in the `CalculatorMenuBar` object's
 `initialize` method to define the keyboard shortcut mapping for 4 of the menu items in the **View** menu and 1 of the menu
 items in the **Window** menu of the MacOS Calculator app. Keyboard shortcuts are assigned to the **View** menu items by
-index (menu items 1,2,3, and 7) and to the **Window** menu by menu item caption (menu item *Show Paper Tape*).
+index (menu items 1, 2, 3, and 7) and to the **Window** menu by menu item caption (menu item *Show Paper Tape*).
 
 ```ruby
     class CalculatorMenuBar < TestCentricity::MenuBar
-    
+
       def initialize(name, parent, locator, context)
         super
         # define key map for View menu
@@ -1219,18 +1345,25 @@ key. TestCentricity and XCTest defines the following possible bitmasks for modif
 ```
 Refer to [this page](https://github.com/appium/appium-mac2-driver?tab=readme-ov-file#macos-keys) for more information on MacOS keyboard `modifierFlags`.
 
-### Adding a MenuBar to your App's Primary ScreenObject
+### Adding Popup Menus to your ScreenObject or ScreenSection
 
-You add a `MenuBar` to your app's primary `ScreenObject` as shown below:
+A MocOS desktop app may have one or more popup menus that can appear on a `ScreenObject` or `ScreenSection`. Below is an
+example of two different popup menus that can be invoked on the MacOS Shortcuts app - one on sidebar list items, and the
+other on Shortcuts table items.
+
+![Popup Menus](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/PopupMenus.jpg "Popup Menus")
+
+It is typically not necessary to define more than one popup menu object in your `ScreenObject` or `ScreenSection` class
+definition, even if there are multiple popups that can be interacted with. Since only one popup can be visible at a time,
+you only need to define a single popup menu object.
+
+Popup menus are added to your `ScreenObject` or `ScreenSection` class definition as shown below:
 ```ruby
-    class CalculatorAppScreen < TestCentricity::ScreenObject
-      # Calculator App screen UI elements
-      menubar :calc_menu_bar, CalculatorMenuBar
+    class ShortcutsAppScreen < TestCentricity::ScreenObject
+      # Shortcuts App screen UI elements
+      menu    :popup_menu, { class_chain: '**/XCUIElementTypeTable/XCUIElementTypeMenu' }
+      menubar :shortcuts_menu_bar, ShortcutsMenuBar
     end
-```
-Once your `ScreenObject` has been instantiated, you can call its `MenuBar` methods as shown below:
-```ruby
-    num_menus = calculator_screen.calc_menu_bar.get_item_count
 ```
 
 
@@ -1287,7 +1420,7 @@ scenario is displayed below:
       Given I am on the Products screen
       When I tap the <screen_name> navigation menu item
       Then I expect the <screen_name> screen to be correctly displayed
-
+        
       Examples:
         |screen_name      |
         |Registration     |
@@ -1490,13 +1623,13 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### Local iOS Simulators or Physical Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:appium`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `ios` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to `xcuitest` in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
-  - `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
-  - `'appium:app'`: must be set to path where iOS app can be accessed and loaded
+- `driver:` must be set to `:appium`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `ios` in the `capabilities:` hash
+- `'appium:automationName':` must be set to `xcuitest` in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
+- `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
+- `'appium:app'`: must be set to path where iOS app can be accessed and loaded
 
 ```ruby
     options = {
@@ -1525,21 +1658,21 @@ Below is an example of an `options` hash for specifying a connection to a locall
 simulator. The `options` hash includes options for specifying the driver name, global driver scope, and setting the simulated
 device orientation to portrait mode.
 ```ruby
-      options = {
-        driver: :appium,
-        device_type: :tablet,
-        driver_name: :my_custom_ipad_driver,
-        global_driver: true,
-        capabilities: {
-          platformName: :ios,
-          'appium:platformVersion': '15.4',
-          'appium:deviceName': 'iPad Pro (12.9-inch) (5th generation)',
-          'appium:automationName': 'XCUITest',
-          'appium:orientation': 'PORTRAIT',
-          'appium:app': Environ.current.ios_app_path
-        }
+    options = {
+      driver: :appium,
+      device_type: :tablet,
+      driver_name: :my_custom_ipad_driver,
+      global_driver: true,
+      capabilities: {
+        platformName: :ios,
+        'appium:platformVersion': '15.4',
+        'appium:deviceName': 'iPad Pro (12.9-inch) (5th generation)',
+        'appium:automationName': 'XCUITest',
+        'appium:orientation': 'PORTRAIT',
+        'appium:app': Environ.current.ios_app_path
       }
-      AppiumConnect.initialize_appium(options)
+    }
+    AppiumConnect.initialize_appium(options)
 ```
 
 #### Connecting to Locally Hosted Android Simulators or Physical Devices
@@ -1577,13 +1710,13 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### Local Android Simulators or Physical Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:appium`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `Android` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to `UiAutomator2` in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of Android on the simulator or physical device
-  - `'appium:deviceName':` must be set to the Android Virtual Device ID
-  - `'appium:app'`: must be set to path where Android `.apk` file can be accessed and loaded
+- `driver:` must be set to `:appium`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `Android` in the `capabilities:` hash
+- `'appium:automationName':` must be set to `UiAutomator2` in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of Android on the simulator or physical device
+- `'appium:deviceName':` must be set to the Android Virtual Device ID
+- `'appium:app'`: must be set to path where Android `.apk` file can be accessed and loaded
 
 ```ruby
     options = {
@@ -1606,7 +1739,7 @@ When using the `options` hash, the following options and capabilities must be sp
 >
 > ℹ️ If an `endpoint:` is not specified in the `options` hash, then the default remote endpoint URL of ``http://127.0.0.1:4723/wd/hub``
 will be used.
-> 
+>
 > ℹ️ If `global_driver:` is not specified in the `options` hash, then the driver will be initialized without global scope.
 
 
@@ -1645,7 +1778,7 @@ tests, place the code shown below in your `hooks.rb` file.
         $server.start
       end
     end
-
+    
     AfterAll do
       # close Appium driver
       TestCentricity::AppiumConnect.quit_driver
@@ -1682,7 +1815,7 @@ body of an example group:
       $server = TestCentricity::AppiumServer.new
       $server.start
     end
-
+    
     after(:context) do
       # terminate Appium Server after all of the examples in this group
       $server.stop if Environ.driver == :appium && $server.running?
@@ -1709,9 +1842,9 @@ devices. BrowserStack uses only real physical devices - simulators are not avail
 
 Refer to the following pages for information on uploading your iOS `.ipa` or Android `.apk` app files to the BrowserStack
 servers:
- - [Upload apps from filesystem](https://www.browserstack.com/docs/app-automate/appium/upload-app-from-filesystem)
- - [Upload apps using public URL](https://www.browserstack.com/docs/app-automate/appium/upload-app-using-public-url)
- - [Define custom ID for app](https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id)
+- [Upload apps from filesystem](https://www.browserstack.com/docs/app-automate/appium/upload-app-from-filesystem)
+- [Upload apps using public URL](https://www.browserstack.com/docs/app-automate/appium/upload-app-using-public-url)
+- [Define custom ID for app](https://www.browserstack.com/docs/app-automate/appium/upload-app-define-custom-id)
 
 The preferred method of uploading an app to BrowserStack is to define a custom test ID for your apps to avoid having to
 modify your test configuration data with a new `app_url` after every app upload. Use the same custom test ID every time
@@ -1755,13 +1888,13 @@ Refer to [**Section 10.4 (Using Configuration Specific Profiles in `cucumber.yml
 ##### BrowserStack Mobile Devices using the `options` Hash
 
 When using the `options` hash, the following options and capabilities must be specified:
-  - `driver:` must be set to `:browserstack`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `platformName:` must be set to `ios` or `android` in the `capabilities:` hash
-  - `'appium:automationName':` must be set to to `XCUITest` for iOS or `UiAutomator2` for Android in the `capabilities:` hash
-  - `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
-  - `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
-  - `'appium:app'`: must be set to URL or custom test ID of uploaded iOS `.ipa` or Android `.apk` file
+- `driver:` must be set to `:browserstack`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `platformName:` must be set to `ios` or `android` in the `capabilities:` hash
+- `'appium:automationName':` must be set to to `XCUITest` for iOS or `UiAutomator2` for Android in the `capabilities:` hash
+- `'appium:platformVersion':` must be set to the version of iOS on the simulator or physical device
+- `'appium:deviceName':` must be set to the name of the iOS simulator or physical device
+- `'appium:app'`: must be set to URL or custom test ID of uploaded iOS `.ipa` or Android `.apk` file
 
 ```ruby
     options = {
@@ -1963,7 +2096,7 @@ Refer to the following pages for information on uploading your iOS `.ipa` or `.a
 Sauce Labs servers:
 - [Mobile App Storage](https://docs.saucelabs.com/mobile-apps/app-storage/)
 
-The TestCentricity For Apps gem does not currently support automatic upload of app files to Sauce Labs servers. Uploading 
+The TestCentricity For Apps gem does not currently support automatic upload of app files to Sauce Labs servers. Uploading
 will have to be performed manually or via your CI workflow. If you have not specified a custom test ID for your apps, your
 tests will most likely fail as a new `app_url` will be generated, and you will have to update your test configuration data
 to use the new `app_url`. If you have specified a custom test ID for your apps, your tests should be able to run without
@@ -2042,16 +2175,16 @@ on other cloud hosting services that are currently not supported. You must call 
 with an `options` hash - Environment Variables cannot be used to specify a user-defined custom Appium driver instance.
 
 Prior to calling the `AppiumConnect.initialize_appium` method, you must set the following `Environ` attributes:
-  - `Environ.platform` set to `:mobile`
-  - `Environ.device_os` to either `:ios` or `:android`
-  - `Environ.device` to either `:simulator` or `:device`, dependent on whether the target mobile platform is a real device
-    or simulator.
-  - `Environ.device_name` set to device name specified by hosting service
+- `Environ.platform` set to `:mobile`
+- `Environ.device_os` to either `:ios` or `:android`
+- `Environ.device` to either `:simulator` or `:device`, dependent on whether the target mobile platform is a real device
+  or simulator.
+- `Environ.device_name` set to device name specified by hosting service
 
 The following options and capabilities must be specified:
-  - `driver:` must be set to `:custom`
-  - `device_type:` must be set to `:tablet` or `:phone`
-  - `endpoint:` must be set to the endpoint URL configuration specified by the hosting service
+- `driver:` must be set to `:custom`
+- `device_type:` must be set to `:tablet` or `:phone`
+- `endpoint:` must be set to the endpoint URL configuration specified by the hosting service
 
 All other required capabilities specified by the hosting service configuration documentation should be included in the
 `capabilities:` hash.
@@ -2092,11 +2225,9 @@ and authorization code for the cloud service(s) that you intend to connect with.
 > ⚠️ Cloud service credentials should not be stored as text in your `cucumber.yml` file where it can be exposed by anyone
 with access to your version control system.
 
-
     #==============
     # conditionally load Screen Object implementations based on which target platform we're running on
     #==============
-
     ios:     PLATFORM=ios --tags @ios -r features/support/ios -e features/support/android
     android: PLATFORM=android --tags @android -r features/support/android -e features/support/ios
 
@@ -2104,7 +2235,6 @@ with access to your version control system.
     #==============
     # profiles for mobile device screen orientation
     #==============
-
     landscape: ORIENTATION=landscape
     portrait:  ORIENTATION=portrait
 
@@ -2121,7 +2251,6 @@ with access to your version control system.
     # profiles for native iOS apps hosted within XCode iOS simulators
     # NOTE: Requires installation of XCode, iOS version specific target simulators, and Appium
     #==============
-
     appium_ios: DRIVER=appium --profile ios AUTOMATION_ENGINE=XCUITest APP_PLATFORM_NAME="iOS" NEW_COMMAND_TIMEOUT="30" <%= mobile %>
     app_ios_14: --profile appium_ios APP_VERSION="14.5"
     app_ios_15: --profile appium_ios APP_VERSION="15.4"
@@ -2136,7 +2265,6 @@ with access to your version control system.
     # profiles for native Android apps hosted within Android Studio Android Virtual Device emulators
     # NOTE: Requires installation of Android Studio, Android version specific virtual device simulators, and Appium
     #==============
-
     appium_android:    DRIVER=appium --profile android AUTOMATION_ENGINE=UiAutomator2 APP_PLATFORM_NAME="Android" <%= mobile %>
     app_android_12:    --profile appium_android APP_VERSION="12.0"
     pixel_5_api31_sim: --profile app_android_12 DEVICE_TYPE=phone APP_DEVICE="Pixel_5_API_31"
@@ -2147,7 +2275,6 @@ with access to your version control system.
     # WARNING: Credentials should not be stored as text in your cucumber.yml file where it can be exposed by anyone with access
     #          to your version control system
     #==============
-
     browserstack: DRIVER=browserstack BS_USERNAME="<INSERT USER NAME HERE>" BS_AUTHKEY="<INSERT PASSWORD HERE>" TEST_CONTEXT="TestCentricity"
 
     # BrowserStack iOS real device native app profiles
@@ -2166,7 +2293,6 @@ with access to your version control system.
     # WARNING: Credentials should not be stored as text in your cucumber.yml file where it can be exposed by anyone with access
     #          to your version control system
     #==============
-
     saucelabs: DRIVER=saucelabs SL_USERNAME="<INSERT USER NAME HERE>" SL_AUTHKEY="<INSERT PASSWORD HERE>" DATA_CENTER="us-west-1" AUTOMATE_PROJECT="TestCentricity - SauceLabs"
 
     # SauceLabs iOS real device native app profiles
@@ -2184,7 +2310,6 @@ with access to your version control system.
     # WARNING: Credentials should not be stored as text in your cucumber.yml file where it can be exposed by anyone with access
     #          to your version control system
     #==============
-
     testingbot: DRIVER=testingbot TB_USERNAME="<INSERT USER NAME HERE>" TB_AUTHKEY="<INSERT PASSWORD HERE>" AUTOMATE_PROJECT="TestCentricity - TestingBot"
 
     # TestingBot iOS real device native app profiles
@@ -2233,31 +2358,32 @@ in the `/features/support/<platform>/screens` folders, organized in functional a
 `ScreenSection` class definitions should be stored in the `/features/support/<platform>/sections` folder, where `<platform>`
 is typically `mac`, `ios`, or `android`.
 
-    my_automation_project
-        ├── config
-        │   ├── locales
-        │   ├── test_data
-        │   └── cucumber.yml
-        ├── features
-        │   ├── step_definitions
-        │   ├── support
-        │   │   ├── android
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── ios
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── mac
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── shared_components
-        |   |   |   ├── screens
-        |   |   |   └── sections
-        │   │   ├── env.rb
-        │   │   ├── hooks.rb
-        │   │   └── world_screens.rb
-        ├── Gemfile
-        └── README.md
+        📁 my_automation_project/
+        ├── 📁 config/
+        │   ├── 📁 locales/
+        │   ├── 📁 test_data/
+        │   └── 📄 cucumber.yml
+        ├── 📁 downloads/
+        ├── 📁 features/
+        │   ├── 📁 step_definitions/
+        │   ├── 📁 support
+        │   │   ├── 📁 android
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 ios
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 mac
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📁 shared_components
+        |   |   |   ├── 📁 screens
+        |   |   |   └── 📁 sections
+        │   │   ├── 📄 env.rb
+        │   │   ├── 📄 hooks.rb
+        │   │   └── 📄 world_screens.rb
+        ├── 📄 Gemfile
+        └── 📄 README.md
 
 
 ---
@@ -2269,7 +2395,7 @@ is typically `mac`, `ios`, or `android`.
 ---
 ## Copyright and License
 
-All TestCentricity™ Frameworks are Copyright (c) 2014-2024, A.J. Mrozinski.
+All TestCentricity™ Frameworks are Copyright (c) 2014-2025, A.J. Mrozinski.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
