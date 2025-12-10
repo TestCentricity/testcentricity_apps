@@ -21,7 +21,7 @@ module TestCentricity
     end
 
     # Populate the specified UI elements on this screen or section object with the associated data from a Hash passed as
-    # an argument. Data values must be in the form of a String for textfield controls. For checkboxes, radios and switches,
+    # an argument. Data values must be in the form of a String for textfield controls. For checkboxes,radios, and switches,
     # data must either be a Boolean or a String that evaluates to a Boolean value (Yes, No, 1, 0, true, false). For screen
     # section objects, data values must be a String, and the screen section object must have a set method defined.
     #
@@ -47,25 +47,34 @@ module TestCentricity
     #       security_code_field => UserData.current.cvv
     #     }
     #     populate_data_fields(fields)
-    #
     def populate_data_fields(data, wait_time = nil)
       timeout = wait_time.nil? ? 2 : wait_time
       data.each do |data_field, data_param|
-        next if data_param.blank?
-
-        # make sure the intended UI target element is visible before trying to set its value
-        data_field.scroll_into_view unless data_field.wait_until_visible(timeout, post_exception = false)
-        if data_param == '!DELETE'
-          data_field.clear
-        else
-          case data_field.get_object_type
-          when :checkbox
-            data_field.set_checkbox_state(data_param.to_bool)
-          when :radio
-            data_field.set_selected_state(data_param.to_bool)
-          when :textfield
+        unless data_param.blank?
+          # if data_field is a Symbol, find the corresponding object reference
+          if data_field.is_a?(Symbol)
+            begin
+              obj = method(data_field)
+            rescue
+              puts "No corresponding data field found for #{data_field}" if ENV['DEBUG']
+              next
+            end
+            data_field = obj.call
+          end
+          # make sure the intended UI target element is visible before trying to set its value
+          data_field.scroll_into_view unless data_field.wait_until_visible(timeout, post_exception = false)
+          if data_param == '!DELETE'
             data_field.clear
-            data_field.set(data_param)
+          else
+            case data_field.get_object_type
+            when :checkbox
+              data_field.set_checkbox_state(data_param.to_bool)
+            when :radio
+              data_field.set_selected_state(data_param.to_bool)
+            when :textfield
+              data_field.clear
+              data_field.set(data_param)
+            end
           end
         end
       end
@@ -84,7 +93,7 @@ module TestCentricity
         object_states.each do |property, state|
           actual = case property
                    when :visible
-                     if auto_scroll && state && !Environ.is_macos?
+                     if auto_scroll && state
                        ui_object.scroll_into_view if ui_object.hidden?
                      end
                      ui_object.visible?
@@ -112,12 +121,6 @@ module TestCentricity
                      ui_object.read_only?
                    when :maxlength
                      ui_object.get_max_length
-                   when :rowcount
-                     ui_object.get_row_count
-                   when :columncount
-                     ui_object.get_column_count
-                   when :column_headers
-                     ui_object.get_header_columns
                    when :items
                      ui_object.get_list_items
                    when :itemcount
@@ -134,41 +137,10 @@ module TestCentricity
                      ui_object.count
                    when :buttons
                      ui_object.buttons
-                   when :identifier
-                     ui_object.identifier
-                   when :title
-                     ui_object.title
-                   when :item_data
-                     ui_object.get_item_data
                    else
-                     if property.is_a?(Hash)
-                       property.map do |key, value|
-                         case key
-                         when :item
-                           ui_object.get_list_item(value.to_i)
-                         when :item_enabled
-                           ui_object.get_item_enabled(value.to_i)
-                         when :item_data
-                           ui_object.get_item_data(value.to_i)
-                         when :row
-                           ui_object.get_table_row(value.to_i)
-                         when :column
-                           ui_object.get_table_column(value.to_i)
-                         when :cell
-                           ui_object.get_table_cell(value[0].to_i, value[1].to_i)
-                         else
-                           raise "#{key} is not a valid property key"
-                         end
-                       end
-                     else
-                       raise "#{property} is not a valid property"
-                     end
+                     raise "#{property} is not a valid property"
                    end
-          error_msg = if ui_object.respond_to?(:get_name)
-                        "Expected UI object '#{ui_object.get_name}' (#{ui_object.get_locator}) #{property} property to"
-                      else
-                        "Expected '#{screen_name}' screen object #{property} property to"
-                      end
+          error_msg = "Expected UI object '#{ui_object.get_name}' (#{ui_object.get_locator}) #{property} property to"
           ExceptionQueue.enqueue_comparison(ui_object, state, actual, error_msg)
         end
       end
@@ -189,8 +161,7 @@ module TestCentricity
     #   swipe_gesture(direction = :down, distance = 1)
     #
     def swipe_gesture(direction, distance = 0.5)
-      raise 'Scroll distance must be between 0 and 1' if distance.negative? || distance > 1
-
+      raise 'Scroll distance must be between 0 and 1' if (distance < 0 || distance > 1)
       size = window_size
       mid_pt = [(size.width * 0.5).to_i, (size.height * 0.5).to_i]
       top = (mid_pt[1] - ((size.height * distance) * 0.5)).to_i
