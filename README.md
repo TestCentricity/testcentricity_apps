@@ -246,20 +246,20 @@ class definition for interacting with the UI to hide implementation details, as 
     
       def verify_screen_ui
         ui = {
-                header_label   => { visible: true, caption: 'Login' },
-                username_label => { visible: true, caption: 'Username' },
-                username_field => { visible: true, enabled: true },
-                password_label => { visible: true, caption: 'Password' },
-                password_field => { visible: true, enabled: true },
-                login_button   => { visible: true, enabled: true, caption: 'Login' }
+          header_label   => { visible: true, caption: 'Login' },
+          username_label => { visible: true, caption: 'Username' },
+          username_field => { visible: true, enabled: true },
+          password_label => { visible: true, caption: 'Password' },
+          password_field => { visible: true, enabled: true },
+          login_button   => { visible: true, enabled: true, caption: 'Login' }
         }
         verify_ui_states(ui)
       end
     
       def login(username, password)
         fields = {
-                username_field => username,
-                password_field => password
+          username_field => username,
+          password_field => password
         }
         populate_data_fields(fields)
         login_button.tap
@@ -1531,8 +1531,8 @@ in the example below:
         'appium:automationName': 'XCUITest' or 'UiAutomator2',
         'appium:app': path_to_app
       }
-   }
-   AppiumConnect.initialize_appium(options)
+    }
+    AppiumConnect.initialize_appium(options)
 ```
 Additional options that can be specified in an `options` hash include the following:
 
@@ -1731,7 +1731,7 @@ When using the `options` hash, the following options and capabilities must be sp
         'appium:app': path_to_android_app
       },
       endpoint: 'http://localhost:4723/wd/hub'
-}
+    }
     AppiumConnect.initialize_appium(options)
 ```
 > ℹ️ If an optional user defined `driver_name:` is not specified in the `options` hash, the default driver name will be set to
@@ -2224,7 +2224,6 @@ and authorization code for the cloud service(s) that you intend to connect with.
 
 > ⚠️ Cloud service credentials should not be stored as text in your `cucumber.yml` file where it can be exposed by anyone
 with access to your version control system.
-
 
     #==============
     # conditionally load Screen Object implementations based on which target platform we're running on
