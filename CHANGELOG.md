@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [4.1.1] - 15-DEC-2025
+## [4.1.1] - 21-JAN-2026
 
 ### Added
 * Added `DataSource.read_file` method capable of reading from `.yml`, `.json`, `.csv`, or `.xml` data files, and accepting

@@ -2395,7 +2395,7 @@ is typically `mac`, `ios`, or `android`.
 ---
 ## Copyright and License
 
-All TestCentricity™ Frameworks are Copyright (c) 2014-2025, A.J. Mrozinski.
+All TestCentricity™ Frameworks are Copyright (c) 2014-2026, A.J. Mrozinski.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
