@@ -55,9 +55,9 @@ class CalculatorMenuBar < TestCentricity::MenuBar
     ui = {
       self => {
         enabled: true,
-        items: %w[Apple Calculator File Edit View Convert Speech Window Help],
-        itemcount: 9,
-        { item: 5 } => ['View']
+        # items: %w[Apple Calculator File Edit View Convert Speech Window Help],
+        # itemcount: 9,
+        # { item: 5 } => ['View']
       },
       calc_menu => {
         enabled: true,
@@ -93,7 +93,7 @@ class CalculatorMenuBar < TestCentricity::MenuBar
           { caption: 'Cut', enabled: false },
           { caption: 'Copy', enabled: true },
           { caption: 'Paste', enabled: true },
-          { caption: 'Clear', enabled: mode == :programmer},
+          { caption: 'Clear', enabled: mode == :programmer },
           { caption: 'Select All', enabled: false },
           { caption: '', enabled: false },
           { caption: 'Start Dictation…', enabled: true },

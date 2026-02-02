@@ -51,4 +51,4 @@ The Cucumber test suite includes scenarios for interacting with and validating t
 Cucumber feature tests are executed against the following target platforms:
 * locally hosted iOS device simulators (using Appium and XCode on macOS)
 * locally hosted Android Studio virtual device emulators (using Appium and Android Studio)
-
+* local hosting MacOS computer
