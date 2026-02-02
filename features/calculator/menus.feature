@@ -10,7 +10,7 @@ Feature:  Calculator Menus
   Background:
     Given I have launched the Calculator app
 
-
+@bat
   Scenario Outline:  Verify view can be changed using menu keyboard shortcuts
     When I choose the <view> view using the keyboard
     Then I expect the <view> view to be displayed

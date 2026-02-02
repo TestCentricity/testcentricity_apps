@@ -137,8 +137,37 @@ module TestCentricity
                      ui_object.count
                    when :buttons
                      ui_object.buttons
+                   when :rowcount
+                     ui_object.get_row_count
+                   when :columncount
+                     ui_object.get_column_count
+                   when :column_headers
+                     ui_object.get_header_columns
+                   when :item_data
+                     ui_object.get_item_data
                    else
-                     raise "#{property} is not a valid property"
+                   if property.is_a?(Hash)
+                       property.map do |key, value|
+                         case key
+                         when :item
+                           ui_object.get_list_item(value.to_i)
+                         when :item_enabled
+                           ui_object.get_item_enabled(value.to_i)
+                         when :item_data
+                           ui_object.get_item_data(value.to_i)
+                         when :cell
+                           ui_object.get_table_cell(value[0].to_i, value[1].to_i)
+                         when :row
+                           ui_object.get_table_row(value.to_i)
+                         when :column
+                           ui_object.get_table_column(value.to_i)
+                         else
+                           raise "#{key} is not a valid property key"
+                         end
+                       end
+                     else
+                       raise "#{property} is not a valid property"
+                     end
                    end
           error_msg = "Expected UI object '#{ui_object.get_name}' (#{ui_object.get_locator}) #{property} property to"
           ExceptionQueue.enqueue_comparison(ui_object, state, actual, error_msg)
