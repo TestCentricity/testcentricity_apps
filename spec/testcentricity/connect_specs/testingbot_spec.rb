@@ -63,6 +63,7 @@ describe TestCentricity::AppiumConnect, testingbot: true do
             platformName: 'android',
             'appium:platformVersion': '12.0',
             'appium:deviceName': 'Pixel 6',
+            # 'appium:realDevice': true,
             'appium:automationName': 'UiAutomator2',
             'appium:app': 'tb://rndemoappandroid',
             'tb:options': {
@@ -111,7 +112,7 @@ describe TestCentricity::AppiumConnect, testingbot: true do
       ENV['TB_OS'] = 'android'
       ENV['TB_OS_VERSION'] = '12.0'
       ENV['TB_DEVICE'] = 'Pixel 6'
-      ENV['REAL_DEVICE'] = 'false'
+      # ENV['REAL_DEVICE'] = 'true'
       ENV['AUTOMATION_ENGINE'] = 'UiAutomator2'
       ENV['APP'] = 'tb://RNDemoAppAndroid'
       AppiumConnect.initialize_appium
@@ -138,6 +139,10 @@ describe TestCentricity::AppiumConnect, testingbot: true do
     expect(AppiumConnect.app_installed?).to eq(true)
     expect(AppiumConnect.app_state).to eq(:running_in_foreground)
     expect(AppiumConnect.orientation).to eq(:portrait)
+    expect(AppiumConnect.current_context).to eq('NATIVE_APP')
+    expect(AppiumConnect.available_contexts).to eq(['NATIVE_APP'])
+    expect(AppiumConnect.is_webview?).to eq(false)
+    expect(AppiumConnect.is_native_app?).to eq(true)
     if dev_os == :ios
       expect(Environ.is_ios?).to eq(true)
     else
