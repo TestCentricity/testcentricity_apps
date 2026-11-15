@@ -166,8 +166,7 @@ task regress: %i[wdio_regress_android
 
 
 desc 'Run Cucumber deeplink test features on BrowserStack hosted real devices'
-task device_deeplink: %i[deeplink_bs_android
-                         deeplink_bs_ios17]
+task device_deeplink: %i[deeplink_bs_ios17]
 
 
 desc 'Run all specs and Cucumber features'

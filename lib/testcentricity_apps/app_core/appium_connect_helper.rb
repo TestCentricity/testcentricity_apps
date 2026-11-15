@@ -61,7 +61,10 @@ module TestCentricity
                     end
       driver_opts = {
         caps: driver_caps,
-        appium_lib: { server_url: @endpoint }
+        appium_lib: {
+          server_url: @endpoint,
+          direct_connect: false
+        }
       }
       @driver = Appium::Driver.new(driver_opts, global_driver = @global_scope)
       @driver.start_driver
@@ -578,7 +581,7 @@ module TestCentricity
                   tb_options['testingbot.geoCountryCode'] = ENV['IP_GEOLOCATION'] if ENV['IP_GEOLOCATION']
                   tb_options[:screenrecorder] = ENV['RECORD_VIDEO'] if ENV['RECORD_VIDEO']
                   tb_options[:screenshot] = ENV['SCREENSHOTS'] if ENV['SCREENSHOTS']
-                  tb_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : 'latest'
+                  tb_options[:appiumVersion] = ENV['APPIUM_VERSION'] ? ENV['APPIUM_VERSION'] : '2.10.3'
 
                   capabilities = {
                     platformName: ENV['TB_OS'],
