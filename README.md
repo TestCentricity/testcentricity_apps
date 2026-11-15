@@ -7,6 +7,19 @@
 [![Docs](https://img.shields.io/badge/docs-rubydoc-blue.svg)](http://www.rubydoc.info/gems/testcentricity_apps)
 
 
+The **TestCentricity**™ suite of Ruby gems is an open-source test automation framework family designed to support automated
+testing implementations using a Behavior-Driven Development (BDD) model. It provides a comprehensive Domain-Specific Language
+(DSL) that implements the **Page Object Model (POM)** and Data Object Model patterns. This simplifies and streamlines the process
+of writing automated tests for desktop and mobile web, native mobile applications, and MacOS desktop applications.
+
+Core features include:
+* **Encapsulation:** Defines page classes, page sections, and data objects to completely separate test scripts from underlying UI element locators and test data assets.
+* **Built-in Verification:** Includes integrated element validation and asynchronous wait mechanisms to handle dynamic UI content and asynchronous loading effortlessly.
+* **BDD Compatibility:** Perfectly pairs with testing frameworks like Cucumber and RSpec to create highly readable, business-driven feature files.
+* **Multi-Environment Ready:** Integrates with cloud execution platforms like BrowserStack, TestingBot, and Sauce Labs.
+
+---
+
 The TestCentricity™ For Apps core framework for MacOS desktop apps and mobile iOS/iPadOS and Android app testing implements
 a Screen Object Model DSL for use with Cucumber or RSpec and Appium version 2.x. It also facilitates the configuration of
 the appropriate Appium capabilities and driver required to establish a connection with locally hosted MacOS desktop apps,
@@ -1169,7 +1182,7 @@ The `ActivityMonitorScreen` screen object's `initialize` method in the code snip
 
 With MacOS desktop applications, the menu bar at the top of the screen displays the top-level menus associated with your
 app, and typically includes both system-provided menus and app-specific menus. Below is the menu bar and **View** menu
-associated with the MacOs Calculator application:
+associated with the MacOS Calculator application:
 
 ![MacOS Calculator App MenuBar](https://raw.githubusercontent.com/TestCentricity/testcentricity_apps/main/.github/images/MacOS_Menus.png "MacOS Calculator App MenuBar")
 

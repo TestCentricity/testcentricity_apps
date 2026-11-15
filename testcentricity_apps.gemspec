@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
     'changelog_uri' => 'https://github.com/TestCentricity/testcentricity_apps/blob/master/CHANGELOG.md',
     'bug_tracker_uri' => 'https://github.com/TestCentricity/testcentricity_apps/issues',
     'wiki_uri' => 'https://github.com/TestCentricity/testcentricity_apps/wiki',
-    'documentation_uri' => 'https://www.rubydoc.info/gems/testcentricity_apps',
+    'documentation_uri' => 'https://www.ruby-toolbox.com/projects/testcentricity_apps',
     'homepage_uri' => 'https://github.com/TestCentricity/testcentricity_apps'
   }
 
@@ -31,17 +31,17 @@ Gem::Specification.new do |spec|
   spec.requirements << 'Appium'
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'cucumber', '10.1.1'
+  spec.add_development_dependency 'cucumber', '11.0.0'
   spec.add_development_dependency 'parallel_tests'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'require_all', '=1.5.0'
   spec.add_development_dependency 'rspec', '>= 3.13.0'
-  spec.add_development_dependency 'selenium-webdriver', '~>4.41.0'
+  spec.add_development_dependency 'selenium-webdriver', '~>4.44.0'
   spec.add_development_dependency 'simplecov', ['~> 0.18']
   spec.add_development_dependency 'yard', ['>= 0.9.0']
 
   spec.add_runtime_dependency 'activesupport', '>= 4.0'
-  spec.add_runtime_dependency 'appium_lib', '~> 16.1.1'
+  spec.add_runtime_dependency 'appium_lib', '~> 16.4.1'
   spec.add_runtime_dependency 'childprocess'
   spec.add_runtime_dependency 'chronic', '0.10.2'
   spec.add_runtime_dependency 'faker'
